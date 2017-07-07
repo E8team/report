@@ -9,3 +9,10 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+.DS_Store
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+npm-debug.log
+npm-debug.log*
+.php_cs
