@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Exceptions\LoginFailed;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -17,7 +18,7 @@ class LoginController extends ApiController
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('auth')->only('logout');
     }
 
     /**
@@ -50,7 +51,7 @@ class LoginController extends ApiController
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        // $errors = [$this->username() => trans('auth.failed')];
-        throw new AuthenticationException(trans('auth.failed'));
+        $errors = [$this->username() => trans('auth.failed')];
+        throw new LoginFailed($errors);
     }
 }
