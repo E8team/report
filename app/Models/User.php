@@ -27,6 +27,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'gender' => 'boolean'
+
+    ];
+
+    protected $dates = ['report_time', 'arrive_dorm_time', 'created_at', 'updated_at'];
+
     public function userProfile()
     {
         return $this->hasOne(UserProfile::class);
@@ -45,5 +57,14 @@ class User extends Authenticatable
     public function getAuthPassword()
     {
         return $this->attributes['id_card'];
+    }
+
+    private $idCardWithMosaic = null;
+    public function getIdCardWithMosaicAttribute()
+    {
+        if(is_null($this->idCardWithMosaic)){
+            $this->idCardWithMosaic = preg_replace('/(\d{6})\d{8}([\dxX]{4})/','$1********$2', $this->attributes['id_card']);
+        }
+        return $this->idCardWithMosaic;
     }
 }

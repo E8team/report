@@ -2,12 +2,25 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Repositories\UserRepositoryInterface;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
 class LoginController extends ApiController
 {
     use AuthenticatesUsers;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     /**
      * Get the login username to be used by the controller.
      *
@@ -38,7 +51,7 @@ class LoginController extends ApiController
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        $errors = [$this->username() => trans('auth.failed')];
-        return $errors;
+        // $errors = [$this->username() => trans('auth.failed')];
+        throw new AuthenticationException(trans('auth.failed'));
     }
 }

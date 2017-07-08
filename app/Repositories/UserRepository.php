@@ -53,4 +53,14 @@ class UserRepository implements UserRepositoryInterface
         $query->orderBy('report_time')->get();
         return $query->limit($limit)->get($columns);
     }
+
+    /**
+     * 判断该学生姓名是否存在
+     * @param $studentName
+     */
+    public function studentNameExist($studentName)
+    {
+        return User::where('student_name', $studentName)->count() > 0;
+    }
+
 }

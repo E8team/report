@@ -13,8 +13,10 @@
 |
 */
 $api->get('users/{partOfStudentName}/search', 'UserController@searchUser');
+$api->get('users/{studentName}/exist', 'UserController@studentNameExist');
 
 $api->group(['prefix'=>'auth'], function ($api){
     $api->post('login', 'Auth\LoginController@login');
     $api->post('logout', 'Auth\LoginController@logout');
 });
+
