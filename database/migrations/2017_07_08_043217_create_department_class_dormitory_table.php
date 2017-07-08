@@ -13,11 +13,11 @@ class CreateDepartmentClassDormitoryTable extends Migration
      */
     public function up()
     {
-        Schema::table('department_class_dormitory', function (Blueprint $table) {
+        Schema::create('department_class_dormitory', function (Blueprint $table) {
             $table->unsignedInteger('department_class_id');
             $table->unsignedInteger('dormitory_id');
             $table->unsignedTinyInteger('galleryful')->comment('该宿舍在该班级的容纳人数');
-            $table->primary(['department_class_id', 'dormitory_id']);
+            $table->primary(['department_class_id', 'dormitory_id'], 'class_id_dorm_id');
         });
     }
 

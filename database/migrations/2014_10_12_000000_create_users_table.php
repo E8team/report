@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('class_id')->index()->comment('班级id');
             $table->boolean('gender')->comment('性别 false-男 true-女');
             $table->char('id_card', 18)->unique()->comment('身份证号码');
-            $table->timestamp('report_time')->nullabel()->comment('报到时间');
-            $table->timestamp('arrive_dorm_time')->nullabel()->comment('到达宿舍时间');
+            $table->timestamp('report_time')->nullable()->comment('报到时间');
+            $table->timestamp('arrive_dorm_time')->nullable()->comment('到达宿舍时间');
             $table->rememberToken();
             $table->timestamps();
         });

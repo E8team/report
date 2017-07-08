@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/{path?}', function(){
-    return view('index');
-})->where('path', '[\/\w\.-]*');
+Route::get('/{path?}', 'IndexController@index')->where('path', '[\/\w\.-]*');
