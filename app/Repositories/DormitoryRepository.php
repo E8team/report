@@ -1,6 +1,6 @@
 <?php
+namespace App\Repositories;
 
-class DormitoryRepository
+class DormitoryRepository implements DormitoryRepositoryInterface
 {
-
 }

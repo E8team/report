@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('abbreviation_pinyin2')->comment('学生姓名拼音首字母');
             $table->string('full_pinyin1')->comment('学生姓名完整拼音');
             $table->string('full_pinyin2')->comment('学生姓名完整拼音');
-            $table->char('wx_openid', 28)->unique()->comment('微信openid');
-            $table->unsignedBigInteger('class_id')->index()->comment('班级id');
+            $table->char('wx_openid', 28)->unique()->nullable()->comment('微信openid');
+            $table->unsignedInteger('department_class_id')->index()->comment('班级id');
             $table->boolean('gender')->comment('性别 false-男 true-女');
             $table->char('id_card', 18)->unique()->comment('身份证号码');
             $table->timestamp('report_time')->nullable()->comment('报到时间');

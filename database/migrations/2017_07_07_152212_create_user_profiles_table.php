@@ -18,9 +18,9 @@ class CreateUserProfilesTable extends Migration
             $table->string('graduate_school')->comment('毕业学校');
             $table->string('come_from')->comment('家乡');
             $table->char('tel', 11)->comment('手机');
-            $table->float('height')->comment('身高 单位：厘米');
-            $table->float('weight')->comment('体重 单位：斤');
-            $table->text('remarks')->comment('备注');
+            $table->float('height')->nullable()->comment('身高 单位：厘米');
+            $table->float('weight')->nullable()->comment('体重 单位：斤');
+            $table->text('remarks')->nullable()->comment('备注');
             $table->timestamps();
         });
     }

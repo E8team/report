@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Auth\UserProvider;
+use App\Hashing\IdCardHasher;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //注册provider
+        Auth::provider(
+            'e8', function ($app) {
+            return new UserProvider(
+                new IdCardHasher(),
+                User::class
+            );
+        }
+        );
     }
 }
