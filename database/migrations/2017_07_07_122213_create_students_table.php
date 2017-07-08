@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
             $table->char('student_num', 10)->unique()->comment('学号');
             $table->string('student_name')->comment('学生姓名');
@@ -21,14 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('abbreviation_pinyin2')->comment('学生姓名拼音首字母');
             $table->string('full_pinyin1')->comment('学生姓名完整拼音');
             $table->string('full_pinyin2')->comment('学生姓名完整拼音');
-            $table->char('wx_openid', 28)->unique()->comment('微信openid');
-            $table->unsignedBigInteger('class_id')->index()->comment('班级id');
-            $table->boolean('gender')->comment('性别 false-男 true-女');
-            $table->char('id_card', 18)->unique()->comment('身份证号码');
-            $table->timestamp('report_time')->nullabel()->comment('报到时间');
-            $table->timestamp('arrive_dorm_time')->nullabel()->comment('到达宿舍时间');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->char('id_card_num', 18)->unqiue()->comment('身份证号码');
+            $table->string('graduate_school')->comment('毕业学校');
+            $table->string('come_from')->comment('家乡');
+            $table->char('tel', 11)->comment('手机');
+            $table->unsignedInteger('department_class_id')->index();
         });
     }
 
@@ -39,6 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('students');
     }
 }

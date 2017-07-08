@@ -167,6 +167,9 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
+        Overtrue\LaravelPinyin\ServiceProvider::class,
+        Overtrue\LaravelWechat\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -225,6 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
+        'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
 
     ],
 
