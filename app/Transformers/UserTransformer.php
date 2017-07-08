@@ -10,6 +10,12 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
 
+    /**
+     * Resources that can be included if requested.
+     *
+     * @var array
+     */
+    protected $availableIncludes = ['user_profile'];
     public function transform(User $user)
     {
         return [
@@ -19,7 +25,7 @@ class UserTransformer extends TransformerAbstract
             'gender'=>$user->gender,
             'id_card_with_mosaic'=>$user->id_card_with_mosaic,
             'department_class_id' => $user->department_class_id,
-            'report_time'=>$user->report_time?:$user->report_time->toDateTimeString(),
+            'report_time'=>$user->report_time?$user->report_time->toDateTimeString():$user->report_time,
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString()
         ];
@@ -28,7 +34,7 @@ class UserTransformer extends TransformerAbstract
     public function includeUserProfile(User $user)
     {
         $userProfile = $user->userProfile;
-        return $this->collection($userProfile, new UserProfileTransformer());
+        return $this->item($userProfile, new UserProfileTransformer());
     }
 
 }

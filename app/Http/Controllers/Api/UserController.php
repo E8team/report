@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Repositories\UserRepositoryInterface;
+use App\Transformers\UserTransformer;
+use Auth;
 
 class UserController extends ApiController
 {
@@ -27,6 +29,6 @@ class UserController extends ApiController
 
     public function me()
     {
-
+        return $this->response->item(Auth::user(), new UserTransformer());
     }
 }

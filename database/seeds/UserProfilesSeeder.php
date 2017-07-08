@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserProfileSeeder extends Seeder
+class UserProfilesSeeder extends Seeder
 {
 
     /**

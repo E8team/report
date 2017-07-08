@@ -21,7 +21,9 @@ class UsersTableSeeder extends Seeder
             'full_pinyin2'=>'',
             'id_card'=>'342625199703130313',
             'department_class_id'=>4,
-            'gender'=>false
+            'gender'=>false,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now()
         ]);
     }
 }
