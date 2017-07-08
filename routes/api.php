@@ -15,5 +15,6 @@
 $api->get('user/{partOfStudentName}/search', 'UserController@searchUser');
 
 $api->group(['prefix'=>'auth'], function ($api){
-
+    $api->post('login', 'Auth\LoginController@login');
+    $api->post('logout', 'Auth\LoginController@logout');
 });

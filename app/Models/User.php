@@ -36,4 +36,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(DormitorySelection::class);
     }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->attributes['id_card'];
+    }
 }
