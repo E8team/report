@@ -12,7 +12,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$api->get('user/{partOfStudentName}/search', 'UserController@searchUser');
+$api->get('users/{partOfStudentName}/search', 'UserController@searchUser');
 
 $api->group(['prefix'=>'auth'], function ($api){
     $api->post('login', 'Auth\LoginController@login');
