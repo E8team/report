@@ -7,7 +7,7 @@ use App\Repositories\UserRepositoryInterface;
 use App\Transformers\UserTransformer;
 use Auth;
 
-class UserController extends ApiController
+class UsersController extends ApiController
 {
     public function searchUser($partOfStudentName, UserRepositoryInterface $userRepository)
     {

@@ -12,14 +12,14 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$api->get('users/{partOfStudentName}/search', 'UserController@searchUser');
-$api->get('users/{studentName}/exist', 'UserController@studentNameExist');
+$api->get('users/{partOfStudentName}/search', 'UsersController@searchUser');
+$api->get('users/{studentName}/exist', 'UsersController@studentNameExist');
 
 $api->group(['prefix'=>'auth'], function ($api){
     $api->post('login', 'Auth\LoginController@login');
     $api->post('logout', 'Auth\LoginController@logout');
 });
 
-//$api->group(['middleware'=>'auth'], function ($api){
-    $api->post('me', 'UserController@me');
-//});
+$api->group(['middleware'=>'auth'], function ($api){
+    $api->get('me', 'UsersController@me');
+});

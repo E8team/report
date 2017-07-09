@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\DepartmentClassRepositoryInterface;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -66,5 +67,10 @@ class User extends Authenticatable
             $this->idCardWithMosaic = preg_replace('/(\d{6})\d{8}([\dxX]{4})/','$1********$2', $this->attributes['id_card']);
         }
         return $this->idCardWithMosaic;
+    }
+
+    public function getDepartmentClass()
+    {
+        return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
     }
 }
