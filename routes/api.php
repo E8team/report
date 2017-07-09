@@ -21,5 +21,5 @@ $api->group(['prefix'=>'auth'], function ($api){
 });
 
 $api->group(['middleware'=>'auth'], function ($api){
-    $api->get('me', 'UserController@me');
+    $api->get('me', 'UsersController@me');
 });
