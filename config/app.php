@@ -170,6 +170,7 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Overtrue\LaravelPinyin\ServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
+        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -8,7 +8,7 @@ class DormitoryRepository implements DormitoryRepositoryInterface
 
     public function getDormitories(User $user)
     {
-
+        echo $user->getDepartmentClass();
     }
 
 }

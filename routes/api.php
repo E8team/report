@@ -22,4 +22,5 @@ $api->group(['prefix'=>'auth'], function ($api){
 
 $api->group(['middleware'=>'auth'], function ($api){
     $api->get('me', 'UsersController@me');
+    $api->get('dormitories/list', 'DormitoriesController@lists');
 });

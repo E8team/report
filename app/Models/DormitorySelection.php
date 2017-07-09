@@ -3,9 +3,7 @@
 namespace App\Models;
 
 
-use Illuminate\Database\Eloquent\Model;
-
-class DormitorySelection extends Model
+class DormitorySelection extends BaseModel
 {
 
 }
