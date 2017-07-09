@@ -17,6 +17,14 @@ export default new Router({
             component: require('./views/CheckInfo.vue')
         },
         {
+            path: '/report_ok',
+            component: require('./views/ReportOk.vue')
+        },
+        {
+            path: '/select_dorm',
+            component: require('./views/SelectDorm.vue')
+        },
+        {
             path: '*',
             redirect: '/index'
         }

@@ -7,6 +7,7 @@
 <script>
   import { XHeader } from 'vux'
   export default {
+    name: 'TNav',
     components: {
       XHeader
     },

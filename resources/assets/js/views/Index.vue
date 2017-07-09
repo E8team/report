@@ -60,7 +60,7 @@
                 if (this.studentName.length === 0) {
                     return false
                 }
-                this.$http.get(`users/${this.studentName}/exist`).then(res => {
+                this.$http.get(`students/${this.studentName}/exist`).then(res => {
                     this.showIDCardInput = true
                 }).catch(e => {
                     this.$vux.toast.text(`找不到${this.studentName}啊`, 'top')
@@ -71,7 +71,7 @@
             'studentName' () {
                 if (!this.isSel) {
                     if (this.studentName.length > 0) {
-                        this.$http.get(`users/${this.studentName}/search`).then(res => {
+                        this.$http.get(`students/${this.studentName}/search`).then(res => {
                             this.matchList = res.data
                         });
                     } else {

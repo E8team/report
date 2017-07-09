@@ -9,10 +9,18 @@ Vue.prototype.$http = axios.create({
         'X-Requested-With': 'XMLHttpRequest'
     }
 })
-import { AlertPlugin, ToastPlugin } from 'vux'
+import TNav from './components/TNav.vue'
+Vue.component(TNav.name, TNav)
 
+import { AlertPlugin, ToastPlugin, ConfirmPlugin } from 'vux'
+
+Vue.use(ConfirmPlugin)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
+
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
+
 import router from './router'
 const app = new Vue({
     router,
