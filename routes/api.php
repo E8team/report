@@ -20,6 +20,6 @@ $api->group(['prefix'=>'auth'], function ($api){
     $api->post('logout', 'Auth\LoginController@logout');
 });
 
-//$api->group(['middleware'=>'auth'], function ($api){
+$api->group(['middleware'=>'auth'], function ($api){
     $api->post('me', 'UserController@me');
-//});
+});

@@ -13,6 +13,10 @@ export default new Router({
             component: require('./views/Index.vue')
         },
         {
+            path: '/check_info',
+            component: require('./views/CheckInfo.vue')
+        },
+        {
             path: '*',
             redirect: '/index'
         }
