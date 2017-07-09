@@ -25,7 +25,8 @@ export default new Router({
             component: require('./views/SelectDorm.vue')
         },
         {
-            path: '/dorm',
+            path: '/dorm/:id',
+            name: 'dorm',
             component: require('./views/Dorm.vue')
         },
         {

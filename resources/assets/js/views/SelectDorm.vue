@@ -5,10 +5,10 @@
         <div class="dorm_list_wrapper"  v-for="dormList in dorms">
             <header>{{dormList.name}}</header>
             <ul class="dorm_list">
-                <li v-for="dorm in dormList.list">
+                <li @click="$router.push({name: 'dorm', params: {id: dorm.id}})" v-for="dorm in dormList.list">
                     <div>{{dorm.galleryful}}人间</div>
                     {{dorm.dorm_num}}
-                    <span class="surplus">剩余：{{dorm.galleryful_in_this_class - dorm.already_checked_in_num}}/{{dorm.galleryful_in_this_class}}</span>
+                    <span class="surplus">剩余：{{dorm.galleryful_in_this_class - dorm.already_selected_num_in_this_class}}/{{dorm.galleryful_in_this_class}}</span>
                 </li>
             </ul>
         </div>
@@ -24,6 +24,7 @@
             Crumb
         },
         mounted () {
+            document.title = '选择宿舍'
             this.$http.get('dormitories/list').then(res => {
                 const _this = this;
                 res.data.data.map((item, index) => {

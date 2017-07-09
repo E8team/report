@@ -33,6 +33,7 @@
             }
         },
         mounted () {
+            document.title = '确认报到'
             this.$http.get('me?include=student_profile').then(res => {
                 this.studentInfo = res.data.data
             })

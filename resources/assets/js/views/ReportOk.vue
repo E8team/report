@@ -16,6 +16,9 @@
         },
         methods: {
         },
+        mounted () {
+            document.title = '报到成功'
+        },
         data () {
             const _this = this;
             return {

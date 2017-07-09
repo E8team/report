@@ -30,6 +30,7 @@
             IDCardInput, Toast
         },
         mounted () {
+            document.title = '新生报到'
         },
         data () {
             return {
