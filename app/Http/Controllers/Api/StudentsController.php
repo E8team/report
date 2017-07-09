@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Events\SelectedDorm;
+use App\Events\StudentReported;
+use App\Models\Dormitory;
+use App\Models\DormitorySelection;
 use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
 use Auth;
+use Carbon\Carbon;
+use DB;
 
 class StudentsController extends ApiController
 {
@@ -38,8 +44,28 @@ class StudentsController extends ApiController
      */
     public function setReport()
     {
+        $this->authorize('set-report');
         $student = Auth::user();
-        $student->setReport();
+        $student->report_time = Carbon::now();
+        event(new StudentReported($student));
+        $student->save();
+        return $this->response->noContent();
+    }
+
+    /**
+     * 选择宿舍
+     */
+    public function selectDorm(Dormitory $dormitory)
+    {
+        $this->authorize('select-dorm', $dormitory);
+        $student = Auth::user();
+
+        DormitorySelection::create([
+            'student_id' => $student->id,
+            'dormitory_id' => $dormitory->id
+        ]);
+
+        event(new SelectedDorm($student, $dormitory));
         return $this->response->noContent();
     }
 }

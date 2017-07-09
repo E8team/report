@@ -17,7 +17,7 @@ class DormitoryTransformer extends TransformerAbstract
             'dorm_unit' => $dormitory->dorm_unit,
             'galleryful' => $dormitory->galleryful,
             'galleryful_in_this_class' => $dormitory->pivot->galleryful,
-            'already_checked_in_num' => $dormitory->pivot->already_checked_in_num,
+            'already_selected_num_in_this_class' => $dormitory->pivot->already_selected_num,
             'insert_dormitory_num' => $dormitory->insert_dormitory_num,
             'is_together_dormitory' => $dormitory->is_together_dormitory,
             'gender'=>$dormitory->gender,

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\SelectedDorm;
+use App\Events\StudentReported;
+use App\Listeners\StudentListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,8 +16,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\StudentReported' => [
-            'App\Listeners\StudentListener',
+        StudentReported::class => [
+            StudentListener::class
+        ],
+        SelectedDorm::class => [
+            StudentListener::class
         ],
     ];
 

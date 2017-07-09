@@ -81,6 +81,11 @@ class Student extends BaseModel implements
         return $this->idCardWithMosaic;
     }
 
+    public function hasReport()
+    {
+        return !is_null($this->report_time);
+    }
+
     /**
      * @return DepartmentClass
      */
@@ -89,9 +94,5 @@ class Student extends BaseModel implements
         return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
     }
 
-    public function setReport()
-    {
-        $this->report_time = Carbon::now();
-    }
 
 }

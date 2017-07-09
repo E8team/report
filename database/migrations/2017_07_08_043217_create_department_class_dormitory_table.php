@@ -17,7 +17,7 @@ class CreateDepartmentClassDormitoryTable extends Migration
             $table->unsignedInteger('department_class_id');
             $table->unsignedInteger('dormitory_id');
             $table->unsignedTinyInteger('galleryful')->comment('该宿舍在该班级的容纳人数');
-            $table->unsignedTinyInteger('already_checked_in_num')->default(0)->comment('该宿舍在该班级的已住人数');
+            $table->unsignedTinyInteger('already_selected_num')->default(0)->comment('该宿舍在该班级的已住人数');
             $table->primary(['department_class_id', 'dormitory_id'], 'class_id_dorm_id');
         });
     }

@@ -61,4 +61,9 @@ class Dormitory extends BaseModel
         }
         return $str;
     }
+
+    public function dormitorySelections()
+    {
+        return $this->hasMany(DormitorySelection::class);
+    }
 }

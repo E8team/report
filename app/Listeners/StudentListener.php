@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Events\SelectedDorm;
 use App\Events\StudentReported;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use DB;
 
 class StudentListener
 {
@@ -29,6 +31,12 @@ class StudentListener
         if($event instanceof StudentReported)
         {
             // $event->student
+        }elseif($event instanceof SelectedDorm)
+        {
+            DB::table('department_class_dormitory')
+                ->where('department_class_id', $event->student->department_class_id)
+                ->where('dormitory_id', $event->dormitory->id)
+                ->increment('already_selected_num');
         }
     }
 }
