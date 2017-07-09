@@ -8,7 +8,7 @@
             <div class="placeholder">支持简拼搜索 如:小明(xm)</div>
             <div class="input_container">
                 <input @click.stop type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
-                <button @click.stop="login" class="login_button">确认</button>
+                <button @click.stop="showInput" class="login_button">确认</button>
             </div>
             <div class="tip">
                 <ul>
@@ -16,25 +16,68 @@
                 </ul>
             </div>
         </div>
-        <IDCardInput v-model="showIDCardInput"></IDCardInput>
+        <IDCardInput ref="idcard_input" v-model="showIDCardInput" @pwd="login"></IDCardInput>
     </div>
 </template>
 
 
 <script>
     import IDCardInput from '../components/IDCardInput.vue'
+    import {Toast} from 'vux'
     export default{
         name: 'index',
         components: {
-            IDCardInput
+            IDCardInput, Toast
         },
         mounted () {
         },
         data () {
             return {
+                isSel: false,
                 studentName: '',
                 matchList: [],
                 showIDCardInput: false
+            }
+        },
+        methods: {
+            selStudentName (studentName) {
+                this.isSel = true;
+                this.studentName = studentName;
+                this.matchList = [];
+                this.showInput();
+            },
+            login (pwd) {
+                this.$http.post(`auth/login`, {
+                    student_name: this.studentName,
+                    password: pwd
+                }).then(res => {
+                    this.$router.push('check_info')
+                }).catch(e => {
+                    this.$refs['idcard_input'].error("失败")
+                })
+            },
+            showInput () {
+                if (this.studentName.length === 0) {
+                    return false
+                }
+                this.$http.get(`users/${this.studentName}/exist`).then(res => {
+                    this.showIDCardInput = true
+                }).catch(e => {
+                    this.$vux.toast.text(`找不到${this.studentName}啊`, 'top')
+                })
+            }
+        },
+        watch: {
+            'studentName' () {
+                if (!this.isSel) {
+                    if (this.studentName.length > 0) {
+                        this.$http.get(`users/${this.studentName}/search`).then(res => {
+                            this.matchList = res.data
+                        });
+                    } else {
+                        this.matchList = []
+                    }
+                }
             }
         }
     }
@@ -91,6 +134,9 @@
                         font-size: 14px;
                         line-height: 28px;
                         color: #555;
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
                     }
                     &:active {
                         background-color: #eef3fe;
