@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Repositories\DepartmentClassRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -86,5 +87,9 @@ class Student extends BaseModel implements
         return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
     }
 
+    public function setReport()
+    {
+        $this->report_time = Carbon::now();
+    }
 
 }

@@ -35,5 +35,7 @@ class StudentsController extends ApiController
     public function setReport()
     {
         $student = Auth::user();
+        $student->setReport();
+        return $this->response->noContent();
     }
 }

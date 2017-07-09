@@ -12,7 +12,7 @@ class StudentsTableSeeder extends Seeder
     public function run()
     {
         DB::table('students')->insert([
-            'id'=>1,
+            'id'=>10000,
             'student_num'=>'1508220227',
             'student_name'=>'陶煜',
             'abbreviation_pinyin1'=>'ty',
