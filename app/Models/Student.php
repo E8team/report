@@ -20,6 +20,8 @@ class Student extends BaseModel implements
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
+    const GENDER_BOY = false;
+    const GENDER_GAIL = true;
     /**
      * The attributes that are mass assignable.
      *

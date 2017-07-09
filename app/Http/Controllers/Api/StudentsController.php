@@ -32,6 +32,10 @@ class StudentsController extends ApiController
         return $this->response->item(Auth::user(), new StudentTransformer());
     }
 
+    /**
+     * 确定报到
+     * @return \Dingo\Api\Http\Response
+     */
     public function setReport()
     {
         $student = Auth::user();

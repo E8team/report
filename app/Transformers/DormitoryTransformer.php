@@ -12,8 +12,12 @@ class DormitoryTransformer extends TransformerAbstract
         return [
             'id' => $dormitory->id,
             'dorm_num' => $dormitory->dorm_num,
+            'dorm_floor' => $dormitory->dorm_floor,
+            'dorm_ridgepole' => $dormitory->dorm_ridgepole,
+            'dorm_unit' => $dormitory->dorm_unit,
             'galleryful' => $dormitory->galleryful,
             'galleryful_in_this_class' => $dormitory->pivot->galleryful,
+            'already_checked_in_num' => $dormitory->pivot->already_checked_in_num,
             'insert_dormitory_num' => $dormitory->insert_dormitory_num,
             'is_together_dormitory' => $dormitory->is_together_dormitory,
             'gender'=>$dormitory->gender,

@@ -4,6 +4,8 @@
 namespace App\Providers;
 
 
+use App\Repositories\DepartmentClassInfoRepository;
+use App\Repositories\DepartmentClassInfoRepositoryInterface;
 use App\Repositories\DepartmentClassRepository;
 use App\Repositories\DepartmentClassRepositoryInterface;
 use App\Repositories\DormitoryRepository;
@@ -37,6 +39,10 @@ class RepositoryServiceProvider extends ServiceProvider
         });
         $this->app->singleton(DepartmentClassRepositoryInterface::class, function (){
             return new DepartmentClassRepository();
+        });
+
+        $this->app->singleton(DepartmentClassInfoRepositoryInterface::class, function (){
+            return new DepartmentClassInfoRepository();
         });
     }
 }
