@@ -25,6 +25,7 @@ class UserTransformer extends TransformerAbstract
             'gender'=>$user->gender,
             'id_card_with_mosaic'=>$user->id_card_with_mosaic,
             'department_class_id' => $user->department_class_id,
+            'department_class' => $user->getDepartmentClass(),
             'report_time'=>$user->report_time?$user->report_time->toDateTimeString():$user->report_time,
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString()

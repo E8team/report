@@ -24,15 +24,13 @@ class DepartmentClass extends BaseModel
 
     public function __toString()
     {
-        $this->parent->parent->title;
-        $this->parent->title;$this->title;
-        $str = '('.$this->title.')';
+        $str = ' ('.$this->getTitle().') 班';
         if(!is_null($this->parent)){
-            $str = $this->parent->title.$str;
+            $str = $this->parent->getTitle().$str;
             if(!is_null($this->parent->parent)){
-                $str = $this->parent->parent->title.' '.$str;
+                $str = $this->parent->parent->getTitle().'级 '.$str;
                 if(!is_null($this->parent->parent->parent)){
-                    $str = $this->parent->parent->parent->title.' '.$str;
+                    $str = $this->parent->parent->parent->getTitle().' '.$str;
                 }
             }
         }
@@ -67,5 +65,10 @@ class DepartmentClass extends BaseModel
     public function getDepartment()
     {
         return $this->parent->parent->parent;
+    }
+
+    public function getTitle()
+    {
+        return $this->short_title?:$this->title;
     }
 }
