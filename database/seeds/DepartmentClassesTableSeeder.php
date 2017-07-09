@@ -37,7 +37,7 @@ class DepartmentClasses extends Seeder
                 'id'=>4,
                 'title'=>'3',
                 'short_title'=>null,
-                'parent_id'=>2,
+                'parent_id'=>3,
                 'sort'=>0
             ],
         ]);
