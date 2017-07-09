@@ -1,9 +1,9 @@
 <template>
 <div class="crumb">
   <ul>
-    <li v-link="{'name': item.href}" v-for="item in navList">
+    <router-link :to="{'path': item.href}" tag="li" v-for="(item, index) in navList" :key="index">
     {{item.title}}
-    </li>
+    </router-link>
   </ul>
 </div>
 </template>

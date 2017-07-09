@@ -39,11 +39,15 @@
         },
         methods: {
             confirm () {
+                const _this = this;
                 this.$vux.confirm.show({
                     title: '确认报到？',
                     content: '请确认信息是否正确',
                     onCancel () {},
                     onConfirm () {
+                        _this.$http.post('set_report').then(res => {
+                            _this.$router.push('/report_ok')
+                        });
                     }
                 })
             }

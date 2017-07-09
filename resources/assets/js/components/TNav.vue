@@ -15,7 +15,7 @@
       // 导航栏颜色
       bgcolor: {
         type: String,
-        default: '#f5f5f5'
+        default: '#fff'
       },
       textcolor: {
         type: String,

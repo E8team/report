@@ -25,6 +25,10 @@ export default new Router({
             component: require('./views/SelectDorm.vue')
         },
         {
+            path: '/dorm',
+            component: require('./views/Dorm.vue')
+        },
+        {
             path: '*',
             redirect: '/index'
         }

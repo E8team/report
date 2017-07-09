@@ -17,13 +17,16 @@
         methods: {
         },
         data () {
+            const _this = this;
             return {
-                description: 'msg description',
                 icon: '',
                 buttons: [{
                     type: 'primary',
                     text: '选择宿舍',
-                    onClick () {}
+                    onClick () {
+                        console.log(this)
+                        _this.$router.push('/select_dorm')
+                    }
                 }]
             }
         }
