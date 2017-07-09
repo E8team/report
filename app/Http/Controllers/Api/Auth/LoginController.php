@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Exceptions\LoginFailed;
 use App\Http\Controllers\Api\ApiController;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
