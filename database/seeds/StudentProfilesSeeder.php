@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserProfilesSeeder extends Seeder
+class StudentProfilesSeeder extends Seeder
 {
 
     /**
@@ -12,8 +12,8 @@ class UserProfilesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_profiles')->insert([
-            'user_id'=>'1',
+        DB::table('student_profiles')->insert([
+            'student_id'=>'1',
             'graduate_school'=>'含山县职教中心',
             'come_from'=>'安徽省马鞍山市含山县',
             'tel'=>'13956460801'

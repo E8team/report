@@ -12,8 +12,8 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$api->get('users/{partOfStudentName}/search', 'UsersController@searchUser');
-$api->get('users/{studentName}/exist', 'UsersController@studentNameExist');
+$api->get('students/{partOfStudentName}/search', 'StudentsController@searchStudents');
+$api->get('students/{studentName}/exist', 'StudentsController@studentNameExist');
 
 $api->group(['prefix'=>'auth'], function ($api){
     $api->post('login', 'Auth\LoginController@login');

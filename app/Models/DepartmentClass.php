@@ -42,9 +42,9 @@ class DepartmentClass extends BaseModel
      * 系别下有多个学生
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function students()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Student::class);
     }
 
     public function getClass()
@@ -70,5 +70,10 @@ class DepartmentClass extends BaseModel
     public function getTitle()
     {
         return $this->short_title?:$this->title;
+    }
+
+    public function dormitories()
+    {
+        return $this->belongsToMany(Dormitory::class)->withPivot('galleryful');
     }
 }

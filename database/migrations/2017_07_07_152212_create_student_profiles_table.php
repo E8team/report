@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserProfilesTable extends Migration
+class CreateStudentProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateUserProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->unique()->comment('用户id');
+        Schema::create('student_profiles', function (Blueprint $table) {
+            $table->unsignedInteger('student_id')->unique()->comment('用户id');
             $table->string('graduate_school')->comment('毕业学校');
             $table->string('come_from')->comment('家乡');
             $table->char('tel', 11)->comment('手机');
@@ -32,6 +32,6 @@ class CreateUserProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::dropIfExists('student_profiles');
     }
 }

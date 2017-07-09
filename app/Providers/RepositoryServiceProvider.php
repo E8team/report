@@ -8,8 +8,8 @@ use App\Repositories\DepartmentClassRepository;
 use App\Repositories\DepartmentClassRepositoryInterface;
 use App\Repositories\DormitoryRepository;
 use App\Repositories\DormitoryRepositoryInterface;
-use App\Repositories\UserRepository;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\StudentRepository;
+use App\Repositories\StudentRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -32,8 +32,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(DormitoryRepositoryInterface::class, function (){
             return new DormitoryRepository();
         });
-        $this->app->singleton(UserRepositoryInterface::class, function (){
-            return new UserRepository();
+        $this->app->singleton(StudentRepositoryInterface::class, function (){
+            return new StudentRepository();
         });
         $this->app->singleton(DepartmentClassRepositoryInterface::class, function (){
             return new DepartmentClassRepository();

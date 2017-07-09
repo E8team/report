@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class UserProfile extends BaseModel
+class StudentProfile extends BaseModel
 {
     //
 }

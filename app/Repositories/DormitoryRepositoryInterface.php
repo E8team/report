@@ -1,9 +1,9 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Student;
 
 interface DormitoryRepositoryInterface
 {
-    public function getDormitories(User $user);
+    public function getDormitories(Student $user);
 }

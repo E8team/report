@@ -1,11 +1,11 @@
 <?php
 namespace App\Repositories;
 
-interface UserRepositoryInterface
+interface StudentRepositoryInterface
 {
     /**
      * 搜索学生(支持拼音和中文)
      */
-    public function searchUsers($partOfStudentName, $limit=10, $columns=['*']);
+    public function searchStudents($partOfStudentName, $limit=10, $columns=['*']);
     public function studentNameExist($studentName);
 }

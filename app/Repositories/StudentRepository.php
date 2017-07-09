@@ -1,15 +1,15 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Student;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
-class UserRepository implements UserRepositoryInterface
+class StudentRepository implements StudentRepositoryInterface
 {
     /**
      * 搜索学生(支持拼音和中文)
      */
-    public function searchUsers($partOfStudentName, $limit=10, $columns=['*']){
+    public function searchStudents($partOfStudentName, $limit=10, $columns=['*']){
         //删除字符串中的空格
         $studentNamePart = str_replace(' ', '', $partOfStudentName);
 
@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
         $chinese = isset($chinese[0]) ? $chinese[0] : '';
         $pinyins = isset($pinyin[0]) ? [$pinyin[0], $pinyin[0]] : [];
 
-        $query = User::query();
+        $query = Student::query();
         //获取拼音处理类
         $pinyinObj = app('pinyin');
         if('' !== $chinese){
@@ -60,7 +60,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function studentNameExist($studentName)
     {
-        return User::where('student_name', $studentName)->count() > 0;
+        return Student::where('student_name', $studentName)->count() > 0;
     }
 
 }

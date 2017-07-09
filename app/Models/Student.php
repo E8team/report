@@ -12,7 +12,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 
-class User extends BaseModel implements
+class Student extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
@@ -49,9 +49,9 @@ class User extends BaseModel implements
 
     protected $dates = ['report_time', 'arrive_dorm_time', 'created_at', 'updated_at'];
 
-    public function userProfile()
+    public function studentProfile()
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(StudentProfile::class);
     }
 
     public function dormitorySelection()
@@ -78,8 +78,13 @@ class User extends BaseModel implements
         return $this->idCardWithMosaic;
     }
 
+    /**
+     * @return DepartmentClass
+     */
     public function getDepartmentClass()
     {
         return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
     }
+
+
 }

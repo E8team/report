@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Repositories\UserRepositoryInterface;
-use App\Transformers\UserTransformer;
+use App\Repositories\StudentRepositoryInterface;
+use App\Transformers\StudentTransformer;
 use Auth;
 
-class UsersController extends ApiController
+class StudentsController extends ApiController
 {
-    public function searchUser($partOfStudentName, UserRepositoryInterface $userRepository)
+    public function searchStudents($partOfStudentName, StudentRepositoryInterface $userRepository)
     {
         $studentNames = $userRepository->searchUsers($partOfStudentName, 10, ['student_name']);
         if(!$studentNames->isEmpty()){
@@ -18,7 +18,7 @@ class UsersController extends ApiController
         return $studentNames;
     }
 
-    public function studentNameExist($studentName, UserRepositoryInterface $userRepository)
+    public function studentNameExist($studentName, StudentRepositoryInterface $userRepository)
     {
         if($userRepository->studentNameExist($studentName)){
             return $this->response->noContent();
@@ -29,6 +29,6 @@ class UsersController extends ApiController
 
     public function me()
     {
-        return $this->response->item(Auth::user(), new UserTransformer());
+        return $this->response->item(Auth::user(), new StudentTransformer());
     }
 }

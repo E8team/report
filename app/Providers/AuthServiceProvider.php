@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Auth\UserProvider;
 use App\Hashing\IdCardHasher;
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Auth;
 
@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             'e8', function ($app) {
             return new UserProvider(
                 new IdCardHasher(),
-                User::class
+                Student::class
             );
         }
         );
