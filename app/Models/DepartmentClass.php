@@ -74,7 +74,7 @@ class DepartmentClass extends BaseModel
 
     public function dormitories()
     {
-        return $this->belongsToMany(Dormitory::class)->withPivot(['galleryful', 'already_checked_in_num']);
+        return $this->belongsToMany(Dormitory::class)->withPivot(['galleryful', 'already_selected_num']);
     }
 
     public function DepartmentClassInfo()
