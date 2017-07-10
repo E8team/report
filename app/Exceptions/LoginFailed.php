@@ -11,7 +11,7 @@ class LoginFailed extends HttpException
     public function __construct($error, $statusCode = 403)
     {
         $this->error = $error;
-        parent::__construct($statusCode, Lang::get('auth.failedg'), null, [], $statusCode);
+        parent::__construct($statusCode, Lang::get('auth.failed'), null, [], $statusCode);
     }
 
     public function getError()
