@@ -22,7 +22,7 @@ $api->group(['prefix'=>'auth'], function ($api){
 
 $api->group(['middleware'=>'auth'], function ($api){
     $api->get('me', 'StudentsController@me');
-    $api->get('dormitories/list', 'DormitoriesController@lists');
+    $api->get('dormitories/available', 'DormitoriesController@availableDormitories');
     $api->post('set_report', 'StudentsController@setReport');
     $api->post('select_dorm/{dormitory}', 'StudentsController@selectDorm');
     $api->get('dormitories/{dormitory}/students', 'DormitoriesController@students');

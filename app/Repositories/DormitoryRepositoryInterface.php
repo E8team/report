@@ -5,5 +5,5 @@ use App\Models\Student;
 
 interface DormitoryRepositoryInterface
 {
-    public function getDormitories(Student $user);
+    public function getAvailableDormitories(Student $user);
 }

@@ -14,7 +14,7 @@ class StudentTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['student_profile'];
+    protected $availableIncludes = ['student_profile', 'dormitory'];
     public function transform(Student $student)
     {
         return [
@@ -37,4 +37,10 @@ class StudentTransformer extends TransformerAbstract
         return $this->item($studentProfile, new StudentProfileTransformer());
     }
 
+    public function includeDormitory(Student $student)
+    {
+        $dormitorySelection = $student->dormitorySelection;
+        $dormitory = $student->getDepartmentClass()->dormitories()->where('dormitories.id', $dormitorySelection->dormitory_id)->first();
+        return $this->item($dormitory, new DormitoryInclassTransformer());
+    }
 }

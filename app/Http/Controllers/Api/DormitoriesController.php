@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Dormitory;
 use App\Models\Student;
-use App\Transformers\DormitoryTransformer;
+use App\Transformers\DormitoryInclassTransformer;
 use App\Transformers\StudentTransformer;
 use Auth;
 use App\Repositories\DormitoryRepositoryInterface;
 
 class DormitoriesController extends ApiController
 {
-    public function lists()
+    public function availableDormitories()
     {
         $student = Auth::user();
-        $dormitories = app(DormitoryRepositoryInterface::class)->getDormitories($student);
-        return $this->response->collection($dormitories, new DormitoryTransformer());
+        $dormitories = app(DormitoryRepositoryInterface::class)->getAvailableDormitories($student);
+        return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }
 
     public function students(Dormitory $dormitory)

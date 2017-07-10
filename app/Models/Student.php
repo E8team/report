@@ -93,6 +93,4 @@ class Student extends BaseModel implements
     {
         return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
     }
-
-
 }
