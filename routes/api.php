@@ -26,4 +26,5 @@ $api->group(['middleware'=>'auth'], function ($api){
     $api->post('set_report', 'StudentsController@setReport');
     $api->post('select_dorm/{dormitory}', 'StudentsController@selectDorm');
     $api->get('dormitories/{dormitory}/students', 'DormitoriesController@students');
+    $api->post('reselect_dorm/{dormitory}', 'StudentsController@reSelectDorm');
 });

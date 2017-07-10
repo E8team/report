@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Events\CancelDorm;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
 use App\Models\Dormitory;
@@ -57,7 +58,7 @@ class StudentsController extends ApiController
      */
     public function selectDorm(Dormitory $dormitory)
     {
-        $this->authorize('select-dorm', $dormitory);
+        $this->authorize('selectDorm', $dormitory);
         $student = Auth::user();
 
         DormitorySelection::create([
@@ -65,6 +66,24 @@ class StudentsController extends ApiController
             'dormitory_id' => $dormitory->id
         ]);
 
+        event(new SelectedDorm($student, $dormitory));
+        return $this->response->noContent();
+    }
+
+    /**
+     * 重选宿舍
+     */
+    public function reSelectDorm(Dormitory $dormitory)
+    {
+        $this->authorize('reSelectDorm', $dormitory);
+        $student = Auth::user();
+        $oldDormitoryId = $student->dormitorySelection->dormitory_id;
+        $student->dormitorySelection->delete();
+        event(new CancelDorm($student, $oldDormitoryId));
+        DormitorySelection::create([
+            'student_id' => $student->id,
+            'dormitory_id' => $dormitory->id
+        ]);
         event(new SelectedDorm($student, $dormitory));
         return $this->response->noContent();
     }

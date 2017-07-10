@@ -81,11 +81,14 @@ class Student extends BaseModel implements
         return $this->idCardWithMosaic;
     }
 
-    public function hasReport()
+    public function hasBeenReport()
     {
         return !is_null($this->report_time);
     }
-
+    public function hasBeenArriveDorm()
+    {
+        return !is_null($this->arrive_dorm_time);
+    }
     /**
      * @return DepartmentClass
      */

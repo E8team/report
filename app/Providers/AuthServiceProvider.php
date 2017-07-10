@@ -5,13 +5,14 @@ namespace App\Providers;
 use App\Auth\UserProvider;
 use App\Hashing\IdCardHasher;
 use App\Models\Dormitory;
-use App\Models\DormitorySelection;
 use App\Models\Student;
-use App\Policies\StudentPolicy;
+use App\Policies\DormitoryPolicy;
+use EasyWeChat\Core\Exceptions\HttpException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Auth;
 use Gate;
-use DB;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-
+        Dormitory::class => DormitoryPolicy::class
     ];
 
     /**
@@ -44,22 +45,11 @@ class AuthServiceProvider extends ServiceProvider
         );
 
         Gate::define('set-report', function (Student $student) {
-            return !$student->hasReport();
-        });
-
-        Gate::define('select-dorm', function (Student $student, Dormitory $dormitory) {
-            if(!$student->hasReport())
-                return false;
-            if(DormitorySelection::where('student_id', $student->id)->count()>0)
-                return false;
-
-            $departmentClassDormitory = DB::table('department_class_dormitory')
-                ->where('department_class_id', $student->department_class_id)
-                ->where('dormitory_id', $dormitory->id)
-                ->first();
-            if(is_null($departmentClassDormitory))
-                return false;
-            return $departmentClassDormitory->galleryful > $departmentClassDormitory->already_selected_num;
+            $hasBeenReport = $student->hasBeenReport();
+            if ($hasBeenReport) {
+                throw new AuthorizationException('您已经完成报到了！');
+            }
+            return true;
         });
     }
 }

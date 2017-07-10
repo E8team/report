@@ -14,6 +14,21 @@ class DormitorySelection extends BaseModel
         'student_id', 'dormitory_id'
     ];
 
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'student_id';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+
     public function student()
     {
 
