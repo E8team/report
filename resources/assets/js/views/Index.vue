@@ -51,10 +51,12 @@
                 this.$http.post(`auth/login`, {
                     student_name: this.studentName,
                     password: pwd
+                }, {
+                    noErrorTip: true
                 }).then(res => {
-                    this.$router.push('check_info')
+                    this.$router.push({name: 'check_info'})
                 }).catch(e => {
-                    this.$refs['idcard_input'].error("失败")
+                    this.$refs['idcard_input'].error(e.response.data.message)
                 })
             },
             showInput () {

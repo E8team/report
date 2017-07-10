@@ -15,6 +15,7 @@ export default new Router({
         },
         {
             path: '/check_info',
+            name: 'check_info',
             component: require('./views/CheckInfo.vue')
         },
         {
@@ -23,6 +24,7 @@ export default new Router({
         },
         {
             path: '/select_dorm',
+            name: 'select_dorm',
             component: require('./views/SelectDorm.vue')
         },
         {
@@ -32,6 +34,7 @@ export default new Router({
         },
         {
             path: '/final',
+            name: 'final',
             component: require('./views/Final.vue')
         },
         {

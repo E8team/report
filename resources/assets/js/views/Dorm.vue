@@ -37,7 +37,7 @@
                     onCancel () {},
                     onConfirm () {
                         _this.$http.post(`select_dorm/${_this.$route.params.id}`).then(res => {
-                            //todo 选择成功
+                            _this.$router.push({name: 'final'});
                         })
                     }
                 })

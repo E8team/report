@@ -27,7 +27,6 @@
                     type: 'primary',
                     text: '选择宿舍',
                     onClick () {
-                        console.log(this)
                         _this.$router.push('/select_dorm')
                     }
                 }]

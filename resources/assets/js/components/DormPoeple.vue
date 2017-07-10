@@ -20,7 +20,7 @@
             dorm_id: String,
         },
         mounted () {
-            if(this.dorm_id != undefined){
+            if(this.dorm_id !== 'undefined'){
                 this.getStudents();
             }
         },

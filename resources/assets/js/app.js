@@ -45,6 +45,9 @@ Vue.prototype.$http.interceptors.response.use((response) => {
         })
         router.push({name: 'index'});
     }else {
+        if(error.config.noErrorTip){
+            return Promise.reject(error);
+        }
         Vue.$vux.toast.show({
             text: error.response.data.message,
             type: 'warn'

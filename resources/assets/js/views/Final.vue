@@ -10,8 +10,8 @@
         </group>
         <DormPoeple :dorm_id="String(studentInfo.dormitory.data.id)"></DormPoeple>
         <box gap="20px 20px">
-            <x-button  @click.native="confirm" type="primary">重选宿舍</x-button>
-            <x-button  @click.native="logout" type="warn">退出</x-button>
+            <x-button @click.native="reSelDorm" type="primary">重选宿舍</x-button>
+            <x-button @click.native="logout" type="warn">退出</x-button>
         </box>
     </div>
 </template>
@@ -47,6 +47,18 @@
                         type: 'text'
                     })
                     this.$router.push({name: 'index'})
+                })
+            },
+            reSelDorm () {
+                const _this = this;
+                this.$vux.confirm.show({
+                    title: '确认重选？',
+                    content: '此操作将会取消你当前选择的宿舍，并重选。',
+                    onConfirm () {
+                        _this.$http.post('cancel_dorm').then(res => {
+                            _this.$router.push({name: 'select_dorm'})
+                        });
+                    }
                 })
             }
         }
