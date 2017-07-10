@@ -71,20 +71,15 @@ class StudentsController extends ApiController
     }
 
     /**
-     * 重选宿舍
+     * 取消选择宿舍
      */
-    public function reSelectDorm(Dormitory $dormitory)
+    public function cancelDorm()
     {
-        $this->authorize('reSelectDorm', $dormitory);
+        $this->authorize('cancel-dorm');
         $student = Auth::user();
         $oldDormitoryId = $student->dormitorySelection->dormitory_id;
         $student->dormitorySelection->delete();
         event(new CancelDorm($student, $oldDormitoryId));
-        DormitorySelection::create([
-            'student_id' => $student->id,
-            'dormitory_id' => $dormitory->id
-        ]);
-        event(new SelectedDorm($student, $dormitory));
         return $this->response->noContent();
     }
 }

@@ -32,23 +32,4 @@ class DormitoryPolicy
         return true;
     }
 
-    public function reSelectDorm(Student $student, Dormitory $dormitory)
-    {
-        if(!$student->hasBeenReport())
-            throw new AuthorizationException('您还没有报到！');
-        if($student->hasBeenArriveDorm())
-            throw new AuthorizationException('到达宿舍后无法自行更改宿舍！如需更改请联系迎新服务站！');
-        $dormitorySelection = $student->dormitorySelection;
-        if($dormitorySelection == null)
-            throw new AuthorizationException('您还没有选择宿舍！');
-        $departmentClassDormitory = DB::table('department_class_dormitory')
-            ->where('department_class_id', $student->department_class_id)
-            ->where('dormitory_id', $dormitory->id)
-            ->first();
-        if(is_null($departmentClassDormitory))
-            throw new AuthorizationException('该宿舍不属于您的班级！');
-        if($departmentClassDormitory->galleryful <= $departmentClassDormitory->already_selected_num)
-            throw new AuthorizationException('该宿舍已经住满了！');
-        return true;
-    }
 }
