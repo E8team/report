@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CancelDorm;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
 use App\Listeners\StudentListener;
@@ -20,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
             StudentListener::class
         ],
         SelectedDorm::class => [
+            StudentListener::class
+        ],
+        CancelDorm::class => [
             StudentListener::class
         ],
     ];
