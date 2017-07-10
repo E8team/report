@@ -76,9 +76,11 @@
                     if (this.identityNums.length === this.identityDigit) {
                         // 清空身份证输入框
                         let pwd = this.identityNums.join('')
-                        this.identityNums = []
                         this.$el.querySelector('#num_x').className = 'disabled'
                         this.$emit('pwd', pwd)
+                        setTimeout(() => {
+                            this.identityNums = []
+                        }, 300)
                     }
                 }
             },
