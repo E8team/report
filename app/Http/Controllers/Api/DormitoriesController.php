@@ -22,6 +22,7 @@ class DormitoriesController extends ApiController
     {
         // todo 不同班级的需要显示班级名称
         $studentIds = $dormitory->dormitorySelections->pluck('student_id');
-        return $this->response->collection(Student::find($studentIds), new StudentTransformer());
+        return $this->response->collection(Student::find($studentIds), new StudentTransformer())
+            ->addMeta('dorm_num', $dormitory->dorm_num);
     }
 }
