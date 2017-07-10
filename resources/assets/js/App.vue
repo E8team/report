@@ -37,7 +37,6 @@
     }
     .router-view {
         width: 100%;
-        top: 46px;
     }
     .vux-pop-out-enter-active,
     .vux-pop-out-leave-active,
@@ -46,7 +45,6 @@
         will-change: transform;
         transition: all 500ms;
         height: 100%;
-        top: 46px;
         position: absolute;
         backface-visibility: hidden;
         perspective: 1000;

@@ -8,7 +8,7 @@
         <div class="dorm_list_wrapper"  v-for="dormList in dorms">
             <header>{{dormList.name}}</header>
             <ul class="dorm_list">
-                <li @click="$router.push({name: 'dorm', params: {id: dorm.id, name: dorm.dorm_num}})" v-for="dorm in dormList.list">
+                <li @click="$router.push({name: 'dorm', params: {id: dorm.id}})" v-for="dorm in dormList.list">
                     <div :class="{four: dorm.galleryful == 4}">{{dorm.galleryful}}人间</div>
                     {{dorm.dorm_num}}
                     <span class="surplus">剩余：{{dorm.galleryful_in_this_class - dorm.already_selected_num_in_this_class}}/{{dorm.galleryful_in_this_class}}</span>

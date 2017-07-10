@@ -38,6 +38,11 @@ Vue.prototype.$http.interceptors.response.use((response) => {
             type: 'warn'
         })
     }else if(error.response.status === 401 && error.response.data.code == '401.1'){
+        Vue.$vux.toast.show({
+            text: '请先登录',
+            position: 'top',
+            type: 'text'
+        })
         router.push({name: 'index'});
     }else {
         Vue.$vux.toast.show({
