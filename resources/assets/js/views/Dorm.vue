@@ -1,9 +1,9 @@
 <template>
     <div>
-        <t-nav bgcolor="#f5f5f5" title="9A430"></t-nav>
+        <t-nav bgcolor="#f5f5f5" :title="$route.params.name"></t-nav>
         <crumb :nav-list="navList"></crumb>
         <div class="people">
-            <header>已入住9A430的同学</header>
+            <header>已入住{{$route.params.name}}的同学</header>
             <div class="null" v-if="students.length == 0">
                 暂无人选择该宿舍
             </div>
@@ -45,12 +45,7 @@
                     onConfirm () {
                         _this.$http.post(`select_dorm/${_this.$route.params.id}`).then(res => {
                             //todo 选择成功
-                        }).catch(e => {
-                            _this.$vux.toast.show({
-                                text: e.response.data.message,
-                                type: 'warn'
-                            })
-                        });
+                        })
                     }
                 })
             }

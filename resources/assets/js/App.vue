@@ -1,15 +1,21 @@
 <template>
     <div>
-        <router-view></router-view>
+        <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
+            <router-view class="router-view"></router-view>
+        </transition>
     </div>
 </template>
 
 
 <script>
+    import { mapState } from 'vuex'
     export default{
         name: 'app',
         components: {
         },
+        computed: mapState({
+            direction: state => state.direction
+        }),
         mounted () {
         }
     }
@@ -28,6 +34,38 @@
     }
     ul, li{
         list-style: none;
+    }
+    .router-view {
+        width: 100%;
+        top: 46px;
+    }
+    .vux-pop-out-enter-active,
+    .vux-pop-out-leave-active,
+    .vux-pop-in-enter-active,
+    .vux-pop-in-leave-active {
+        will-change: transform;
+        transition: all 500ms;
+        height: 100%;
+        top: 46px;
+        position: absolute;
+        backface-visibility: hidden;
+        perspective: 1000;
+    }
+    .vux-pop-out-enter {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    .vux-pop-out-leave-active {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+    .vux-pop-in-enter {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+    .vux-pop-in-leave-active {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
     }
     @font-face {font-family: "iconfont";
         src: url('../fonts/iconfont.eot?t=1470466667'); /* IE9*/

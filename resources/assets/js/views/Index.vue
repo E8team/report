@@ -72,7 +72,9 @@
             'studentName' () {
                 if (!this.isSel) {
                     if (this.studentName.length > 0) {
-                        this.$http.get(`students/${this.studentName}/search`).then(res => {
+                        this.$http.get(`students/${this.studentName}/search`, {
+                            NoNProgress: true
+                        }).then(res => {
                             this.matchList = res.data
                         });
                     } else {

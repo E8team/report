@@ -10,6 +10,7 @@ export default new Router({
     routes: [
         {
             path: '/index',
+            name: 'index',
             component: require('./views/Index.vue')
         },
         {
@@ -25,7 +26,7 @@ export default new Router({
             component: require('./views/SelectDorm.vue')
         },
         {
-            path: '/dorm/:id',
+            path: '/dorm/:id/:name?',
             name: 'dorm',
             component: require('./views/Dorm.vue')
         },
