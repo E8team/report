@@ -48,6 +48,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('select-dorm', function (Student $student, Dormitory $dormitory) {
+            if(!$student->hasReport())
+                return false;
             if(DormitorySelection::where('student_id', $student->id)->count()>0)
                 return false;
 
@@ -55,6 +57,8 @@ class AuthServiceProvider extends ServiceProvider
                 ->where('department_class_id', $student->department_class_id)
                 ->where('dormitory_id', $dormitory->id)
                 ->first();
+            if(is_null($departmentClassDormitory))
+                return false;
             return $departmentClassDormitory->galleryful > $departmentClassDormitory->already_selected_num;
         });
     }
