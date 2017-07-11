@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Lang;
+use Auth;
 
 class LoginController extends AdminController
 {
@@ -20,7 +21,6 @@ class LoginController extends AdminController
     {
         $this->middleware('auth:web_admin')->only('logout');
     }
-
 
 
     /**
@@ -82,5 +82,15 @@ class LoginController extends AdminController
             $this->throttleKey($request)
         );
         throw new HttpException(423, Lang::get('auth.throttle', ['seconds' => $seconds]));
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('web_admin');
     }
 }

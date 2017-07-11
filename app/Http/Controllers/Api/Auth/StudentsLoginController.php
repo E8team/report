@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Lang;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Auth;
 
 class StudentsLoginController extends StudentBaseController
 {
@@ -81,5 +82,15 @@ class StudentsLoginController extends StudentBaseController
             $this->throttleKey($request)
         );
         throw new HttpException(423, Lang::get('auth.throttle', ['seconds' => $seconds]));
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('web');
     }
 }
