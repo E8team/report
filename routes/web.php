@@ -11,4 +11,5 @@
 |
 */
 
+Route::get('/admin/{path?}', 'IndexController@admin')->where('path', '[\/\w\.-]*');
 Route::get('/{path?}', 'IndexController@index')->where('path', '[\/\w\.-]*');
