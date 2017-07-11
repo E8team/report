@@ -53,10 +53,23 @@ class StudentRepository implements StudentRepositoryInterface
                 ->orWhere('full_pinyin2', 'like', $pinyins[1].'%');//是全拼？
             });
         }
-        $query->orderBy('report_time')->get();
-        return $query->limit($limit)->get($columns);
+        return $query->orderBy('report_time')->limit($limit)->get($columns);
     }
 
+    public function searchStudentsByStudentNum($studentNum, $departmentId = null, $limit=10, $columns=['*'])
+    {
+        $query = Student::query();
+        if(!is_null($departmentId))
+            $query->where('department_id', $departmentId);
+        if(strlen($studentNum)<10) {
+            $studentNum .= '%';
+            $query->where('student_num', 'like', $studentNum);
+        }else{
+            $query->where('student_num', $studentNum);
+        }
+        return $query->orderBy('report_time')->limit($limit)->get($columns);
+
+    }
     /**
      * 判断该学生姓名是否存在
      * @param $studentName
