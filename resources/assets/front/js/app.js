@@ -48,10 +48,12 @@ Vue.prototype.$http.interceptors.response.use((response) => {
         if(error.config.noErrorTip){
             return Promise.reject(error);
         }
-        Vue.$vux.toast.show({
-            text: error.response.data.message,
-            type: 'warn'
-        })
+        if(error.response.data.message){
+            Vue.$vux.toast.show({
+                text: error.response.data.message,
+                type: 'warn'
+            })
+        }
     }
     return Promise.reject(error);
 });
