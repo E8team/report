@@ -4,11 +4,11 @@
             <img src="../../images/logo_admin.png" alt="">
         </div>
         <group title="使用姓名密码登录">
-            <x-input title="姓名" placeholder="请输入您的姓名" novalidate :show-clear="false"></x-input>
-            <x-input title="密码" placeholder="请输入密码" type="password" novalidate :show-clear="false"></x-input>
+            <x-input v-model="name" title="姓名" placeholder="请输入您的姓名" novalidate :show-clear="false"></x-input>
+            <x-input v-model="password" title="密码" placeholder="请输入密码" type="password" novalidate :show-clear="false"></x-input>
         </group>
         <Box gap="30px 20px">
-            <x-button type="primary">登录</x-button>
+            <x-button @click.native="login" type="primary">登录</x-button>
         </Box>
     </div>
 </template>
@@ -20,7 +20,20 @@
             Group, XInput, Box, XButton
         },
         data () {
-            return {}
+            return {
+                name: '',
+                password: ''
+            }
+        },
+        methods: {
+            login () {
+                this.$http.post('login', {
+                    name: this.name,
+                    password: this.password
+                }).then(res => {
+                    this.$router.push({name: 'index'});
+                })
+            }
         }
     }
 </script>
