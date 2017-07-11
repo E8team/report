@@ -3,8 +3,6 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-
-use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\UserTransformer;
 
 class UsersController extends AdminController

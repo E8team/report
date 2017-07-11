@@ -17,12 +17,13 @@ class StudentsController extends AdminController
         }
         if(is_numeric($keywords))
         {
-            $students = $userRepository->searchStudentsByStudentNum($keywords, $departmentId,10, ['student_name', 'student_num']);
+            $students = $userRepository->searchStudentsByStudentNum($keywords, $departmentId,10, ['id', 'student_name', 'student_num']);
         }else{
-            $students = $userRepository->searchStudents($keywords, $departmentId,10, ['student_name', 'student_num']);
+            $students = $userRepository->searchStudents($keywords, $departmentId,10, ['id', 'student_name', 'student_num']);
 
         }
         return $students->toArray();
     }
+
 
 }
