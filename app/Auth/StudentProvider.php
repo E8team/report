@@ -4,7 +4,8 @@ namespace App\Auth;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
-class UserProvider extends EloquentUserProvider
+
+class StudentProvider extends EloquentUserProvider
 {
     /**
      * Retrieve a user by the given credentials.
@@ -22,7 +23,7 @@ class UserProvider extends EloquentUserProvider
         // Eloquent User "model" that will be utilized by the Guard instances.
         $query = $this->createModel()->newQuery();
         foreach ($credentials as $key => $value) {
-            if (!Str::contains($key, 'password')) {
+            if (!Str::contains($key, 'password') && !Str::contains($key, 'id_card')) {
                 $query->where($key, $value);
             }
         }

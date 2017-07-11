@@ -10,11 +10,9 @@ use App\Models\Dormitory;
 use App\Models\DormitorySelection;
 use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
-use Auth;
 use Carbon\Carbon;
-use DB;
 
-class StudentsController extends ApiController
+class StudentsController extends StudentBaseController
 {
     public function searchStudents($partOfStudentName, StudentRepositoryInterface $userRepository)
     {
@@ -36,7 +34,7 @@ class StudentsController extends ApiController
 
     public function me()
     {
-        return $this->response->item(Auth::user(), new StudentTransformer());
+        return $this->response->item($this->guard()->user(), new StudentTransformer());
     }
 
     /**
@@ -46,7 +44,7 @@ class StudentsController extends ApiController
     public function setReport()
     {
         $this->authorize('set-report');
-        $student = Auth::user();
+        $student = $this->guard()->user();
         $student->report_time = Carbon::now();
         event(new StudentReported($student));
         $student->save();
@@ -59,7 +57,7 @@ class StudentsController extends ApiController
     public function selectDorm(Dormitory $dormitory)
     {
         $this->authorize('selectDorm', $dormitory);
-        $student = Auth::user();
+        $student = $this->guard()->user();
 
         DormitorySelection::create([
             'student_id' => $student->id,
@@ -76,7 +74,7 @@ class StudentsController extends ApiController
     public function cancelDorm()
     {
         $this->authorize('cancel-dorm');
-        $student = Auth::user();
+        $student = $this->guard()->user();
         $oldDormitoryId = $student->dormitorySelection->dormitory_id;
         $student->dormitorySelection->delete();
         event(new CancelDorm($student, $oldDormitoryId));

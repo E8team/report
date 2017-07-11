@@ -6,14 +6,13 @@ use App\Models\Dormitory;
 use App\Models\Student;
 use App\Transformers\DormitoryInclassTransformer;
 use App\Transformers\StudentTransformer;
-use Auth;
 use App\Repositories\DormitoryRepositoryInterface;
 
-class DormitoriesController extends ApiController
+class DormitoriesController extends StudentBaseController
 {
     public function availableDormitories()
     {
-        $student = Auth::user();
+        $student = $this->guard()->user();
         $dormitories = app(DormitoryRepositoryInterface::class)->getAvailableDormitories($student);
         return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }

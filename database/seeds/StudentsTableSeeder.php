@@ -21,6 +21,7 @@ class StudentsTableSeeder extends Seeder
             'full_pinyin2'=>'',
             'id_card'=>'342625199703130313',
             'department_class_id'=>4,
+            'department_id'=>1,
             'gender'=>false,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()

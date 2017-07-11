@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Auth\UserProvider;
+use App\Auth\StudentProvider;
 use App\Hashing\IdCardHasher;
 use App\Models\Dormitory;
 use App\Models\Student;
@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         //注册provider
         Auth::provider(
             'e8', function ($app) {
-            return new UserProvider(
+            return new StudentProvider(
                 new IdCardHasher(),
                 Student::class
             );
