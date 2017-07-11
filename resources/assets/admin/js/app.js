@@ -13,6 +13,8 @@ if (token) {
 }
 
 import App from './App.vue';
+import NProgress from 'NProgress';
+import 'NProgress/nprogress.css'
 import { AlertPlugin, ToastPlugin, ConfirmPlugin } from 'vux'
 
 Vue.use(ConfirmPlugin)
@@ -20,7 +22,7 @@ Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 
 Vue.prototype.$http = axios.create({
-    baseURL: '/api/',
+    baseURL: '/api/admin/',
     timeout: 5000,
     responseType: 'json',
     headers:{
@@ -28,6 +30,45 @@ Vue.prototype.$http = axios.create({
         'X-Requested-With': 'XMLHttpRequest'
     }
 })
+Vue.prototype.$http.interceptors.request.use((config) => {
+    if(!config.NoNProgress){
+        NProgress.start();
+    }
+    return config;
+}, (error) => {
+    nprogress.done();
+    return Promise.reject(error);
+});
+Vue.prototype.$http.interceptors.response.use((response) => {
+    NProgress.done();
+    return response;
+}, (error) => {
+    NProgress.done();
+    if(error.code === 'ECONNABORTED'){
+        Vue.$vux.toast.show({
+            text: '请求超时',
+            type: 'warn'
+        })
+    }else if(error.response.status === 401 && error.response.data.code == '401.1'){
+        Vue.$vux.toast.show({
+            text: '请先登录',
+            position: 'top',
+            type: 'text'
+        })
+        router.push({name: 'login'});
+    }else {
+        if(error.config.noErrorTip){
+            return Promise.reject(error);
+        }
+        if(error.response.data.message){
+            Vue.$vux.toast.show({
+                text: error.response.data.message,
+                type: 'warn'
+            })
+        }
+    }
+    return Promise.reject(error);
+});
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 import router from './router'
