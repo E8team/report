@@ -58,7 +58,7 @@
             }
         },
         methods: {
-            error (msg, time = 1000) {
+            error (msg, time = 2000) {
                 this.identityError = {
                     show: true,
                     msg
