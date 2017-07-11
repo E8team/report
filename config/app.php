@@ -171,7 +171,7 @@ return [
         Overtrue\LaravelPinyin\ServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
         Clockwork\Support\Laravel\ClockworkServiceProvider::class,
-
+        Zizaco\Entrust\EntrustServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -232,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
         'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 
