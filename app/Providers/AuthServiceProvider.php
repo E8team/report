@@ -7,6 +7,7 @@ use App\Hashing\IdCardHasher;
 use App\Models\Dormitory;
 use App\Models\Student;
 use App\Policies\DormitoryPolicy;
+use App\Policies\StudentPolicy;
 use EasyWeChat\Core\Exceptions\HttpException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\Response;
@@ -22,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Dormitory::class => DormitoryPolicy::class
+        Dormitory::class => DormitoryPolicy::class,
+        Student::class => StudentPolicy::class
     ];
 
     /**

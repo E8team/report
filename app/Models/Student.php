@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Repositories\DepartmentClassRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -95,5 +96,10 @@ class Student extends BaseModel implements
     public function getDepartmentClass()
     {
         return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
+    }
+
+    public function authorize($ability, $arguments = [])
+    {
+        return app(Gate::class)->forUser($this)->authorize($ability, $arguments);
     }
 }

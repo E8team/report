@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -46,5 +47,9 @@ class User extends BaseModel implements
         return $this->hasRole('super_admin');
     }
 
+    public function authorize($ability, $arguments = [])
+    {
+        return app(Gate::class)->forUser($this)->authorize($ability, $arguments);
+    }
 }
 

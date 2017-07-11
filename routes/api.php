@@ -35,5 +35,9 @@ $api->group(['prefix'=>'admin', 'namespace'=>'admin'], function ($api){
     $api->group(['middleware' => 'auth:web_admin'], function ($api){
         $api->get('me', 'UsersController@me');
         $api->get('students/{keywords}/search', 'StudentsController@searchStudents');
+        $api->post('students/{student}/select_dorm/{dormitory}', 'StudentsController@selectDorm');
+        $api->post('students/{student}/set_report', 'StudentsController@setReport');
+        $api->post('students/{student}/cancel_dorm', 'StudentsController@cancelDorm');
+        $api->get('students/{student}', 'StudentsController@show');
     });
 });
