@@ -16,7 +16,7 @@ class StudentsController extends StudentBaseController
 {
     public function searchStudents($partOfStudentName, StudentRepositoryInterface $userRepository)
     {
-        $studentNames = $userRepository->searchStudents($partOfStudentName, 10, ['student_name']);
+        $studentNames = $userRepository->searchStudents($partOfStudentName, null,10, ['student_name']);
         if(!$studentNames->isEmpty()){
             $studentNames = $studentNames->pluck('student_name');
         }

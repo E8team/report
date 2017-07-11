@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'laravel',
-
+    'prefix' => 'e8',
+    'ttl' => 60
 ];

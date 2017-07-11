@@ -9,9 +9,9 @@ class StudentRepository implements StudentRepositoryInterface
     /**
      * 搜索学生(支持拼音和中文)
      */
-    public function searchStudents($partOfStudentName, $limit=10, $columns=['*']){
+    public function searchStudents($partOfStudentName, $departmentId = null, $limit=10, $columns=['*']){
         //删除字符串中的空格
-        $studentNamePart = str_replace(' ', '', $partOfStudentName);
+        $partOfStudentName = str_replace(' ', '', $partOfStudentName);
 
         //拆分中文和拼音
         $chinese = [];
@@ -27,6 +27,9 @@ class StudentRepository implements StudentRepositoryInterface
         $pinyins = isset($pinyin[0]) ? [$pinyin[0], $pinyin[0]] : [];
 
         $query = Student::query();
+        if(!is_null($departmentId))
+            $query->where('department_id', $departmentId);
+
         //获取拼音处理类
         $pinyinObj = app('pinyin');
         if('' !== $chinese){

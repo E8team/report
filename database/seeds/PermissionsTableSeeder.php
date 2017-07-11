@@ -45,6 +45,14 @@ class PermissionsTableSeeder extends Seeder
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ],
+                [
+                    'id' => 5,
+                    'name' => 'admin.search',
+                    'display_name' => '搜索学生',
+                    'description' => '搜索学生',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                ]
             ]
         );
     }

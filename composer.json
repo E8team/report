@@ -12,7 +12,7 @@
         "laravel/tinker": "~1.0",
         "overtrue/laravel-pinyin": "~3.0",
         "overtrue/laravel-wechat": "~3.0",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.4",

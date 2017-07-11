@@ -34,5 +34,6 @@ $api->group(['prefix'=>'admin', 'namespace'=>'admin'], function ($api){
     $api->post('logout', 'LoginController@logout');
     $api->group(['middleware' => 'auth:web_admin'], function ($api){
         $api->get('me', 'UsersController@me');
+        $api->get('students/{partOfStudentName}/search', 'UsersController@searchStudents');
     });
 });
