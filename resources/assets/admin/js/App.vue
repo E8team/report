@@ -15,9 +15,8 @@ export default{
 <style lang="less">
     @import '~vux/src/styles/reset.less';
     html,body{
-        font-size: 20px;
+        background-color: #f5f5f5;
     }
-
     *{
         box-sizing: border-box;
     }
