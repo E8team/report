@@ -19,5 +19,5 @@
 <div id="app">
 </div>
 </body>
-<script type="text/javascript" src="{{asset('static/front/js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset(mix('static/front/js/app.js'))}}"></script>
 </html>

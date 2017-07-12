@@ -29,6 +29,9 @@
         methods: {
             resultClick (val) {
                 this.keyword = /\d/.test(this.keyword[0]) ? val.student_num : val.student_name;
+                this.$http.get(`studnets/${val[id]}`).then(res => {
+                    console.log(res.data);
+                })
             },
             getResult (val) {
                 this.$http.get(`students/${val}/search`).then(res => {
