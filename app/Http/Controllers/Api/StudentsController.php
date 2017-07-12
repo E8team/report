@@ -45,7 +45,7 @@ class StudentsController extends StudentBaseController
     {
         $this->authorize('set-report');
         $student = $this->guard()->user();
-        $student->report_time = Carbon::now();
+        $student->report_at = Carbon::now();
         event(new StudentReported($student));
         $student->save();
         return $this->response->noContent();

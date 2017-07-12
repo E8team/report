@@ -53,7 +53,7 @@ class StudentRepository implements StudentRepositoryInterface
                 ->orWhere('full_pinyin2', 'like', $pinyins[1].'%');//是全拼？
             });
         }
-        return $query->orderBy('report_time')->limit($limit)->get($columns);
+        return $query->orderBy('report_at')->limit($limit)->get($columns);
     }
 
     public function searchStudentsByStudentNum($studentNum, $departmentId = null, $limit=10, $columns=['*'])
@@ -67,7 +67,7 @@ class StudentRepository implements StudentRepositoryInterface
         }else{
             $query->where('student_num', $studentNum);
         }
-        return $query->orderBy('report_time')->limit($limit)->get($columns);
+        return $query->orderBy('report_at')->limit($limit)->get($columns);
 
     }
     /**

@@ -22,25 +22,24 @@ class DepartmentClassController extends AdminController
         $queryBuilder = Student::byDepartment($departmentId);
         $data = [];
         $data['student_count'] = $queryBuilder->count();
-        $data['reported_student_count'] = $queryBuilder->whereNotNull('report_time')->count();
+        $data['reported_student_count'] = $queryBuilder->whereNotNull('report_at')->count();
 
         $grade = $departmentClassRepository->grades($departmentId)->where('title', date('Y'))->first();
         $majors = $departmentClassRepository->majors($grade);
-        $classIds = [];
         $queryBuilder = null;
         foreach ($majors as $major){
-
             $classIds = $departmentClassRepository->classNums($major)->pluck('id');
             $queryBuilder = Student::whereIn('department_class_id',$classIds);
             $temp = [
                 'title' => $major->title,
                 'short_title' => $major->short_title,
                 'student_count' => $queryBuilder->count(),
-                'reported_student_count' => $queryBuilder->whereNotNull('report_time')->count()
+                'reported_student_count' => $queryBuilder->whereNotNull('report_at')->count()
             ];
             $data['majors'][] = $temp;
         }
         return $data;
     }
+
 
 }

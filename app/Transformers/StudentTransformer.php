@@ -25,7 +25,7 @@ class StudentTransformer extends TransformerAbstract
             'id_card_with_mosaic'=>$student->id_card_with_mosaic,
             'department_class_id' => $student->department_class_id,
             'department_class' => $student->getDepartmentClass()->__toString(),
-            'report_time'=>$student->report_time?$student->report_time->toDateTimeString():$student->report_time,
+            'report_at'=>$student->report_at?$student->report_at->toDateTimeString():$student->report_at,
             'created_at' => $student->created_at->toDateTimeString(),
             'updated_at' => $student->updated_at->toDateTimeString()
         ];

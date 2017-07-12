@@ -51,7 +51,7 @@ class Student extends BaseModel implements
 
     ];
 
-    protected $dates = ['report_time', 'arrive_dorm_time', 'created_at', 'updated_at'];
+    protected $dates = ['report_at', 'arrive_dorm_at', 'created_at', 'updated_at'];
 
     public function studentProfile()
     {
@@ -84,11 +84,11 @@ class Student extends BaseModel implements
 
     public function hasBeenReport()
     {
-        return !is_null($this->report_time);
+        return !is_null($this->report_at);
     }
     public function hasBeenArriveDorm()
     {
-        return !is_null($this->arrive_dorm_time);
+        return !is_null($this->arrive_dorm_at);
     }
     /**
      * @return DepartmentClass

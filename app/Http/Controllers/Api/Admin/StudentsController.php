@@ -52,7 +52,7 @@ class StudentsController extends AdminController
     public function setReport(Student $student)
     {
         $this->authorize('setReport', $student);
-        $student->report_time = Carbon::now();
+        $student->report_at = Carbon::now();
         event(new UserSetStudentReported($student, $this->guard()->user()));
         $student->save();
         return $this->response->noContent();
@@ -67,7 +67,7 @@ class StudentsController extends AdminController
     {
         $this->authorize('cancelReport', $student);
         $this->cancelDorm($student);
-        $student->report_time = null;
+        $student->report_at = null;
         event(new UserCancelStudentReport($student, $this->guard()->user()));
         $student->save();
         return $this->response->noContent();
@@ -95,12 +95,25 @@ class StudentsController extends AdminController
     {
         $this->authorize('cancelDorm', $student);
         // todo 取消选择宿舍后 到宿时间是否需要修改
-        if(!is_null($student->dormitorySelection)) {
+        if (!is_null($student->dormitorySelection)) {
             $oldDormitoryId = $student->dormitorySelection->dormitory_id;
             $student->dormitorySelection->delete();
             event(new UserCancelStudentDorm($student, $oldDormitoryId, $this->guard()->user()));
         }
         return $this->response->noContent();
     }
+
+    public function notArriveDormStudents($departmentId = null)
+    {
+        $this->validatePermission('admin.show');
+        $user = $this->guard()->user();
+        if(!$user->isSuperAdmin() || is_null($departmentId))
+        {
+            $departmentId = $user->department_id;
+        }
+        $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
+        return $this->response->collection($students, new StudentTransformer());
+    }
+
 
 }
