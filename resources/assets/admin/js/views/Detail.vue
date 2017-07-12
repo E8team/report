@@ -20,7 +20,7 @@
                 <cell title="班级" :value="studentInfo.department_class"></cell>
                 <cell title="身份证" :value="studentInfo.id_card_with_mosaic"></cell>
                 <x-switch title="是否报到" v-model="isReport"></x-switch>
-                <cell title="报到时间" v-if="isReport" :value="studentInfo.report_time"></cell>
+                <cell title="报到时间" v-if="isReport" :value="studentInfo.report_at"></cell>
             </group>
             <box gap="10px" v-if="isReport">
                 <load-more style="margin-bottom: 10px;" tip="可选宿舍" :show-loading="false" background-color="#fbf9fe"></load-more>
@@ -86,7 +86,7 @@
         computed: {
             isReport: {
                 get () {
-                    return this.studentInfo.report_time != null
+                    return this.studentInfo.report_at != null
                 },
                 set (newValue) {
                     this.$http.post(`students/${this.studentInfo.id}/${newValue ? 'set_report' : 'cancel_report'}`).then(res => {
@@ -94,9 +94,9 @@
                             text: newValue ? '设置报到成功' : '取消报到成功',
                         })
                         if(newValue){
-                            this.studentInfo.report_time = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
+                            this.studentInfo.report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
                         }else{
-                            this.studentInfo.report_time = null;
+                            this.studentInfo.report_at = null;
                         }
                     })
                 }
