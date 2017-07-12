@@ -12,7 +12,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CancelDorm
+/**
+ * 学生取消选择宿舍后会触发此事件
+ */
+class CancelDorm implements LoggerInterface
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -37,5 +40,10 @@ class CancelDorm
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
+    }
+
+    public function log()
+    {
+        return '';
     }
 }

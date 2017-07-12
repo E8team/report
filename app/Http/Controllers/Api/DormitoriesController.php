@@ -10,6 +10,10 @@ use App\Repositories\DormitoryRepositoryInterface;
 
 class DormitoriesController extends StudentBaseController
 {
+    /**
+     * 获取当前登录的新生可以获取的宿舍
+     * @return \Dingo\Api\Http\Response
+     */
     public function availableDormitories()
     {
         $student = $this->guard()->user();
@@ -17,6 +21,11 @@ class DormitoriesController extends StudentBaseController
         return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }
 
+    /**
+     * 获取选择该宿舍的学生
+     * @param Dormitory $dormitory
+     * @return \Dingo\Api\Http\Response
+     */
     public function students(Dormitory $dormitory)
     {
         // todo 不同班级的需要显示班级名称

@@ -24,7 +24,7 @@ class StudentListener
     /**
      * Handle the event.
      *
-     * @param  StudentReported  $event
+     * @param  $event
      * @return void
      */
     public function handle($event)

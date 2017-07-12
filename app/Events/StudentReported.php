@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Events;
 
 use App\Models\Student;
@@ -11,7 +12,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class StudentReported
+/**
+ * 学生报到后会触发此event
+ */
+class StudentReported implements LoggerInterface
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -34,5 +38,10 @@ class StudentReported
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
+    }
+
+    public function log()
+    {
+        return '';
     }
 }

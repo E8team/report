@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * 宿舍和班级的多对多关联表
+ * Class CreateDepartmentClassDormitoryTable
+ */
 class CreateDepartmentClassDormitoryTable extends Migration
 {
     /**

@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * 此表暂且没用
+ * Class CreateDepartmentClassInfosTable
+ */
 class CreateDepartmentClassInfosTable extends Migration
 {
     /**

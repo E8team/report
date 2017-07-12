@@ -59,9 +59,6 @@ class AuthServiceProvider extends ServiceProvider
                 throw new AuthorizationException('您还没有报到！');
             if($student->hasBeenArriveDorm())
                 throw new AuthorizationException('到达宿舍后无法自行更改宿舍！如需更改请联系迎新服务站！');
-            $dormitorySelection = $student->dormitorySelection;
-            if($dormitorySelection == null)
-                throw new AuthorizationException('您还没有选择宿舍！');
             return true;
         });
     }

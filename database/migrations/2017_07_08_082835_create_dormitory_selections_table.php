@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * 宿舍选择情况表
+ * Class CreateDormitorySelectionsTable
+ */
 class CreateDormitorySelectionsTable extends Migration
 {
     /**

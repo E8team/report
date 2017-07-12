@@ -39,7 +39,7 @@ class User extends BaseModel implements
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'wx_openid'
     ];
 
     public function isSuperAdmin()

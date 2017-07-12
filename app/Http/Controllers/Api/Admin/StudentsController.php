@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Events\CancelDorm;
+use App\Events\LoggerInterface;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
+use App\Events\UserCancelStudentDorm;
+use App\Events\UserCancelStudentReport;
+use App\Events\UserSelectedStudentDorm;
+use App\Events\UserSetStudentReported;
 use App\Models\Dormitory;
 use App\Models\DormitorySelection;
 use App\Models\Student;
@@ -46,9 +51,24 @@ class StudentsController extends AdminController
      */
     public function setReport(Student $student)
     {
-        $this->authorize('set-report', $student);
+        $this->authorize('setReport', $student);
         $student->report_time = Carbon::now();
-        event(new StudentReported($student));
+        event(new UserSetStudentReported($student, $this->guard()->user()));
+        $student->save();
+        return $this->response->noContent();
+    }
+
+    /**
+     * 取消报到
+     * @param Student $student
+     * @return \Dingo\Api\Http\Response
+     */
+    public function calcelReport(Student $student)
+    {
+        $this->authorize('cancelReport', $student);
+        $this->cancelDorm($student);
+        $student->report_time = null;
+        event(new UserCancelStudentReport($student, $this->guard()->user()));
         $student->save();
         return $this->response->noContent();
     }
@@ -64,7 +84,7 @@ class StudentsController extends AdminController
             'dormitory_id' => $dormitory->id
         ]);
 
-        event(new SelectedDorm($student, $dormitory));
+        event(new UserSelectedStudentDorm($student, $dormitory, $this->guard()->user()));
         return $this->response->noContent();
     }
 
@@ -75,9 +95,11 @@ class StudentsController extends AdminController
     {
         $this->authorize('cancelDorm', $student);
         // todo 取消选择宿舍后 到宿时间是否需要修改
-        $oldDormitoryId = $student->dormitorySelection->dormitory_id;
-        $student->dormitorySelection->delete();
-        event(new CancelDorm($student, $oldDormitoryId));
+        if(!is_null($student->dormitorySelection)) {
+            $oldDormitoryId = $student->dormitorySelection->dormitory_id;
+            $student->dormitorySelection->delete();
+            event(new UserCancelStudentDorm($student, $oldDormitoryId, $this->guard()->user()));
+        }
         return $this->response->noContent();
     }
 

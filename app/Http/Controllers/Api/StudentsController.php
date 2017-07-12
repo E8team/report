@@ -75,9 +75,11 @@ class StudentsController extends StudentBaseController
     {
         $this->authorize('cancel-dorm');
         $student = $this->guard()->user();
-        $oldDormitoryId = $student->dormitorySelection->dormitory_id;
-        $student->dormitorySelection->delete();
-        event(new CancelDorm($student, $oldDormitoryId));
+        if(!is_null($student->dormitorySelection)) {
+            $oldDormitoryId = $student->dormitorySelection->dormitory_id;
+            $student->dormitorySelection->delete();
+            event(new CancelDorm($student, $oldDormitoryId));
+        }
         return $this->response->noContent();
     }
 }

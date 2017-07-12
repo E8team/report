@@ -35,6 +35,19 @@ class StudentPolicy
         return true;
     }
 
+    public function cancelReport(User $user, Student $student)
+    {
+        if (!$user->may('admin.cancel_report'))
+            return false;
+        if (!$user->can('belongTo', $student))
+            return false;
+        $hasBeenReport = $student->hasBeenReport();
+        if (!$hasBeenReport) {
+            throw new AuthorizationException('该学生还没有报到！');
+        }
+        return true;
+    }
+
     public function cancelDorm(User $user, Student $student)
     {
         if (!$user->may('admin.cancel_dormitory'))
@@ -43,9 +56,6 @@ class StudentPolicy
             return false;
         if(!$student->hasBeenReport())
             throw new AuthorizationException('该学生还没有报到！');
-        $dormitorySelection = $student->dormitorySelection;
-        if($dormitorySelection == null)
-            throw new AuthorizationException('该学生还没有选择宿舍！');
         return true;
     }
 
