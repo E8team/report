@@ -1,8 +1,8 @@
 <?php
 
 
-
 namespace App\Events;
+
 use App\Models\Student;
 use App\Models\User;
 
@@ -12,6 +12,7 @@ use App\Models\User;
 class UserSetStudentReported extends StudentReported
 {
     public $user;
+
     public function __construct(Student $student, User $user)
     {
         parent::__construct($student);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Auth;
+
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;

@@ -21,6 +21,7 @@ class CancelDorm implements LoggerInterface
 
     public $student;
     public $dormitoryId;
+
     /**
      * Create a new event instance.
      *

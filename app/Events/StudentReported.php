@@ -20,6 +20,7 @@ class StudentReported implements LoggerInterface
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $student;
+
     /**
      * Create a new event instance.
      *

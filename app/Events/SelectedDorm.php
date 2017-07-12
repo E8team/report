@@ -1,7 +1,6 @@
 <?php
 
 
-
 namespace App\Events;
 
 use App\Models\Dormitory;
@@ -23,6 +22,7 @@ class SelectedDorm implements LoggerInterface
 
     public $student;
     public $dormitory;
+
     /**
      * Create a new event instance.
      *

@@ -54,7 +54,7 @@ class StudentPolicy
             return false;
         if (!$this->belongTo($user, $student))
             return false;
-        if(!$student->hasBeenReport())
+        if (!$student->hasBeenReport())
             throw new AuthorizationException('该学生还没有报到！');
         return true;
     }
@@ -65,18 +65,18 @@ class StudentPolicy
             return false;
         if (!$this->belongTo($user, $student))
             return false;
-        if(!$student->hasBeenReport())
+        if (!$student->hasBeenReport())
             throw new AuthorizationException('该学生还没有报到！');
-        if(DormitorySelection::where('student_id', $student->id)->count()>0)
+        if (DormitorySelection::where('student_id', $student->id)->count() > 0)
             throw new AuthorizationException('该学生已经选完宿舍了！');
 
         $departmentClassDormitory = DB::table('department_class_dormitory')
             ->where('department_class_id', $student->department_class_id)
             ->where('dormitory_id', $dormitory->id)
             ->first();
-        if(is_null($departmentClassDormitory))
+        if (is_null($departmentClassDormitory))
             throw new AuthorizationException('该宿舍不属于该学生的班级！');
-        if($departmentClassDormitory->galleryful <= $departmentClassDormitory->already_selected_num)
+        if ($departmentClassDormitory->galleryful <= $departmentClassDormitory->already_selected_num)
             throw new AuthorizationException('该宿舍已经住满了！');
         return true;
     }

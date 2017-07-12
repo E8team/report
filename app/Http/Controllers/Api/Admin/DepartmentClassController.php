@@ -14,8 +14,7 @@ class DepartmentClassController extends AdminController
     {
         $this->validatePermission('admin.overview');
         $user = $this->guard()->user();
-        if(!$user->isSuperAdmin() || is_null($departmentId))
-        {
+        if (!$user->isSuperAdmin() || is_null($departmentId)) {
             $departmentId = $user->department_id;
         }
 
@@ -27,9 +26,9 @@ class DepartmentClassController extends AdminController
         $grade = $departmentClassRepository->grades($departmentId)->where('title', date('Y'))->first();
         $majors = $departmentClassRepository->majors($grade);
         $queryBuilder = null;
-        foreach ($majors as $major){
+        foreach ($majors as $major) {
             $classIds = $departmentClassRepository->classNums($major)->pluck('id');
-            $queryBuilder = Student::whereIn('department_class_id',$classIds);
+            $queryBuilder = Student::whereIn('department_class_id', $classIds);
             $temp = [
                 'title' => $major->title,
                 'short_title' => $major->short_title,

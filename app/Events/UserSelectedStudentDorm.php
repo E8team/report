@@ -2,6 +2,7 @@
 
 
 namespace App\Events;
+
 use App\Models\Dormitory;
 use App\Models\Student;
 use App\Models\User;

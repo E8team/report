@@ -22,5 +22,7 @@ class UserCancelStudentReport implements LoggerInterface
         $this->user = $user;
     }
 
-    public function log(){}
+    public function log()
+    {
+    }
 }

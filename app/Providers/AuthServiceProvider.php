@@ -55,10 +55,10 @@ class AuthServiceProvider extends ServiceProvider
             return true;
         });
 
-        Gate::define('cancel-dorm', function (Student $student){
-            if(!$student->hasBeenReport())
+        Gate::define('cancel-dorm', function (Student $student) {
+            if (!$student->hasBeenReport())
                 throw new AuthorizationException('您还没有报到！');
-            if($student->hasBeenArriveDorm())
+            if ($student->hasBeenArriveDorm())
                 throw new AuthorizationException('到达宿舍后无法自行更改宿舍！如需更改请联系迎新服务站！');
             return true;
         });

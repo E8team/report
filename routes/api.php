@@ -15,12 +15,12 @@
 $api->get('students/{partOfStudentName}/search', 'StudentsController@searchStudents');
 $api->get('students/{studentName}/exist', 'StudentsController@studentNameExist');
 
-$api->group(['prefix'=>'auth'], function ($api){
+$api->group(['prefix' => 'auth'], function ($api) {
     $api->post('login', 'Auth\StudentsLoginController@login');
     $api->post('logout', 'Auth\StudentsLoginController@logout');
 });
 
-$api->group(['middleware'=>'auth:web'], function ($api){
+$api->group(['middleware' => 'auth:web'], function ($api) {
     $api->get('me', 'StudentsController@me');
     $api->get('dormitories/available', 'DormitoriesController@availableDormitories');
     $api->post('set_report', 'StudentsController@setReport');
@@ -29,10 +29,10 @@ $api->group(['middleware'=>'auth:web'], function ($api){
     $api->post('cancel_dorm', 'StudentsController@cancelDorm');
 });
 
-$api->group(['prefix'=>'admin', 'namespace'=>'admin'], function ($api){
+$api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
     $api->post('login', 'LoginController@login');
     $api->post('logout', 'LoginController@logout');
-    $api->group(['middleware' => 'auth:web_admin'], function ($api){
+    $api->group(['middleware' => 'auth:web_admin'], function ($api) {
         $api->get('me', 'UsersController@me');
         $api->get('students/{keywords}/search', 'StudentsController@searchStudents');
         $api->post('students/{student}/select_dorm/{dormitory}', 'StudentsController@selectDorm');

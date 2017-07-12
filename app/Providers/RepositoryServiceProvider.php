@@ -24,6 +24,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot()
     {
     }
+
     /**
      * Register any application services.
      *
@@ -31,17 +32,17 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(DormitoryRepositoryInterface::class, function (){
+        $this->app->singleton(DormitoryRepositoryInterface::class, function () {
             return new DormitoryRepository();
         });
-        $this->app->singleton(StudentRepositoryInterface::class, function (){
+        $this->app->singleton(StudentRepositoryInterface::class, function () {
             return new StudentRepository();
         });
-        $this->app->singleton(DepartmentClassRepositoryInterface::class, function (){
+        $this->app->singleton(DepartmentClassRepositoryInterface::class, function () {
             return new DepartmentClassRepository();
         });
 
-        $this->app->singleton(DepartmentClassInfoRepositoryInterface::class, function (){
+        $this->app->singleton(DepartmentClassInfoRepositoryInterface::class, function () {
             return new DepartmentClassInfoRepository();
         });
     }

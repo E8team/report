@@ -74,10 +74,11 @@ class Student extends BaseModel implements
     }
 
     private $idCardWithMosaic = null;
+
     public function getIdCardWithMosaicAttribute()
     {
-        if(is_null($this->idCardWithMosaic)){
-            $this->idCardWithMosaic = preg_replace('/(\d{6})\d{8}([\dxX]{4})/','$1********$2', $this->attributes['id_card']);
+        if (is_null($this->idCardWithMosaic)) {
+            $this->idCardWithMosaic = preg_replace('/(\d{6})\d{8}([\dxX]{4})/', '$1********$2', $this->attributes['id_card']);
         }
         return $this->idCardWithMosaic;
     }
@@ -86,10 +87,12 @@ class Student extends BaseModel implements
     {
         return !is_null($this->report_at);
     }
+
     public function hasBeenArriveDorm()
     {
         return !is_null($this->arrive_dorm_at);
     }
+
     /**
      * @return DepartmentClass
      */
@@ -105,14 +108,14 @@ class Student extends BaseModel implements
 
     public function scopeByDepartment($query, $department)
     {
-        if($department instanceof DepartmentClass)
+        if ($department instanceof DepartmentClass)
             $department = $department->id;
         return $query->where('department_id', $department);
     }
 
     public function scopeByDepartmentClass($query, $departmentClass)
     {
-        if($departmentClass instanceof DepartmentClass)
+        if ($departmentClass instanceof DepartmentClass)
             $departmentClass = $departmentClass->id;
         return $query->where('department_class_id', $departmentClass);
     }

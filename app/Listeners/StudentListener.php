@@ -29,14 +29,12 @@ class StudentListener
      */
     public function handle($event)
     {
-        if($event instanceof SelectedDorm)
-        {
+        if ($event instanceof SelectedDorm) {
             DB::table('department_class_dormitory')
                 ->where('department_class_id', $event->student->department_class_id)
                 ->where('dormitory_id', $event->dormitory->id)
                 ->increment('already_selected_num');
-        }elseif ($event instanceof CancelDorm)
-        {
+        } elseif ($event instanceof CancelDorm) {
             DB::table('department_class_dormitory')
                 ->where('department_class_id', $event->student->department_class_id)
                 ->where('dormitory_id', $event->dormitoryId)

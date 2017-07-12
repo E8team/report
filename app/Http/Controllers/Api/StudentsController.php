@@ -16,8 +16,8 @@ class StudentsController extends StudentBaseController
 {
     public function searchStudents($partOfStudentName, StudentRepositoryInterface $userRepository)
     {
-        $studentNames = $userRepository->searchStudents($partOfStudentName, null,10, ['student_name']);
-        if(!$studentNames->isEmpty()){
+        $studentNames = $userRepository->searchStudents($partOfStudentName, null, 10, ['student_name']);
+        if (!$studentNames->isEmpty()) {
             $studentNames = $studentNames->pluck('student_name');
         }
         return $studentNames;
@@ -25,9 +25,9 @@ class StudentsController extends StudentBaseController
 
     public function studentNameExist($studentName, StudentRepositoryInterface $userRepository)
     {
-        if($userRepository->studentNameExist($studentName)){
+        if ($userRepository->studentNameExist($studentName)) {
             return $this->response->noContent();
-        }else{
+        } else {
             return $this->response->errorNotFound('该学生不存在！');
         }
     }
@@ -75,7 +75,7 @@ class StudentsController extends StudentBaseController
     {
         $this->authorize('cancel-dorm');
         $student = $this->guard()->user();
-        if(!is_null($student->dormitorySelection)) {
+        if (!is_null($student->dormitorySelection)) {
             $oldDormitoryId = $student->dormitorySelection->dormitory_id;
             $student->dormitorySelection->delete();
             event(new CancelDorm($student, $oldDormitoryId));

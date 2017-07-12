@@ -1,7 +1,6 @@
 <?php
 
 
-
 namespace App\Events;
 
 use App\Models\Student;
@@ -20,6 +19,7 @@ class UserSetStudentArrivedDorm implements LoggerInterface
 
     public $student;
     public $user;
+
     /**
      * Create a new event instance.
      *

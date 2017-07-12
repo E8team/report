@@ -47,16 +47,16 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         if ($department instanceof DepartmentClass) {
             $department = $department->id;
         }
-        return Cache::rememberForever('grades:' . $department, function () use($department){
+        return Cache::rememberForever('grades:' . $department, function () use ($department) {
             return $this->gradesWithoutCache($department);
         });
     }
 
     public function majorsWithoutCache($grade)
     {
-        if($grade instanceof DepartmentClass) {
+        if ($grade instanceof DepartmentClass) {
             $builder = $grade->children();
-        } elseif (is_numeric($grade)){
+        } elseif (is_numeric($grade)) {
             $builder = DepartmentClass::byParentId($grade);
         }
         return $builder->orderByKey()->get();
@@ -68,7 +68,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         if ($grade instanceof DepartmentClass) {
             $grade = $grade->id;
         }
-        return Cache::rememberForever('majors:' . $grade, function () use($grade){
+        return Cache::rememberForever('majors:' . $grade, function () use ($grade) {
             return $this->majorsWithoutCache($grade);
         });
     }
