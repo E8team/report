@@ -40,7 +40,11 @@ class StudentTransformer extends TransformerAbstract
     public function includeDormitory(Student $student)
     {
         $dormitorySelection = $student->dormitorySelection;
-        $dormitory = $student->getDepartmentClass()->dormitories()->where('dormitories.id', $dormitorySelection->dormitory_id)->first();
-        return $this->item($dormitory, new DormitoryInclassTransformer());
+        if(is_null($dormitorySelection)){
+            return $this->null();
+        }else{
+            $dormitory = $student->getDepartmentClass()->dormitories()->where('dormitories.id', $dormitorySelection->dormitory_id)->first();
+            return $this->item($dormitory, new DormitoryInclassTransformer());
+        }
     }
 }
