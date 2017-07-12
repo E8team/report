@@ -18,6 +18,7 @@ class UserTransformer extends TransformerAbstract
             'gender' => $user->gender,
             'department_id' => $user->department_id,
             'department' => $user->department->title,
+            'is_super_admin' => $user->isSuperAdmin(),
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString()
         ];

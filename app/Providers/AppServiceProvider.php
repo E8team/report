@@ -53,7 +53,8 @@ class AppServiceProvider extends ServiceProvider
                 return response(
                     [
                         'code' => 401.3,
-                        'message' => $exception->getMessage() == 'This action is unauthorized.' ? trans('auth.no_permission') : $exception->getMessage()
+                        'message' => $exception->getMessage() == 'This action is unauthorized.' || empty($exception->getMessage())
+                            ? trans('auth.no_permission') : $exception->getMessage()
                     ], 401
                 );
             }

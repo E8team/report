@@ -28,7 +28,7 @@ class StudentRepository implements StudentRepositoryInterface
 
         $query = Student::query();
         if(!is_null($departmentId))
-            $query->where('department_id', $departmentId);
+            $query->byDepartment($departmentId);
 
         //获取拼音处理类
         $pinyinObj = app('pinyin');
@@ -60,7 +60,7 @@ class StudentRepository implements StudentRepositoryInterface
     {
         $query = Student::query();
         if(!is_null($departmentId))
-            $query->where('department_id', $departmentId);
+            $query->byDepartment($departmentId);
         if(strlen($studentNum)<10) {
             $studentNum .= '%';
             $query->where('student_num', 'like', $studentNum);

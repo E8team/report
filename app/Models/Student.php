@@ -95,11 +95,26 @@ class Student extends BaseModel implements
      */
     public function getDepartmentClass()
     {
-        return app(DepartmentClassRepositoryInterface::class)->getDepartmentClassFromCache($this->department_class_id);
+        return app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($this->department_class_id);
     }
 
     public function authorize($ability, $arguments = [])
     {
         return app(Gate::class)->forUser($this)->authorize($ability, $arguments);
     }
+
+    public function scopeByDepartment($query, $department)
+    {
+        if($department instanceof DepartmentClass)
+            $department = $department->id;
+        return $query->where('department_id', $department);
+    }
+
+    public function scopeByDepartmentClass($query, $departmentClass)
+    {
+        if($departmentClass instanceof DepartmentClass)
+            $departmentClass = $departmentClass->id;
+        return $query->where('department_class_id', $departmentClass);
+    }
+
 }

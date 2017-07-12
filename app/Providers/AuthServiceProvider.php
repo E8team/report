@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Auth\StudentProvider;
 use App\Hashing\IdCardHasher;
 use App\Models\Dormitory;
+use App\Models\DormitorySelection;
 use App\Models\Student;
 use App\Policies\DormitoryPolicy;
 use App\Policies\StudentPolicy;

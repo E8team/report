@@ -40,8 +40,8 @@ class PermissionsTableSeeder extends Seeder
                 [
                     'id'=>4,
                     'name' => 'admin.show',
-                    'display_name' => '查看报到状态',
-                    'description' => '查看报到状态',
+                    'display_name' => '查看学生信息',
+                    'description' => '查看学生信息',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ],
@@ -58,6 +58,22 @@ class PermissionsTableSeeder extends Seeder
                     'name' => 'admin.cancel_report',
                     'display_name' => '取消报到',
                     'description' => '取消报到',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 7,
+                    'name' => 'admin.get_available_dormitories',
+                    'display_name' => '获取学生可选的宿舍',
+                    'description' => '获取学生可选的宿舍',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 8,
+                    'name' => 'admin.overview',
+                    'display_name' => '获取总揽数据',
+                    'description' => '获取总揽数据',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ]

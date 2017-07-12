@@ -21,8 +21,8 @@ class DepartmentClasses extends Seeder
             ],
             [
                 'id'=>2,
-                'title'=>'2015',
-                'short_title'=>'15',
+                'title'=>'2017',
+                'short_title'=>'17',
                 'parent_id'=>1,
                 'sort'=>0
             ],

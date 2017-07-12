@@ -16,6 +16,7 @@ class DormitoriesController extends AdminController
      */
     public function availableDormitories(Student $student)
     {
+        $this->authorize('getAvailableDormitories', $student);
         $dormitories = app(DormitoryRepositoryInterface::class)->getAvailableDormitories($student);
         return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }

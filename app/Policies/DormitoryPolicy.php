@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Dormitory;
 use App\Models\DormitorySelection;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use DB;

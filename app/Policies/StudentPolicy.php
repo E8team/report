@@ -26,7 +26,7 @@ class StudentPolicy
     {
         if (!$user->may('admin.set_report'))
             return false;
-        if (!$user->can('belongTo', $student))
+        if (!$this->belongTo($user, $student))
             return false;
         $hasBeenReport = $student->hasBeenReport();
         if ($hasBeenReport) {
@@ -39,7 +39,7 @@ class StudentPolicy
     {
         if (!$user->may('admin.cancel_report'))
             return false;
-        if (!$user->can('belongTo', $student))
+        if (!$this->belongTo($user, $student))
             return false;
         $hasBeenReport = $student->hasBeenReport();
         if (!$hasBeenReport) {
@@ -52,7 +52,7 @@ class StudentPolicy
     {
         if (!$user->may('admin.cancel_dormitory'))
             return false;
-        if (!$user->can('belongTo', $student))
+        if (!$this->belongTo($user, $student))
             return false;
         if(!$student->hasBeenReport())
             throw new AuthorizationException('该学生还没有报到！');
@@ -63,7 +63,7 @@ class StudentPolicy
     {
         if (!$user->may('admin.select_dormitory'))
             return false;
-        if (!$user->can('belongTo', $student))
+        if (!$this->belongTo($user, $student))
             return false;
         if(!$student->hasBeenReport())
             throw new AuthorizationException('该学生还没有报到！');
@@ -79,6 +79,13 @@ class StudentPolicy
         if($departmentClassDormitory->galleryful <= $departmentClassDormitory->already_selected_num)
             throw new AuthorizationException('该宿舍已经住满了！');
         return true;
+    }
+
+    public function getAvailableDormitories(User $user, Student $student)
+    {
+        if (!$user->may('admin.get_available_dormitories'))
+            return false;
+        return $this->belongTo($user, $student);
     }
 
 }

@@ -14,10 +14,12 @@ interface DepartmentClassRepositoryInterface
      */
     public function getDepartmentClass($departmentClassId);
 
-    /**
-     * 从缓存中获取班级
-     * @param $departmentClassId
-     * @return DepartmentClass
-     */
-    public function getDepartmentClassFromCache($departmentClassId);
+    public function allDepartments();
+
+    public function grades($department);
+
+    public function majors($grade);
+
+    public function classNums($major);
+
 }
