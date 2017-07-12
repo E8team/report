@@ -29,10 +29,7 @@ class StudentListener
      */
     public function handle($event)
     {
-        if($event instanceof StudentReported)
-        {
-            // $event->student
-        }elseif($event instanceof SelectedDorm)
+        if($event instanceof SelectedDorm)
         {
             DB::table('department_class_dormitory')
                 ->where('department_class_id', $event->student->department_class_id)

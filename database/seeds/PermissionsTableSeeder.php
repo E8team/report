@@ -76,6 +76,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => '获取总览数据',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 9,
+                    'name' => 'admin.set_arrive_dorm',
+                    'display_name' => '设置学生到达宿舍',
+                    'description' => '设置学生到达宿舍',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]
             ]
         );

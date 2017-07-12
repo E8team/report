@@ -88,4 +88,11 @@ class StudentPolicy
         return $this->belongTo($user, $student);
     }
 
+    public function setArriveDorm(User $user, Student $student)
+    {
+        if (!$user->may('admin.set_arrive_dorm'))
+            return false;
+        return $this->belongTo($user, $student);
+    }
+
 }

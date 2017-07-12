@@ -8,6 +8,7 @@ use App\Events\StudentReported;
 use App\Events\UserCancelStudentDorm;
 use App\Events\UserCancelStudentReport;
 use App\Events\UserSelectedStudentDorm;
+use App\Events\UserSetStudentArrivedDorm;
 use App\Events\UserSetStudentReported;
 use App\Listeners\LoggerListener;
 use App\Listeners\StudentListener;
@@ -47,6 +48,10 @@ class EventServiceProvider extends ServiceProvider
             LoggerListener::class
         ],
         UserCancelStudentReport::class => [
+            StudentListener::class,
+            LoggerListener::class
+        ],
+        UserSetStudentArrivedDorm::class => [
             StudentListener::class,
             LoggerListener::class
         ]

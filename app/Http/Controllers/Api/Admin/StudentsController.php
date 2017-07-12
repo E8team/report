@@ -9,6 +9,7 @@ use App\Events\StudentReported;
 use App\Events\UserCancelStudentDorm;
 use App\Events\UserCancelStudentReport;
 use App\Events\UserSelectedStudentDorm;
+use App\Events\UserSetStudentArrivedDorm;
 use App\Events\UserSetStudentReported;
 use App\Models\Dormitory;
 use App\Models\DormitorySelection;
@@ -23,16 +24,15 @@ class StudentsController extends AdminController
     {
         $this->validatePermission('admin.show');
         $user = $this->guard()->user();
-        if($user->isSuperAdmin()){
+        if ($user->isSuperAdmin()) {
             $departmentId = null;
-        }else{
+        } else {
             $departmentId = $user->department_id;
         }
-        if(is_numeric($keywords))
-        {
-            $students = $userRepository->searchStudentsByStudentNum($keywords, $departmentId,10, ['id', 'student_name', 'student_num']);
-        }else{
-            $students = $userRepository->searchStudents($keywords, $departmentId,10, ['id', 'student_name', 'student_num']);
+        if (is_numeric($keywords)) {
+            $students = $userRepository->searchStudentsByStudentNum($keywords, $departmentId, 10, ['id', 'student_name', 'student_num']);
+        } else {
+            $students = $userRepository->searchStudents($keywords, $departmentId, 10, ['id', 'student_name', 'student_num']);
 
         }
         return $students->toArray();
@@ -103,17 +103,33 @@ class StudentsController extends AdminController
         return $this->response->noContent();
     }
 
+    /**
+     * 获取未到达宿舍的学生
+     * @param null $departmentId
+     * @return \Dingo\Api\Http\Response
+     */
     public function notArriveDormStudents($departmentId = null)
     {
         $this->validatePermission('admin.show');
         $user = $this->guard()->user();
-        if(!$user->isSuperAdmin() || is_null($departmentId))
-        {
+        if (!$user->isSuperAdmin() || is_null($departmentId)) {
             $departmentId = $user->department_id;
         }
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
         return $this->response->collection($students, new StudentTransformer());
     }
 
-
+    /**
+     * 设置学生到达宿舍
+     */
+    public function setArriveDorm(Student $student)
+    {
+        $this->authorize('setArriveDorm', $student);
+        if (is_null($student->arrive_dorm_at)) {
+            $student->arrive_dorm_at = Carbon::now();
+            event(new UserSetStudentArrivedDorm($student, $this->guard()->user()));
+            $student->save();
+        }
+        return $this->response->noContent();
+    }
 }
