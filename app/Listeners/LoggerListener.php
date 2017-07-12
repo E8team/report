@@ -29,6 +29,6 @@ class LoggerListener
      */
     public function handle(LoggerInterface $event)
     {
-        $this->logRepository->addLog(get_class($event), $event->log());
+        $this->logRepository->addLogByLoggerEvent($event);
     }
 }

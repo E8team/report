@@ -18,6 +18,8 @@ class CreateLogsTable extends Migration
             $table->increments('id');
             $table->string('event_name');
             $table->text('content');
+            $table->mediumText('serialize_data');
+            $table->unsignedTinyInteger('log_level');
             $table->timestamps();
         });
     }

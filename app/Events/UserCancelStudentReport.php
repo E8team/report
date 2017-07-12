@@ -22,6 +22,11 @@ class UserCancelStudentReport implements LoggerInterface
         $this->user = $user;
     }
 
+    public function logLevel()
+    {
+        return LoggerInterface::NEEW_SHOW_LOG;
+    }
+
     public function log()
     {
         return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为未报到";
