@@ -72,8 +72,8 @@ class PermissionsTableSeeder extends Seeder
                 [
                     'id' => 8,
                     'name' => 'admin.overview',
-                    'display_name' => '获取总揽数据',
-                    'description' => '获取总揽数据',
+                    'display_name' => '获取总览数据',
+                    'description' => '获取总览数据',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ]
