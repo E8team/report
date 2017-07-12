@@ -38,7 +38,7 @@ class Student extends BaseModel implements
      * @var array
      */
     protected $hidden = [
-        'remember_token',
+        'id_card', 'remember_token',
     ];
 
     /**

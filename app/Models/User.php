@@ -51,5 +51,11 @@ class User extends BaseModel implements
     {
         return app(Gate::class)->forUser($this)->authorize($ability, $arguments);
     }
+
+    public function department()
+    {
+        return $this->belongsTo(DepartmentClass::class, 'department_id');
+    }
+
 }
 
