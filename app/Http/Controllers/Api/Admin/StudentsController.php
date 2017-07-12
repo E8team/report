@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Events\CancelDorm;
-use App\Events\LoggerInterface;
-use App\Events\SelectedDorm;
-use App\Events\StudentReported;
+
 use App\Events\UserCancelStudentDorm;
 use App\Events\UserCancelStudentReport;
 use App\Events\UserSelectedStudentDorm;
@@ -66,6 +63,8 @@ class StudentsController extends AdminController
     public function calcelReport(Student $student)
     {
         $this->authorize('cancelReport', $student);
+        if (!is_null($student->arrive_dorm_at))
+            $student->arrive_dorm_at = null;
         $this->cancelDorm($student);
         $student->report_at = null;
         event(new UserCancelStudentReport($student, $this->guard()->user()));
@@ -116,7 +115,7 @@ class StudentsController extends AdminController
             $departmentId = $user->department_id;
         }
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
-        return $this->response->collection($students, new StudentTransformer());
+        return $this->response->collection($students, (new StudentTransformer())->needPinyin());
     }
 
     /**

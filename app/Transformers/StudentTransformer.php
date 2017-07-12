@@ -9,6 +9,7 @@ use League\Fractal\TransformerAbstract;
 class StudentTransformer extends TransformerAbstract
 {
 
+    private $needPinyin;
     /**
      * Resources that can be included if requested.
      *
@@ -16,9 +17,20 @@ class StudentTransformer extends TransformerAbstract
      */
     protected $availableIncludes = ['student_profile', 'dormitory'];
 
+    public function __construct($needPinyin = false)
+    {
+        $this->needPinyin = $needPinyin;
+    }
+
+    public function needPinyin()
+    {
+        $this->needPinyin = true;
+        return $this;
+    }
+
     public function transform(Student $student)
     {
-        return [
+        $data = [
             'id' => $student->id,
             'student_num' => $student->student_num,
             'student_name' => $student->student_name,
@@ -30,6 +42,18 @@ class StudentTransformer extends TransformerAbstract
             'created_at' => $student->created_at->toDateTimeString(),
             'updated_at' => $student->updated_at->toDateTimeString()
         ];
+        if($this->needPinyin)
+        {
+            $data = array_merge($data, [
+                'abbreviation_pinyin1' => $student->abbreviation_pinyin1,
+                'abbreviation_pinyin2' => $student->abbreviation_pinyin2,
+                'full_pinyin1' => $student->full_pinyin1,
+                'full_pinyin2' => $student->full_pinyin2,
+            ]);
+        }
+
+
+        return $data;
     }
 
     public function includeStudentProfile(Student $student)

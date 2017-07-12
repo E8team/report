@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\CancelDorm;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
+use App\Events\UserCancelStudentReport;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use DB;
