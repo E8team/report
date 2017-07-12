@@ -20,4 +20,9 @@ class UserCancelStudentDorm extends CancelDorm
         parent::__construct($student, $dormitoryId);
         $this->user = $user;
     }
+
+    public function log()
+    {
+        return "{$this->user->name}({$this->user->roles->first()->display_name}) 取消了 {$this->student->student_name}({$this->student->student_num}) 选择的宿舍";
+    }
 }

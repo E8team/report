@@ -45,6 +45,6 @@ class CancelDorm implements LoggerInterface
 
     public function log()
     {
-        return '';
+        return "{$this->student->student_name}({$this->student->student_num}) 取消选择了宿舍";
     }
 }
