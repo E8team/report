@@ -72,7 +72,9 @@ Vue.prototype.$http.interceptors.response.use((response) => {
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 import router from './router'
+import store from './vuex/store'
 const app = new Vue({
+    store,
     router,
     ...App
 }).$mount('#app');

@@ -9,6 +9,7 @@
 
 <script>
     import { Group, Cell, Search } from 'vux';
+    import { mapState } from 'vuex';
     export default{
         components: {
             Group, Cell, Search
@@ -48,7 +49,7 @@
             },
             ajaxRefreshStart () {
                 this.timer = setInterval(() => {
-                    this.$http.get('not_arrive_dorm_students', {
+                    this.$http.get(`not_arrive_dorm_students/${this.departmentId}`, {
                         NoNProgress: true
                     }).then(res => {
                         this.notArriveDormStudents = res.data.data;
@@ -56,6 +57,11 @@
                     })
                 }, 3000)
             }
+        },
+        computed: {
+            ...mapState({
+                departmentId: state => state.departmentId
+            })
         },
         data () {
             return {
@@ -69,7 +75,7 @@
                 clearInterval(this.timer);
         },
         mounted () {
-            this.$http.get('not_arrive_dorm_students').then(res => {
+            this.$http.get(`not_arrive_dorm_students/${this.departmentId}`).then(res => {
                 this.notArriveDormStudents = res.data.data;
                 this.originalNotArriveDormStudents = [...res.data.data];
             })

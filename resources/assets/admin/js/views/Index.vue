@@ -35,27 +35,33 @@
 
 <script>
     import { XCircle, LoadMore , XTable, Group, dateFormat } from 'vux'
+    import { mapState } from 'vuex'
     export default{
         components: {
             XCircle, LoadMore, XTable, Group
         },
+        computed: {
+            ...mapState({
+                departmentId: state => state.departmentId
+            })
+        },
         mounted () {
             this.$dateFormat = dateFormat;
-            this.$http.get('overview').then(res =>{
+            this.$http.get(`overview/${this.departmentId}`).then(res =>{
                 this.overview = res.data;
             })
-            this.$http.get('logs', {
+            this.$http.get(`logs/${this.departmentId}`, {
                 NoNProgress: true
             }).then(res => {
                 this.logs = res.data.data;
             })
             this.timer = setInterval(() => {
-                this.$http.get('overview', {
+                this.$http.get(`overview/${this.departmentId}`, {
                     NoNProgress: true
                 }).then(res =>{
                     this.overview = res.data;
                 })
-                this.$http.get('logs', {
+                this.$http.get(`logs/${this.departmentId}`, {
                     NoNProgress: true
                 }).then(res => {
                     this.logs = res.data.data;
