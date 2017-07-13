@@ -73,7 +73,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         });
     }
 
-    public function classNumWithoutCache($major)
+    public function classesWithoutCache($major)
     {
         if ($major instanceof DepartmentClass) {
             $builder = $major->children();
@@ -83,14 +83,14 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         return $builder->orderBy('title')->get();
     }
 
-    public function classNums($major)
+    public function classes($major)
     {
         if ($major instanceof DepartmentClass) {
             $major = $major->id;
         }
 
-        return Cache::rememberForever('classNums:' . $major, function () use ($major) {
-            return $this->classNumWithoutCache($major);
+        return Cache::rememberForever('classess:' . $major, function () use ($major) {
+            return $this->classesWithoutCache($major);
         });
     }
 }
