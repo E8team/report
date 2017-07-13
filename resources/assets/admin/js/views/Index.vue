@@ -23,24 +23,42 @@
             </tr>
             </tbody>
         </x-table>
+        <group title="logs">
+            <div class="log">
+                <p v-for="log in logs">
+                    {{log.content}} <span class="time">{{$dateFormat(log.created_at, 'MM-DD HH:mm:ss')}}</span>
+                </p>
+            </div>
+        </group>
     </div>
 </template>
 
 <script>
-    import { XCircle, LoadMore , XTable } from 'vux'
+    import { XCircle, LoadMore , XTable, Group, dateFormat } from 'vux'
     export default{
         components: {
-            XCircle, LoadMore, XTable
+            XCircle, LoadMore, XTable, Group
         },
         mounted () {
+            this.$dateFormat = dateFormat;
             this.$http.get('overview').then(res =>{
                 this.overview = res.data;
+            })
+            this.$http.get('logs', {
+                NoNProgress: true
+            }).then(res => {
+                this.logs = res.data.data;
             })
             this.timer = setInterval(() => {
                 this.$http.get('overview', {
                     NoNProgress: true
                 }).then(res =>{
                     this.overview = res.data;
+                })
+                this.$http.get('logs', {
+                    NoNProgress: true
+                }).then(res => {
+                    this.logs = res.data.data;
                 })
             }, 3000);
         },
@@ -51,7 +69,8 @@
         data () {
             return {
                 overview: {},
-                timer: null
+                timer: null,
+                logs: []
             }
         }
     }
@@ -69,6 +88,25 @@
         font-size: 16px;
         color: #333;
         text-align: center;
+    }
+}
+.log{
+    background-color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+    >p{
+        line-height: 26px;
+        padding-right: 100px;
+        position: relative;
+        margin-bottom: 10px;
+        >.time{
+            top: 0;
+            position: absolute;
+            right: 0;
+            font-size: 12px;
+            color: #999;
+        }
     }
 }
 </style>
