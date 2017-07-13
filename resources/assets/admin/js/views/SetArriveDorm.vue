@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search @on-change="change" v-model="keyword" :auto-fixed="false"></search>
+        <search @on-change="change" v-model="keyword" :auto-fixed="false" placeholder="可按姓名，学号，拼音搜索"></search>
         <group>
             <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name">{{item.student_num}}</cell>
         </group>
