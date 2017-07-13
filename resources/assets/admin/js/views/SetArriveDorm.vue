@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search @on-change="change" v-model="keyword" :auto-fixed="false" placeholder="可按姓名，学号，拼音搜索"></search>
+        <search @on-change="change" @on-cancel="onCancel" @on-focus="onFocus" v-model="keyword" :auto-fixed="false" placeholder="可按姓名，学号，拼音搜索"></search>
         <group>
             <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name">{{item.student_num}}</cell>
         </group>
@@ -14,6 +14,14 @@
             Group, Cell, Search
         },
         methods: {
+            onFocus () {
+                this.keyword = '';
+                if(this.timer)
+                    clearInterval(this.timer);
+            },
+            onCancel () {
+                this.ajaxRefreshStart();
+            },
             change (newVal) {
                 this.notArriveDormStudents = this.originalNotArriveDormStudents.filter(item =>
                     (item.student_name.indexOf(newVal) === 0 ||
@@ -37,6 +45,16 @@
                         });
                     }
                 });
+            },
+            ajaxRefreshStart () {
+                this.timer = setInterval(() => {
+                    this.$http.get('not_arrive_dorm_students', {
+                        NoNProgress: true
+                    }).then(res => {
+                        this.notArriveDormStudents = res.data.data;
+                        this.originalNotArriveDormStudents = [...res.data.data];
+                    })
+                }, 3000)
             }
         },
         data () {
@@ -55,14 +73,7 @@
                 this.notArriveDormStudents = res.data.data;
                 this.originalNotArriveDormStudents = [...res.data.data];
             })
-            this.timer = setInterval(() => {
-                this.$http.get('not_arrive_dorm_students', {
-                    NoNProgress: true
-                }).then(res => {
-                    this.notArriveDormStudents = res.data.data;
-                    this.originalNotArriveDormStudents = [...res.data.data];
-                })
-            }, 3000)
+            this.ajaxRefreshStart();
         }
     }
 </script>
