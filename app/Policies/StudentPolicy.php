@@ -44,10 +44,6 @@ class StudentPolicy
             return false;
         if (!$this->belongTo($user, $student))
             return false;
-        $hasBeenReport = $student->hasBeenReport();
-        if (!$hasBeenReport) {
-            throw new AuthorizationException('该学生还没有报到！');
-        }
         return true;
     }
 

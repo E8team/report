@@ -91,12 +91,14 @@ class StudentsController extends AdminController
     public function cancelReport(Student $student)
     {
         $this->authorize('cancelReport', $student);
-        if (!is_null($student->arrive_dorm_at))
-            $student->arrive_dorm_at = null;
-        $this->cancelDorm($student);
-        $student->report_at = null;
-        event(new UserCanceledStudentReport($student, $this->guard()->user()));
-        $student->save();
+        if(!is_null($student->report_at)) {
+            if (!is_null($student->arrive_dorm_at))
+                $student->arrive_dorm_at = null;
+            $this->cancelDorm($student);
+            $student->report_at = null;
+            event(new UserCanceledStudentReport($student, $this->guard()->user()));
+            $student->save();
+        }
         return $this->response->noContent();
     }
 
