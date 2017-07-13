@@ -22,6 +22,7 @@ class StudentsController extends AdminController
 
     public function allowReport(Student $student)
     {
+
         $this->validatePermission('admin.allow_report');
         if(!$student->isAllowReport())
         {

@@ -48,7 +48,7 @@ class StudentReported implements LoggerInterface
 
     public function log()
     {
-        return "{$this->student->student_name}({$this->student->student_num}) 确认报到";
+        return "{$this->student->student_name}({$this->student->student_num}) 已确认报到";
     }
 
     public function departmentId()
