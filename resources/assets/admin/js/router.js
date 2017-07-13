@@ -23,6 +23,11 @@ export default new Router({
             component: require('./views/Detail.vue')
         },
         {
+            path: '/admin/set_arrive_dorm',
+            name: 'set_arrive_dorm',
+            component: require('./views/SetArriveDorm.vue')
+        },
+        {
             path: '*',
             redirect: '/admin/index'
         }

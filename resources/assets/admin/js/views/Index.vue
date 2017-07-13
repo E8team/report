@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="circle_wrapper">
-            <x-circle class="circle" :percent="30" :stroke-width="6" :trail-width="6" stroke-color="#3FC7FA" trail-color="#ececec">
-                <span :style="{color: '#3FC7FA'}">{{overview.reported_student_count / overview.student_count}}%</span>
+            <x-circle class="circle" :percent="Number((overview.reported_student_count / overview.student_count * 100).toFixed(2))" :stroke-width="6" :trail-width="6" stroke-color="#3FC7FA" trail-color="#ececec">
+                <span :style="{color: '#3FC7FA'}">{{(overview.reported_student_count / overview.student_count * 100).toFixed(2)}}%</span>
             </x-circle>
-            <p>报到人数：{{Math.floor(overview.reported_student_count / overview.student_count * 100) / 100}}</p>
+            <p>报到人数：{{overview.reported_student_count }}/{{overview.student_count}}</p>
         </div>
         <load-more style="margin-bottom: 10px;" tip="各专业报到情况" :show-loading="false" background-color="#fbf9fe"></load-more>
         <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
@@ -19,7 +19,7 @@
             <tr v-for="item in overview.majors">
                 <td>{{item.title}}</td>
                 <td>{{item.reported_student_count}}/{{item.student_count}}</td>
-                <td>{{Math.floor(item.reported_student_count / item.student_count * 100) / 100}}%</td>
+                <td>{{(item.reported_student_count / item.student_count * 100).toFixed(2)}}%</td>
             </tr>
             </tbody>
         </x-table>
@@ -42,7 +42,7 @@
                 }).then(res =>{
                     this.overview = res.data;
                 })
-            }, 3000)
+            }, 3000);
         },
         beforeDestroy () {
             if(this.timer)
