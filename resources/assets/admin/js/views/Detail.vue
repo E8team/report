@@ -19,11 +19,12 @@
                 <cell title="姓名" :value="studentInfo.student_name"></cell>
                 <cell title="班级" :value="studentInfo.department_class"></cell>
                 <cell title="身份证" :value="studentInfo.id_card_with_mosaic"></cell>
-                <x-switch title="是否报到" v-model="isReport"></x-switch>
-                <cell title="报到时间" v-if="isReport" :value="studentInfo.report_at"></cell>
-                <cell title="到宿时间" v-if="isReport" :value="studentInfo.arrive_dorm_at != null ? studentInfo.arrive_dorm_at : '尚未到宿'"></cell>
+                <x-switch ref="isAllowReportSwitch" title="允许报到" v-model="allowReport"></x-switch>
+                <x-switch ref="isReportSwitch" v-if="allowReport" title="是否报到" v-model="isReport"></x-switch>
+                <cell title="报到时间" v-if="isReport && allowReport" :value="studentInfo.report_at"></cell>
+                <cell title="到宿时间" v-if="isReport && allowReport" :value="studentInfo.arrive_dorm_at != null ? studentInfo.arrive_dorm_at : '尚未到宿'"></cell>
             </group>
-            <box gap="10px" v-if="isReport">
+            <box gap="10px" v-if="isReport && allowReport">
                 <load-more style="margin-bottom: 10px;" tip="可选宿舍" :show-loading="false" background-color="#fbf9fe"></load-more>
                 <checker
                     v-model="selectedDormId"
@@ -58,7 +59,9 @@
                 keyword: '',
                 studentInfo: {},
                 selectedDormId: null,
-                availableDormitories: []
+                availableDormitories: [],
+                isReportCancel: false,
+                isAllowReportCancel: false,
             }
         },
         watch: {
@@ -88,21 +91,79 @@
             }
         },
         computed: {
+            allowReport: {
+                get () {
+                    return this.studentInfo.allow_report_at != null
+                },
+                set (newValue) {
+                    if(this.isAllowReportCancel){
+                        this.isAllowReportCancel = false;
+                        return;
+                    }
+                    if(newValue){
+                        this.$http.post(`students/${this.studentInfo.id}/allow_report`).then(res => {
+                            this.$vux.toast.show({
+                                text: '已允许报到'
+                            })
+                            this.studentInfo.allow_report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
+                        })
+                    }else{
+                        const _this = this
+                        this.$vux.confirm.show({
+                            title: '取消允许报到？',
+                            content: `取消允许报到后，该同学选择的宿舍也将取消，是否取消报到？`,
+                            onConfirm () {
+                                _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
+                                    _this.$vux.toast.show({
+                                        text: '已取消允许报到'
+                                    })
+                                    _this.studentInfo.allow_report_at = null;
+                                })
+                            },
+                            onCancel () {
+                                _this.$refs['isAllowReportSwitch'].currentValue = true;
+                                _this.isAllowReportCancel = true;
+                            }
+                        })
+                    }
+                }
+            },
             isReport: {
                 get () {
                     return this.studentInfo.report_at != null
                 },
                 set (newValue) {
-                    this.$http.post(`students/${this.studentInfo.id}/${newValue ? 'set_report' : 'cancel_report'}`).then(res => {
-                        Vue.$vux.toast.show({
-                            text: newValue ? '设置报到成功' : '取消报到成功',
-                        })
-                        if(newValue){
+                    if(this.isReportCancel){
+                        this.isReportCancel = false;
+                        return;
+                    }
+                    if(newValue){
+                        this.$http.post(`students/${this.studentInfo.id}/set_report`).then(res => {
+                            this.$vux.toast.show({
+                                text: '设置报到成功',
+                            })
                             this.studentInfo.report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
-                        }else{
-                            this.studentInfo.report_at = null;
-                        }
-                    })
+                            this.getAvailableDormitories(this.studentInfo.id);
+                        })
+                    }else{
+                        const _this = this
+                        this.$vux.confirm.show({
+                            title: '取消报到？',
+                            content: `取消报到后，该同学选择的宿舍也将取消，是否取消报到？`,
+                            onConfirm () {
+                                _this.$http.post(`students/${_this.studentInfo.id}/cancel_report`).then(res => {
+                                    _this.$vux.toast.show({
+                                        text: '取消报到成功'
+                                    })
+                                    _this.studentInfo.report_at = null;
+                                })
+                            },
+                            onCancel () {
+                                _this.$refs['isReportSwitch'].currentValue = true;
+                                _this.isReportCancel = true;
+                            }
+                        });
+                    }
                 }
             }
         },
@@ -121,8 +182,10 @@
                     this.studentInfo = res.data.data;
                     this.isFirst = true;
                     this.selectedDormId = this.studentInfo.dormitory.data.id;
+                    if(this.studentInfo.report_at != null){
+                        this.getAvailableDormitories(val.id);
+                    }
                 })
-                this.getAvailableDormitories(val.id);
             },
             getResult (val) {
                 this.$http.get(`students/${val}/search`).then(res => {

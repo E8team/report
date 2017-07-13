@@ -5,7 +5,7 @@
             <p class="title">2017新生自助报到</p>
         </div>
         <div class="input_box">
-            <div class="placeholder">支持简拼搜索 如:小明(xm)</div>
+            <div class="placeholder">试试简拼搜索 如:小明(xm)</div>
             <div class="input_container">
                 <input @click.stop type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
                 <button @click.stop="showInput" class="login_button">确认</button>
