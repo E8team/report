@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'e8',
+    'prefix' => 'e8_report',
     'ttl' => 60
 ];
