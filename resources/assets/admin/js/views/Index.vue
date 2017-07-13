@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p class="tip">此数据每三十秒更新一次</p>
         <div class="circle_wrapper">
             <x-circle class="circle" :percent="Number((overview.reported_student_count / overview.student_count * 100).toFixed(2))" :stroke-width="6" :trail-width="6" stroke-color="#3FC7FA" trail-color="#ececec">
                 <span :style="{color: '#3FC7FA'}">{{(overview.reported_student_count / overview.student_count * 100).toFixed(2)}}%</span>
@@ -100,6 +101,12 @@
 </script>
 
 <style lang="less" scoped>
+.tip{
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+}
 .circle_wrapper{
     margin: 30px 0 20px 0;
     >.circle{
