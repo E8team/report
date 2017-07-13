@@ -12,6 +12,7 @@
         <box gap="20px 20px">
             <x-button @click.native="reSelDorm" type="primary">重选宿舍</x-button>
             <x-button @click.native="logout" type="warn">退出</x-button>
+            <x-button @click.native="$router.push({name: 'feed_back'})">意见反馈</x-button>
         </box>
     </div>
 </template>

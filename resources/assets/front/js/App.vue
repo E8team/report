@@ -23,9 +23,6 @@
 
 <style lang="less">
     @import '~vux/src/styles/reset.less';
-    html,body{
-        font-size: 20px;
-    }
     body{
         background-color: #f5f5f5;
     }

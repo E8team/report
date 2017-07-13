@@ -180,7 +180,7 @@
                 width: 66px;
                 background: #fbfbfb;
                 color: #666;
-                font-size: .75rem;
+                font-size: 15px;
                 white-space: nowrap;
                 letter-spacing: -1px;
                 box-sizing: inherit;

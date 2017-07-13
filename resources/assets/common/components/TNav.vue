@@ -1,5 +1,5 @@
 <template>
-  <x-header :transition="headerTransition" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
+  <x-header :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
     <span :style="{'color': textcolor}">{{title}}</span>
   </x-header>
 </template>

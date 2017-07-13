@@ -38,6 +38,11 @@ export default new Router({
             component: require('./views/Final.vue')
         },
         {
+            path: '/feed_back',
+            name: 'feed_back',
+            component: require('../../common/views/Feedback.vue')
+        },
+        {
             path: '*',
             redirect: '/index'
         }
