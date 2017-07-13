@@ -41,11 +41,11 @@ class EventServiceProvider extends ServiceProvider
             LoggerListener::class
         ],
         UserSelectedStudentDorm::class => [
-            // StudentListener::class,
+            StudentListener::class,
             LoggerListener::class
         ],
         UserCancelStudentDorm::class => [
-            // StudentListener::class,
+            StudentListener::class,
             LoggerListener::class
         ],
         UserCancelStudentReport::class => [
