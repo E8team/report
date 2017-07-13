@@ -2,15 +2,12 @@
 
 namespace App\Events;
 
-use App\Models\Dormitory;
 use App\Models\Student;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
  * 学生取消选择宿舍后会触发此事件
@@ -45,7 +42,7 @@ class CancelDorm implements LoggerInterface
 
     public function logLevel()
     {
-        return LoggerInterface::NEEW_SHOW_LOG;
+        return LoggerInterface::NEED_SHOW_LOG;
     }
 
     public function log()

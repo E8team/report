@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\CancelDorm;
+use App\Events\LoginLogger;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
 use App\Events\UserCancelStudentDorm;
@@ -12,7 +13,7 @@ use App\Events\UserSetStudentArrivedDorm;
 use App\Events\UserSetStudentReported;
 use App\Listeners\LoggerListener;
 use App\Listeners\StudentListener;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -24,7 +25,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         StudentReported::class => [
-            StudentListener::class,
+            // StudentListener::class,
             LoggerListener::class
         ],
         SelectedDorm::class => [
@@ -36,23 +37,29 @@ class EventServiceProvider extends ServiceProvider
             LoggerListener::class
         ],
         UserSetStudentReported::class => [
-            StudentListener::class,
+            // StudentListener::class,
             LoggerListener::class
         ],
         UserSelectedStudentDorm::class => [
-            StudentListener::class,
+            // StudentListener::class,
             LoggerListener::class
         ],
         UserCancelStudentDorm::class => [
-            StudentListener::class,
+            // StudentListener::class,
             LoggerListener::class
         ],
         UserCancelStudentReport::class => [
-            StudentListener::class,
+            // StudentListener::class,
             LoggerListener::class
         ],
         UserSetStudentArrivedDorm::class => [
-            StudentListener::class,
+            // StudentListener::class,
+            LoggerListener::class
+        ],
+        Login::class => [
+            StudentListener::class
+        ],
+        LoginLogger::class => [
             LoggerListener::class
         ]
     ];

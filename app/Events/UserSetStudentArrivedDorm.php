@@ -43,7 +43,7 @@ class UserSetStudentArrivedDorm implements LoggerInterface
 
     public function logLevel()
     {
-        return LoggerInterface::NEEW_SHOW_LOG;
+        return LoggerInterface::NEED_SHOW_LOG;
     }
 
     public function log()

@@ -84,6 +84,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => '设置学生到达宿舍',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 10,
+                    'name' => 'admin.get_logs',
+                    'display_name' => '获取日志',
+                    'description' => '获取日志',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]
             ]
         );

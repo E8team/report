@@ -22,6 +22,18 @@ class LogRepository implements LogRepositoryInterface
 
     public function addLogByLoggerEvent(LoggerInterface $event)
     {
-        return $this->addLog(get_class($event), $event->log(), serialize($event), $event->logLevel());
+        $log = $event->log();
+        if(false !== $log)
+            return $this->addLog(get_class($event), $event->log(), serialize($event), $event->logLevel());
+        else
+            return null;
+    }
+
+    public function getLogs($logLevel = Log::NEED_SHOW_LOG,$limit = 10)
+    {
+        $queryBuilder = Log::query();
+        if(!is_null($logLevel))
+            $queryBuilder->where('log_level', $logLevel);
+        return $queryBuilder->recent()->orderBy('id', 'desc')->limit($limit)->get();
     }
 }
