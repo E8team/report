@@ -18,4 +18,9 @@ class UserSetStudentReported extends StudentReported
         parent::__construct($student);
         $this->user = $user;
     }
+
+    public function log()
+    {
+        return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为已报到";
+    }
 }

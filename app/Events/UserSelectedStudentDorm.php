@@ -21,4 +21,9 @@ class UserSelectedStudentDorm extends SelectedDorm
         parent::__construct($student, $dormitory);
         $this->user = $user;
     }
+
+    public function log()
+    {
+        return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 的宿舍设置为 {$this->dormitory->dorm_num}";
+    }
 }

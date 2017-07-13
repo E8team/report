@@ -2,10 +2,15 @@
 
 namespace App\Listeners;
 
+
 use App\Events\LoggerInterface;
+use App\Repositories\LogRepositoryInterface;
 
 class LoggerListener
 {
+
+    public $logRepository;
+
     /**
      * Create the event listener.
      *
@@ -13,7 +18,7 @@ class LoggerListener
      */
     public function __construct()
     {
-        //
+        $this->logRepository = app(LogRepositoryInterface::class);
     }
 
     /**
@@ -22,8 +27,8 @@ class LoggerListener
      * @param  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(LoggerInterface $event)
     {
-        // todo $event->log();
+        $this->logRepository->addLogByLoggerEvent($event);
     }
 }

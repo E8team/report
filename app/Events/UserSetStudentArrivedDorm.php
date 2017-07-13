@@ -41,8 +41,13 @@ class UserSetStudentArrivedDorm implements LoggerInterface
         return new PrivateChannel('channel-name');
     }
 
+    public function logLevel()
+    {
+        return LoggerInterface::NEEW_SHOW_LOG;
+    }
+
     public function log()
     {
-        return '';
+        return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为已到达宿舍";
     }
 }

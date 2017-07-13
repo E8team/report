@@ -41,8 +41,13 @@ class StudentReported implements LoggerInterface
         return new PrivateChannel('channel-name');
     }
 
+    public function logLevel()
+    {
+        return LoggerInterface::NEEW_SHOW_LOG;
+    }
+
     public function log()
     {
-        return '';
+        return "{$this->student->student_name}({$this->student->student_num}) 完成报到";
     }
 }
