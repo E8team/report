@@ -47,6 +47,7 @@ $api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
         $api->get('overview/{departmentId?}', 'DepartmentClassController@overview');
         $api->get('not_arrive_dorm_students/{departmentId?}', 'StudentsController@notArriveDormStudents');
         $api->get('logs/{departmentId?}', 'LogController@lists');
+        $api->get('all_departments', 'DepartmentClassController@allDepartments');
     });
 });
 

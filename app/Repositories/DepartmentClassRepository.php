@@ -22,7 +22,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
 
     public function allDepartmentsWithoutCache()
     {
-        return DepartmentClass::byParentId(0)->orderByKey()->get();
+        return DepartmentClass::byParentId(0)->orderBy('title')->get();
     }
 
     public function allDepartments()
@@ -39,7 +39,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         } elseif (is_numeric($department)) {
             $builder = DepartmentClass::byParentId($department);
         }
-        return $builder->orderByKey()->get();
+        return $builder->orderBy('title')->get();
     }
 
     public function grades($department)
@@ -59,7 +59,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         } elseif (is_numeric($grade)) {
             $builder = DepartmentClass::byParentId($grade);
         }
-        return $builder->orderByKey()->get();
+        return $builder->orderBy('title')->get();
 
     }
 
@@ -80,7 +80,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
         } elseif (is_numeric($major)) {
             $builder = DepartmentClass::byParentId($major);
         }
-        return $builder->orderByKey()->get();
+        return $builder->orderBy('title')->get();
     }
 
     public function classNums($major)
