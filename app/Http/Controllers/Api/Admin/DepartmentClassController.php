@@ -24,11 +24,12 @@ class DepartmentClassController extends AdminController
             $departmentId = $user->getDepartmentId();
         }
 
-        if(!Cache::has('overview_data')) {
-            Cache::put('overview_data', $this->getOverviewData($departmentId), Carbon::now()->addSeconds(30));
+        $cacheKey = 'overview_data:'.$departmentId;
+        if(!Cache::has($cacheKey)) {
+            Cache::put($cacheKey, $this->getOverviewData($departmentId), Carbon::now()->addSeconds(30));
         }
 
-        return Cache::get('overview_data');
+        return Cache::get($cacheKey);
     }
 
     private function getOverviewData($departmentId)
