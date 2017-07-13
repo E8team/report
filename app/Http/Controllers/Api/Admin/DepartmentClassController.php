@@ -8,13 +8,14 @@ use App\Models\DepartmentClass;
 use App\Models\Student;
 use App\Repositories\DepartmentClassRepositoryInterface;
 use App\Transformers\DepartmentClassTransformer;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Cache;
 
 class DepartmentClassController extends AdminController
 {
 
-    public function overview($departmentId = null, DepartmentClassRepositoryInterface $departmentClassRepository)
+    public function overview($departmentId = null)
     {
         //todo cache
         $this->validatePermission('admin.overview');
@@ -22,10 +23,20 @@ class DepartmentClassController extends AdminController
         if (!$user->isSuperAdmin() || is_null($departmentId)) {
             $departmentId = $user->getDepartmentId();
         }
+
+        if(!Cache::has('overview_data')) {
+            Cache::put('overview_data', $this->getOverviewData($departmentId), Carbon::now()->addSeconds(30));
+        }
+
+        return Cache::get('overview_data');
+    }
+
+    private function getOverviewData($departmentId)
+    {
         $data = [];
         $data['student_count'] = $this->getStudentCount($departmentId);
         $data['reported_student_count'] = 0;
-
+        $departmentClassRepository = app(DepartmentClassRepositoryInterface::class);
         $grade = $departmentClassRepository->grades($departmentId)->where('title', date('Y'))->first();
         $majors = $departmentClassRepository->majors($grade);
 
@@ -50,7 +61,6 @@ class DepartmentClassController extends AdminController
             ];
             $data['reported_student_count'] += $majorReportedStudentCount;
         }
-
         return $data;
     }
 
@@ -76,7 +86,7 @@ class DepartmentClassController extends AdminController
     {
         static $counts = null;
         if(is_null($counts)){
-            $counts = Cache::rememberForever('counts', function () {
+            $counts = Cache::rememberForever('student_counts', function () {
                 $departmentClassRepository = app(DepartmentClassRepositoryInterface::class);
                 $counts = [];
                 $allDepartments = $departmentClassRepository->allDepartments();
