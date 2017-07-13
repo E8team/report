@@ -20,6 +20,6 @@ interface DepartmentClassRepositoryInterface
 
     public function majors($grade);
 
-    public function classNums($major);
+    public function classes($major);
 
 }
