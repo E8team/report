@@ -23,6 +23,23 @@
             </tr>
             </tbody>
         </x-table>
+        <load-more style="margin-bottom: 10px;" tip="各班级报到情况" :show-loading="false" background-color="#fbf9fe"></load-more>
+        <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+            <thead>
+            <tr style="background-color: #F7F7F7">
+                <th>班级</th>
+                <th>人数</th>
+                <th>报到率</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in overview.classes">
+                <td>{{item.title}}</td>
+                <td>{{item.reported_student_count}}/{{item.student_count}}</td>
+                <td>{{(item.reported_student_count / item.student_count * 100).toFixed(2)}}%</td>
+            </tr>
+            </tbody>
+        </x-table>
         <group v-if="logs.length > 0" title="logs">
             <div class="log">
                 <p v-for="log in logs">
