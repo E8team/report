@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-view></router-view>
-        <tabbar v-if="$route.name !== 'login'">
+        <tabbar class="tabbar" v-if="$route.name !== 'login'">
             <tabbar-item link="/admin/index">
                 <img slot="icon" src="../images/all.png">
                 <span slot="label">总览</span>
@@ -35,10 +35,16 @@
     html,body{
         background-color: #FBF9FE;
     }
+    body{
+        padding-bottom: 60px;
+    }
     *{
         box-sizing: border-box;
     }
     ul, li{
         list-style: none;
+    }
+    .tabbar{
+        position: fixed!important;
     }
 </style>

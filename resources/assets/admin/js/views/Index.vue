@@ -100,6 +100,9 @@
         padding-right: 100px;
         position: relative;
         margin-bottom: 10px;
+        &:last-child{
+            margin-bottom: 0;
+        }
         >.time{
             top: 0;
             position: absolute;
