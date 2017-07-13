@@ -49,4 +49,9 @@ class CancelDorm implements LoggerInterface
     {
         return "{$this->student->student_name}({$this->student->student_num}) 取消选择了宿舍";
     }
+
+    public function departmentId()
+    {
+        return $this->student->getDepartmentId();
+    }
 }

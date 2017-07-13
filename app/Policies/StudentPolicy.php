@@ -19,7 +19,7 @@ class StudentPolicy
         if ($user->isSuperAdmin())
             return true;
 
-        return $user->department_id == $student->department_id;
+        return $user->getDepartmentId() == $student->getDepartmentId();
     }
 
     public function setReport(User $user, Student $student)

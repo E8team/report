@@ -15,7 +15,7 @@ class DepartmentClassController extends AdminController
         $this->validatePermission('admin.overview');
         $user = $this->guard()->user();
         if (!$user->isSuperAdmin() || is_null($departmentId)) {
-            $departmentId = $user->department_id;
+            $departmentId = $user->getDepartmentId();
         }
 
         $queryBuilder = Student::byDepartment($departmentId);

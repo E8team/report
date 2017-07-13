@@ -8,7 +8,7 @@ use App\Models\Log;
 
 interface LogRepositoryInterface
 {
-    public function addLog($eventName, $content, $serializeData, $logLevel);
+    public function addLog($eventName, $content, $logLevel, $departmentId, $serializeData);
     public function addLogByLoggerEvent(LoggerInterface $event);
-    public function getLogs($logLevel = Log::NEED_SHOW_LOG,$limit = 10);
+    public function getLogs($departmentId = null, $logLevel = Log::NEED_SHOW_LOG,$limit = 10);
 }

@@ -17,7 +17,8 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
+    CanResetPasswordContract,
+    UserInterface
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
     use EntrustUserTrait {
@@ -55,6 +56,11 @@ class User extends BaseModel implements
     public function department()
     {
         return $this->belongsTo(DepartmentClass::class, 'department_id');
+    }
+
+    public function getDepartmentId()
+    {
+        return $this->department_id;
     }
 
 }

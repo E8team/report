@@ -10,13 +10,14 @@ use App\Models\Log;
 
 class LogRepository implements LogRepositoryInterface
 {
-    public function addLog($eventName, $content, $serializeData, $logLevel)
+    public function addLog($eventName, $content, $logLevel, $departmentId, $serializeData)
     {
         return Log::create([
             'event_name' => $eventName,
             'content' => $content,
             'serialize_data' => $serializeData,
-            'log_level' => $logLevel
+            'log_level' => $logLevel,
+            'department_id' => $departmentId
         ]);
     }
 
@@ -24,14 +25,16 @@ class LogRepository implements LogRepositoryInterface
     {
         $log = $event->log();
         if(false !== $log)
-            return $this->addLog(get_class($event), $event->log(), serialize($event), $event->logLevel());
+            return $this->addLog(get_class($event), $event->log(), $event->logLevel(), $event->departmentId(), serialize($event));
         else
             return null;
     }
 
-    public function getLogs($logLevel = Log::NEED_SHOW_LOG,$limit = 10)
+    public function getLogs($departmentId = null, $logLevel = Log::NEED_SHOW_LOG,$limit = 10)
     {
         $queryBuilder = Log::query();
+        if(!is_null($departmentId))
+            $queryBuilder->where('department_id', $departmentId);
         if(!is_null($logLevel))
             $queryBuilder->where('log_level', $logLevel);
         return $queryBuilder->recent()->orderBy('id', 'desc')->limit($limit)->get();

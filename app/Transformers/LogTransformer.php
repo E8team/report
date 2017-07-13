@@ -14,6 +14,7 @@ class LogTransformer extends TransformerAbstract
         return [
             'id' => $log->id,
             'content' => $log->content,
+            'department_id' => $log->department_id,
             'created_at' => $log->created_at->toDateTimeString(),
             'updated_at' => $log->updated_at->toDateTimeString()
         ];

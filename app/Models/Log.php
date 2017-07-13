@@ -13,7 +13,7 @@ class Log extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'event_name', 'content', 'serialize_data', 'log_level'
+        'event_name', 'content', 'serialize_data', 'log_level', 'department_id'
     ];
     /**
      * The attributes that should be hidden for arrays.

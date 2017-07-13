@@ -20,6 +20,7 @@ class CreateLogsTable extends Migration
             $table->text('content');
             $table->mediumText('serialize_data');
             $table->unsignedTinyInteger('log_level')->index();
+            $table->unsignedInteger('department_id')->index();
             $table->timestamps();
         });
     }

@@ -50,4 +50,9 @@ class UserSetStudentArrivedDorm implements LoggerInterface
     {
         return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为已到达宿舍";
     }
+
+    public function departmentId()
+    {
+        return $this->user->getDepartmentId();
+    }
 }

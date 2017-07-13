@@ -24,7 +24,7 @@ class StudentsController extends AdminController
         if ($user->isSuperAdmin()) {
             $departmentId = null;
         } else {
-            $departmentId = $user->department_id;
+            $departmentId = $user->getDepartmentId();
         }
         if (is_numeric($keywords)) {
             $students = $userRepository->searchStudentsByStudentNum($keywords, $departmentId, 10, ['id', 'student_name', 'student_num']);
@@ -112,7 +112,7 @@ class StudentsController extends AdminController
         $this->validatePermission('admin.show');
         $user = $this->guard()->user();
         if (!$user->isSuperAdmin() || is_null($departmentId)) {
-            $departmentId = $user->department_id;
+            $departmentId = $user->getDepartmentId();
         }
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
         return $this->response->collection($students, (new StudentTransformer())->needPinyin());
