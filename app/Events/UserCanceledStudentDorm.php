@@ -10,7 +10,7 @@ use App\Models\User;
 /**
  * 后台管理员取消学生已选择的宿舍会触发此event
  */
-class UserCancelStudentDorm extends CancelDorm
+class UserCanceledStudentDorm extends CancelDorm
 {
 
     public $user;

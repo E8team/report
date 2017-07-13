@@ -40,6 +40,7 @@ class StudentTransformer extends TransformerAbstract
             'department_class' => $student->getDepartmentClass()->__toString(),
             'report_at' => $student->report_at ? $student->report_at->toDateTimeString() : $student->report_at,
             'arrive_dorm_at' => $student->arrive_dorm_at ? $student->arrive_dorm_at->toDateTimeString() : $student->arrive_dorm_at,
+            'allow_report_at' => $student->allow_report_at ? $student->allow_report_at->toDateTimeString() : $student->allow_report_at,
             'created_at' => $student->created_at->toDateTimeString(),
             'updated_at' => $student->updated_at->toDateTimeString()
         ];

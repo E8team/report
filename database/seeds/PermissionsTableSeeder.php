@@ -92,6 +92,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => '获取日志',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 11,
+                    'name' => 'admin.allow_report',
+                    'display_name' => '允许学生报到',
+                    'description' => '允许学生报到',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]
             ]
         );

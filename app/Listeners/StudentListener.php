@@ -6,7 +6,7 @@ use App\Events\CancelDorm;
 use App\Events\LoginLogger;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
-use App\Events\UserCancelStudentReport;
+use App\Events\UserCanceledStudentReport;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

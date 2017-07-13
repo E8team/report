@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\Admin;
 
 
-use App\Events\UserCancelStudentDorm;
-use App\Events\UserCancelStudentReport;
+use App\Events\UserAllowedStudentReport;
+use App\Events\UserCanceledStudentDorm;
+use App\Events\UserCanceledStudentReport;
 use App\Events\UserSelectedStudentDorm;
 use App\Events\UserSetStudentArrivedDorm;
 use App\Events\UserSetStudentReported;
@@ -17,6 +18,19 @@ use Carbon\Carbon;
 
 class StudentsController extends AdminController
 {
+
+    public function allowReport(Student $student)
+    {
+        $this->validatePermission('admin.allow_report');
+        if(!$student->isAllowReport())
+        {
+            $student->is_allow_report = Carbon::now();
+            event(new UserAllowedStudentReport($student, $this->guard()->user()));
+            $student->save();
+        }
+        return $this->response->noContent();
+    }
+
     public function searchStudents($keywords, StudentRepositoryInterface $userRepository)
     {
         $this->validatePermission('admin.show');
@@ -67,7 +81,7 @@ class StudentsController extends AdminController
             $student->arrive_dorm_at = null;
         $this->cancelDorm($student);
         $student->report_at = null;
-        event(new UserCancelStudentReport($student, $this->guard()->user()));
+        event(new UserCanceledStudentReport($student, $this->guard()->user()));
         $student->save();
         return $this->response->noContent();
     }
@@ -97,7 +111,7 @@ class StudentsController extends AdminController
         if (!is_null($student->dormitorySelection)) {
             $oldDormitoryId = $student->dormitorySelection->dormitory_id;
             $student->dormitorySelection->delete();
-            event(new UserCancelStudentDorm($student, $oldDormitoryId, $this->guard()->user()));
+            event(new UserCanceledStudentDorm($student, $oldDormitoryId, $this->guard()->user()));
         }
         return $this->response->noContent();
     }

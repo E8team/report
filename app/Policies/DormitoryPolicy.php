@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
+use App\Exceptions\NotAllowReportException;
 use App\Models\Dormitory;
 use App\Models\DormitorySelection;
 use App\Models\Student;
-use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use DB;
@@ -17,6 +17,8 @@ class DormitoryPolicy
 
     public function selectDorm(Student $student, Dormitory $dormitory)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$student->hasBeenReport())
             throw new AuthorizationException('您还没有报到！');
         if (DormitorySelection::where('student_id', $student->id)->count() > 0)

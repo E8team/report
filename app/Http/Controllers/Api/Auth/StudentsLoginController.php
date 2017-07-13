@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Exceptions\LoginFailed;
+use App\Exceptions\NotAllowReportException;
 use App\Http\Controllers\Api\StudentBaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -57,6 +58,10 @@ class StudentsLoginController extends StudentBaseController
      */
     protected function authenticated(Request $request, $user)
     {
+        if (!$user->isAllowReport()) {
+            $this->logout($request);
+            throw new NotAllowReportException();
+        }
         return $this->response->noContent();
     }
 
@@ -93,5 +98,22 @@ class StudentsLoginController extends StudentBaseController
     protected function guard()
     {
         return Auth::guard('web');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return $this->response->noContent();
     }
 }

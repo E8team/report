@@ -3,15 +3,13 @@
 namespace App\Providers;
 
 use App\Auth\StudentProvider;
+use App\Exceptions\NotAllowReportException;
 use App\Hashing\IdCardHasher;
 use App\Models\Dormitory;
-use App\Models\DormitorySelection;
 use App\Models\Student;
 use App\Policies\DormitoryPolicy;
 use App\Policies\StudentPolicy;
-use EasyWeChat\Core\Exceptions\HttpException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Auth;
 use Gate;
@@ -48,14 +46,16 @@ class AuthServiceProvider extends ServiceProvider
         );
 
         Gate::define('set-report', function (Student $student) {
-            $hasBeenReport = $student->hasBeenReport();
-            if ($hasBeenReport) {
+            if(!$student->isAllowReport())
+                throw new NotAllowReportException();
+            if ($student->hasBeenReport())
                 throw new AuthorizationException('您已经完成报到了！');
-            }
             return true;
         });
 
         Gate::define('cancel-dorm', function (Student $student) {
+            if(!$student->isAllowReport())
+                throw new NotAllowReportException();
             if (!$student->hasBeenReport())
                 throw new AuthorizationException('您还没有报到！');
             if ($student->hasBeenArriveDorm())

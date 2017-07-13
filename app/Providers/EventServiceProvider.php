@@ -6,8 +6,9 @@ use App\Events\CancelDorm;
 use App\Events\LoginLogger;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
-use App\Events\UserCancelStudentDorm;
-use App\Events\UserCancelStudentReport;
+use App\Events\UserAllowedStudentReport;
+use App\Events\UserCanceledStudentDorm;
+use App\Events\UserCanceledStudentReport;
 use App\Events\UserSelectedStudentDorm;
 use App\Events\UserSetStudentArrivedDorm;
 use App\Events\UserSetStudentReported;
@@ -44,16 +45,19 @@ class EventServiceProvider extends ServiceProvider
             StudentListener::class,
             LoggerListener::class
         ],
-        UserCancelStudentDorm::class => [
+        UserCanceledStudentDorm::class => [
             StudentListener::class,
             LoggerListener::class
         ],
-        UserCancelStudentReport::class => [
+        UserCanceledStudentReport::class => [
             // StudentListener::class,
             LoggerListener::class
         ],
         UserSetStudentArrivedDorm::class => [
             // StudentListener::class,
+            LoggerListener::class
+        ],
+        UserAllowedStudentReport::class => [
             LoggerListener::class
         ],
         Login::class => [

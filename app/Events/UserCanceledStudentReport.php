@@ -10,7 +10,7 @@ use App\Models\User;
 /**
  * 后台管理员设置为未报到会触发此event
  */
-class UserCancelStudentReport implements LoggerInterface
+class UserCanceledStudentReport implements LoggerInterface
 {
 
     public $studen;

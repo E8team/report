@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Exceptions\NotAllowReportException;
 use App\Models\Dormitory;
 use App\Models\DormitorySelection;
 use App\Models\Student;
@@ -24,19 +25,21 @@ class StudentPolicy
 
     public function setReport(User $user, Student $student)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.set_report'))
             return false;
         if (!$this->belongTo($user, $student))
             return false;
-        $hasBeenReport = $student->hasBeenReport();
-        if ($hasBeenReport) {
+        if ($student->hasBeenReport())
             throw new AuthorizationException('该学生已经完成报到了！');
-        }
         return true;
     }
 
     public function cancelReport(User $user, Student $student)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.cancel_report'))
             return false;
         if (!$this->belongTo($user, $student))
@@ -50,6 +53,8 @@ class StudentPolicy
 
     public function cancelDorm(User $user, Student $student)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.cancel_dormitory'))
             return false;
         if (!$this->belongTo($user, $student))
@@ -61,6 +66,8 @@ class StudentPolicy
 
     public function selectDorm(User $user, Student $student, Dormitory $dormitory)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.select_dormitory'))
             return false;
         if (!$this->belongTo($user, $student))
@@ -83,6 +90,8 @@ class StudentPolicy
 
     public function getAvailableDormitories(User $user, Student $student)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.get_available_dormitories'))
             return false;
         return $this->belongTo($user, $student);
@@ -90,6 +99,8 @@ class StudentPolicy
 
     public function setArriveDorm(User $user, Student $student)
     {
+        if(!$student->isAllowReport())
+            throw new NotAllowReportException();
         if (!$user->may('admin.set_arrive_dorm'))
             return false;
         return $this->belongTo($user, $student);

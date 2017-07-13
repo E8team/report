@@ -49,10 +49,9 @@ class Student extends BaseModel implements
      */
     protected $casts = [
         'gender' => 'boolean'
-
     ];
 
-    protected $dates = ['report_at', 'arrive_dorm_at', 'created_at', 'updated_at'];
+    protected $dates = ['report_at', 'arrive_dorm_at', 'allow_report_at', 'created_at', 'updated_at'];
 
     public function studentProfile()
     {
@@ -92,6 +91,11 @@ class Student extends BaseModel implements
     public function hasBeenArriveDorm()
     {
         return !is_null($this->arrive_dorm_at);
+    }
+
+    public function isAllowReport()
+    {
+        return !is_null($this->allow_report_at);
     }
 
     /**
