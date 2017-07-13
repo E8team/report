@@ -23,7 +23,7 @@
             </tr>
             </tbody>
         </x-table>
-        <group title="logs">
+        <group v-if="logs.length > 0" title="logs">
             <div class="log">
                 <p v-for="log in logs">
                     {{log.content}} <span class="time">{{$dateFormat(log.created_at, 'MM-DD HH:mm:ss')}}</span>
