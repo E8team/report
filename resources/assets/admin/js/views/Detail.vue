@@ -69,9 +69,11 @@
                                 this.$vux.toast.show({
                                     text: '选择宿舍成功'
                                 })
+                                this.getAvailableDormitories(this.studentInfo.id);
                             });
                             return;
                         }else {
+                            this.getAvailableDormitories(this.studentInfo.id);
                             this.$vux.toast.show({
                                 text: '已取消选择宿舍',
                                 position: 'top',
@@ -107,6 +109,11 @@
             onFocus () {
                 this.studentInfo = {}
             },
+            getAvailableDormitories (id) {
+                this.$http.get(`students/${id}/available_dormitories`).then(res => {
+                    this.availableDormitories = res.data.data;
+                })
+            },
             resultClick (val) {
                 this.keyword = /\d/.test(this.keyword[0]) ? val.student_num : val.student_name;
                 this.$http.get(`students/${val.id}?include=dormitory`).then(res => {
@@ -114,9 +121,7 @@
                     this.isFirst = true;
                     this.selectedDormId = this.studentInfo.dormitory.data.id;
                 })
-                this.$http.get(`students/${val.id}/available_dormitories`).then(res => {
-                    this.availableDormitories = res.data.data;
-                })
+                this.getAvailableDormitories(val.id);
             },
             getResult (val) {
                 this.$http.get(`students/${val}/search`).then(res => {
