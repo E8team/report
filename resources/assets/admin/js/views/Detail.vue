@@ -170,7 +170,8 @@
         },
         methods: {
             onFocus () {
-                this.studentInfo = {}
+                this.keyword = '';
+                this.studentInfo = {};
             },
             getAvailableDormitories (id) {
                 this.$http.get(`students/${id}/available_dormitories`).then(res => {
