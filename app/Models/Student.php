@@ -17,7 +17,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 class Student extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
+    CanResetPasswordContract,
+    UserInterface
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
@@ -118,6 +119,11 @@ class Student extends BaseModel implements
         if ($departmentClass instanceof DepartmentClass)
             $departmentClass = $departmentClass->id;
         return $query->where('department_class_id', $departmentClass);
+    }
+
+    public function getDepartmentId()
+    {
+        return $this->department_id;
     }
 
 }

@@ -12,13 +12,14 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
 /**
- * 学生取消选择宿舍后会触发此事件
+ * 登录事件 此事件专门用来记录log
  */
 class LoginLogger implements LoggerInterface
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $loginEvent;
+    public $user;
 
     /**
      * Create a new event instance.
@@ -28,6 +29,7 @@ class LoginLogger implements LoggerInterface
     public function __construct(Login $login)
     {
         $this->loginEvent = $login;
+        $this->user = $login->user;
     }
 
     /**
@@ -55,6 +57,10 @@ class LoginLogger implements LoggerInterface
             return "{$user->name}({$user->roles->first()->display_name}) 登录了";
         }
         return false;
+    }
 
+    public function departmentId()
+    {
+        return $this->loginEvent->user->getDepartmentId();
     }
 }

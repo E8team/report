@@ -53,4 +53,9 @@ class SelectedDorm implements LoggerInterface
     {
         return "{$this->student->student_name}({$this->student->student_num}) 选择了 {$this->dormitory->dorm_num} 宿舍";
     }
+
+    public function departmentId()
+    {
+        return $this->student->getDepartmentId();
+    }
 }

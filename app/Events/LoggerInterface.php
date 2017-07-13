@@ -16,4 +16,10 @@ interface LoggerInterface
      * @return string|false 如果返回 false 则此log不记录
      */
     public function log();
+
+    /**
+     * 获取学院id
+     * @return mixed
+     */
+    public function departmentId();
 }
