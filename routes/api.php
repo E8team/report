@@ -50,3 +50,7 @@ $api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
     });
 });
 
+// 获取反馈类型
+$api->get('feedback_types', 'FeedbackController@feedbackTypes');
+// 提交反馈
+$api->post('feedback', 'FeedbackController@store');

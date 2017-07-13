@@ -13,10 +13,18 @@ class StudentProfilesSeeder extends Seeder
     public function run()
     {
         DB::table('student_profiles')->insert([
-            'student_id' => 10000,
-            'graduate_school' => '含山县职教中心',
-            'come_from' => '安徽省马鞍山市含山县',
-            'tel' => '13956460801'
-        ]);
+                [
+                    'student_id' => 10000,
+                    'graduate_school' => 'abc中学',
+                    'come_from' => '安徽省马鞍山市含山县',
+                    'tel' => '13911111111'
+                ],
+                [
+                    'student_id' => 10001,
+                    'graduate_school' => 'abc中学',
+                    'come_from' => '安徽省马鞍山市含山县',
+                    'tel' => '13911111111'
+                ]
+            ]);
     }
 }
