@@ -30,8 +30,8 @@
                     content: `确定${student.student_name}(${student.student_num})同学到达宿舍后设置`,
                     onConfirm () {
                         _this.$http.post(`students/${student.id}/set_arrive_dorm`).then(res => {
-                            this.notArriveDormStudents.splice(index, 1);
-                            this.$vux.toast.show({
+                            _this.notArriveDormStudents.splice(index, 1);
+                            _this.$vux.toast.show({
                                 text: '设置到宿成功'
                             })
                         });
