@@ -17,7 +17,7 @@
 </template>
 <script>
     import { Group, Cell, XButton, Box } from 'vux'
-    import TNav from '../components/TNav.vue'
+    import TNav from '../../../common/components/TNav.vue'
     import DormPoeple from '../components/DormPoeple.vue'
     export default{
         components: {

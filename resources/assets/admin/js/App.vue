@@ -6,13 +6,17 @@
                 <img slot="icon" src="../images/all.png">
                 <span slot="label">总览</span>
             </tabbar-item>
-            <tabbar-item show-dot link="/admin/detail">
+            <tabbar-item link="/admin/detail">
                 <img slot="icon" src="../images/set.png">
                 <span slot="label">管理</span>
             </tabbar-item>
-            <tabbar-item show-dot link="/admin/set_arrive_dorm">
+            <tabbar-item link="/admin/set_arrive_dorm">
                 <img slot="icon" src="../images/form.png">
                 <span slot="label">设置到宿</span>
+            </tabbar-item>
+            <tabbar-item link="/admin/feed_back">
+                <img slot="icon" src="../images/edit.png">
+                <span slot="label">反馈</span>
             </tabbar-item>
         </tabbar>
     </div>

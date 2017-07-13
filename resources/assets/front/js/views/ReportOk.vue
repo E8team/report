@@ -9,7 +9,7 @@
 
 <script>
     import { Msg } from 'vux'
-    import TNav from '../components/TNav.vue'
+    import TNav from '../../../common/components/TNav.vue'
     export default {
         components: {
             Msg, TNav

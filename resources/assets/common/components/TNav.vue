@@ -28,14 +28,6 @@
         default: true
       }
     },
-    computed:{
-      ...mapState({
-        direction: state => state.direction
-      }),
-      headerTransition () {
-          return this.direction === 'forward' ? 'vux-header-fade-in-right' : 'vux-header-fade-in-left'
-      },
-    },
     data () {
       return {
       }

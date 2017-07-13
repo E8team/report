@@ -57,7 +57,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
     }
     return Promise.reject(error);
 });
-import TNav from './components/TNav.vue'
+import TNav from '../../common/components/TNav.vue'
 Vue.component(TNav.name, TNav)
 
 

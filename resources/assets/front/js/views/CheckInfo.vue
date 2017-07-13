@@ -18,7 +18,7 @@
 
 <script>
     import { Group, Cell, XButton, Box } from 'vux'
-    import TNav from '../components/TNav.vue'
+    import TNav from '../../../common/components/TNav.vue'
     export default{
         components: {
            Group, Cell, XButton, TNav, Box

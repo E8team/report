@@ -28,6 +28,11 @@ export default new Router({
             component: require('./views/SetArriveDorm.vue')
         },
         {
+            path: '/admin/feed_back',
+            name: 'feed_back',
+            component: require('../../common/views/Feedback.vue')
+        },
+        {
             path: '*',
             redirect: '/admin/index'
         }
