@@ -7,6 +7,7 @@
             :results="results"
             position="absolute"
             auto-scroll-to-top
+            placeholder="可按姓名，学号，拼音搜索"
             @on-focus="onFocus"
             ref="search">
         </search>
@@ -169,7 +170,8 @@
         },
         methods: {
             onFocus () {
-                this.studentInfo = {}
+                this.keyword = '';
+                this.studentInfo = {};
             },
             getAvailableDormitories (id) {
                 this.$http.get(`students/${id}/available_dormitories`).then(res => {
