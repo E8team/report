@@ -37,7 +37,7 @@ $api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
         $api->get('students/{keywords}/search', 'StudentsController@searchStudents');
         $api->post('students/{student}/select_dorm/{dormitory}', 'StudentsController@selectDorm');
         $api->post('students/{student}/set_report', 'StudentsController@setReport');
-        $api->post('students/{student}/cancel_report', 'StudentsController@calcelReport');
+        $api->post('students/{student}/cancel_report', 'StudentsController@cancelReport');
         $api->post('students/{student}/cancel_dorm', 'StudentsController@cancelDorm');
         $api->post('students/{student}/set_arrive_dorm', 'StudentsController@setArriveDorm');
         $api->post('students/{student}/allow_report', 'StudentsController@allowReport');
@@ -48,3 +48,4 @@ $api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
         $api->get('logs/{departmentId?}', 'LogController@lists');
     });
 });
+

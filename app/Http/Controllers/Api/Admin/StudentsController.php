@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 
 use App\Events\UserAllowedStudentReport;
+use App\Events\UserCanceledAllowStudentReport;
 use App\Events\UserCanceledStudentDorm;
 use App\Events\UserCanceledStudentReport;
 use App\Events\UserSelectedStudentDorm;
@@ -24,8 +25,21 @@ class StudentsController extends AdminController
         $this->validatePermission('admin.allow_report');
         if(!$student->isAllowReport())
         {
-            $student->is_allow_report = Carbon::now();
+            $student->allow_report_at = Carbon::now();
             event(new UserAllowedStudentReport($student, $this->guard()->user()));
+            $student->save();
+        }
+        return $this->response->noContent();
+    }
+
+    public function cancelAllowReport(Student $student)
+    {
+        $this->validatePermission('admin.cancel_allow_report');
+        if($student->isAllowReport())
+        {
+            $this->cancelReport($student);
+            $student->allow_report_at = null;
+            event(new UserCanceledAllowStudentReport($student, $this->guard()->user()));
             $student->save();
         }
         return $this->response->noContent();
@@ -74,7 +88,7 @@ class StudentsController extends AdminController
      * @param Student $student
      * @return \Dingo\Api\Http\Response
      */
-    public function calcelReport(Student $student)
+    public function cancelReport(Student $student)
     {
         $this->authorize('cancelReport', $student);
         if (!is_null($student->arrive_dorm_at))

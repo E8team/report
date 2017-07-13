@@ -7,6 +7,7 @@ use App\Events\LoginLogger;
 use App\Events\SelectedDorm;
 use App\Events\StudentReported;
 use App\Events\UserAllowedStudentReport;
+use App\Events\UserCanceledAllowStudentReport;
 use App\Events\UserCanceledStudentDorm;
 use App\Events\UserCanceledStudentReport;
 use App\Events\UserSelectedStudentDorm;
@@ -65,6 +66,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LoginLogger::class => [
             LoggerListener::class
+        ],
+        UserCanceledAllowStudentReport::class => [
+
         ]
     ];
 

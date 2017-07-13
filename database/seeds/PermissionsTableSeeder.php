@@ -100,6 +100,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => '允许学生报到',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 12,
+                    'name' => 'admin.cancel_allow_report',
+                    'display_name' => '取消允许学生报到',
+                    'description' => '取消允许学生报到',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]
             ]
         );
