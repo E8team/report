@@ -10,6 +10,10 @@
                 <img slot="icon" src=".././images/set.png">
                 <span slot="label">管理</span>
             </tabbar-item>
+            <tabbar-item show-dot link="/admin/set_arrive_dorm">
+                <img slot="icon" src=".././images/set.png">
+                <span slot="label">管理2</span>
+            </tabbar-item>
         </tabbar>
     </div>
 </template>
