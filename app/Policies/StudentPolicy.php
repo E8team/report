@@ -90,8 +90,6 @@ class StudentPolicy
 
     public function getAvailableDormitories(User $user, Student $student)
     {
-        if(!$student->isAllowReport())
-            throw new NotAllowReportException();
         if (!$user->may('admin.get_available_dormitories'))
             return false;
         return $this->belongTo($user, $student);
