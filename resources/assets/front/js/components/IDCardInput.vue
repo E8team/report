@@ -50,6 +50,7 @@
         watch: {
             value (val) {
                 this.show = val
+                this.identityNums = []
             },
             show (val, oldVal) {
                 if(val !== oldVal){
