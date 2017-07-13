@@ -63,21 +63,22 @@
         watch: {
             selectedDormId () {
                 if (!this.isFirst) {
-                    this.$http.post(`students/${this.studentInfo.id}/cancel_dorm`);
-                    if(this.selectedDormId){
-                        this.$http.post(`students/${this.studentInfo.id}/select_dorm/${this.selectedDormId}`).then(res => {
+                    this.$http.post(`students/${this.studentInfo.id}/cancel_dorm`).then(res => {
+                        if(this.selectedDormId){
+                            this.$http.post(`students/${this.studentInfo.id}/select_dorm/${this.selectedDormId}`).then(res => {
+                                this.$vux.toast.show({
+                                    text: '选择宿舍成功'
+                                })
+                            });
+                            return;
+                        }else {
                             this.$vux.toast.show({
-                                text: '选择宿舍成功'
+                                text: '已取消选择宿舍',
+                                position: 'top',
+                                type: 'text'
                             })
-                        });
-                        return;
-                    }else {
-                        this.$vux.toast.show({
-                            text: '已取消选择宿舍',
-                            position: 'top',
-                            type: 'text'
-                        })
-                    }
+                        }
+                    })
                 }else{
                     this.isFirst = false;
                 }

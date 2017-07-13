@@ -3,16 +3,16 @@
         <router-view></router-view>
         <tabbar v-if="$route.name !== 'login'">
             <tabbar-item link="/admin/index">
-                <img slot="icon" src=".././images/all.png">
+                <img slot="icon" src="../images/all.png">
                 <span slot="label">总览</span>
             </tabbar-item>
             <tabbar-item show-dot link="/admin/detail">
-                <img slot="icon" src=".././images/set.png">
+                <img slot="icon" src="../images/set.png">
                 <span slot="label">管理</span>
             </tabbar-item>
             <tabbar-item show-dot link="/admin/set_arrive_dorm">
-                <img slot="icon" src=".././images/set.png">
-                <span slot="label">管理2</span>
+                <img slot="icon" src="../images/form.png">
+                <span slot="label">设置到宿</span>
             </tabbar-item>
         </tabbar>
     </div>
