@@ -31,7 +31,8 @@ class FeedbackController extends ApiController
     {
         // todo 每天提交超过n次 需要验证码
         $data = $request->all();
-        $data['contact'] = e($data['contact']);
+        if(isset($data['contact']))
+            $data['contact'] = e($data['contact']);
         $data['content'] = e($data['content']);
         $data['student_id'] = Auth::guard('web')->id();
         $data['user_id'] = Auth::guard('web_admin')->id();
