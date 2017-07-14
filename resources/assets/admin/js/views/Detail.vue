@@ -3,6 +3,7 @@
         <search
             @result-click="resultClick"
             @on-change="getResult"
+            @on-cancel="onCancel"
             v-model="keyword"
             :results="results"
             position="absolute"
@@ -84,6 +85,7 @@
                                 position: 'top',
                                 type: 'text'
                             })
+                            this.selectedDormId = null;
                         }
                     })
                 }else{
@@ -110,22 +112,33 @@
                         })
                     }else{
                         const _this = this
-                        this.$vux.confirm.show({
-                            title: '取消允许报到？',
-                            content: `取消允许报到后，该同学选择的宿舍也将取消，是否取消报到？`,
-                            onConfirm () {
-                                _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
-                                    _this.$vux.toast.show({
-                                        text: '已取消允许报到'
+                        if(_this.selectedDormId != null){
+                            this.$vux.confirm.show({
+                                title: '取消允许报到？',
+                                content: `取消允许报到后，该同学选择的宿舍也将取消，是否取消报到？`,
+                                onConfirm () {
+                                    _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
+                                        _this.$vux.toast.show({
+                                            text: '已取消允许报到'
+                                        })
+                                        _this.studentInfo.allow_report_at = null;
+                                        _this.selectedDormId = null;
                                     })
-                                    _this.studentInfo.allow_report_at = null;
+                                },
+                                onCancel () {
+                                    _this.$refs['isAllowReportSwitch'].currentValue = true;
+                                    _this.isAllowReportCancel = true;
+                                }
+                            })
+                        }else{
+                            _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
+                                _this.$vux.toast.show({
+                                    text: '已取消允许报到'
                                 })
-                            },
-                            onCancel () {
-                                _this.$refs['isAllowReportSwitch'].currentValue = true;
-                                _this.isAllowReportCancel = true;
-                            }
-                        })
+                                _this.studentInfo.allow_report_at = null;
+                            })
+                        }
+
                     }
                 }
             },
@@ -148,27 +161,41 @@
                         })
                     }else{
                         const _this = this
-                        this.$vux.confirm.show({
-                            title: '取消报到？',
-                            content: `取消报到后，该同学选择的宿舍也将取消，是否取消报到？`,
-                            onConfirm () {
-                                _this.$http.post(`students/${_this.studentInfo.id}/cancel_report`).then(res => {
-                                    _this.$vux.toast.show({
-                                        text: '取消报到成功'
+                        if(_this.selectedDormId != null) {
+                            this.$vux.confirm.show({
+                                title: '取消报到？',
+                                content: `取消报到后，该同学选择的宿舍也将取消，是否取消报到？`,
+                                onConfirm () {
+                                    _this.$http.post(`students/${_this.studentInfo.id}/cancel_report`).then(res => {
+                                        _this.$vux.toast.show({
+                                            text: '取消报到成功'
+                                        })
+                                        _this.studentInfo.report_at = null;
+                                        _this.selectedDormId = null;
                                     })
-                                    _this.studentInfo.report_at = null;
+                                },
+                                onCancel () {
+                                    _this.$refs['isReportSwitch'].currentValue = true;
+                                    _this.isReportCancel = true;
+                                }
+                            });
+                        }else{
+                            _this.$http.post(`students/${_this.studentInfo.id}/cancel_report`).then(res => {
+                                _this.$vux.toast.show({
+                                    text: '取消报到成功'
                                 })
-                            },
-                            onCancel () {
-                                _this.$refs['isReportSwitch'].currentValue = true;
-                                _this.isReportCancel = true;
-                            }
-                        });
+                                _this.studentInfo.report_at = null;
+                            })
+                        }
                     }
                 }
             }
         },
         methods: {
+            onCancel () {
+                this.keyword = '';
+                this.studentInfo = {};
+            },
             onFocus () {
                 this.keyword = '';
                 this.studentInfo = {};
