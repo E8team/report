@@ -6,9 +6,9 @@
         </div>
         <ul>
             <li v-for="student in students">
-                <div class="has_class">
+                <div :class="{'has_class': student.diff_class_name}">
                     {{student.student_name}}
-                    <span class="classes">15级网工2班</span>
+                    <span v-if="student.diff_class_name" class="classes">{{student.diff_class_name}}</span>
                 </div>
             </li>
         </ul>
