@@ -34,8 +34,13 @@
         },
         mounted () {
             document.title = '确认报到'
-            this.$http.get('me?include=student_profile').then(res => {
+            this.$http.get('me?include=student_profile,dormitory').then(res => {
                 this.studentInfo = res.data.data
+                if(this.studentInfo.dormitory.data.length !== 0){
+                    this.$router.replace({name: 'final'});
+                }else if(this.studentInfo.report_at !== null){
+                    this.$router.replace({name: 'report_ok'});
+                }
             })
         },
         methods: {

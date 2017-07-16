@@ -112,6 +112,8 @@
                         })
                     }else{
                         const _this = this
+                        this.studentInfo.allow_report_at_bak = this.studentInfo.allow_report_at;
+                        this.studentInfo.allow_report_at = null;
                         if(_this.selectedDormId != null){
                             this.$vux.confirm.show({
                                 title: '取消允许报到？',
@@ -120,14 +122,19 @@
                                     _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
                                         _this.$vux.toast.show({
                                             text: '已取消允许报到'
-                                        })
+                                        });
                                         _this.studentInfo.allow_report_at = null;
+                                        _this.isFirst = true;
                                         _this.selectedDormId = null;
+                                        _this.studentInfo.report_at = null;
+                                    }).catch(e => {
+                                        _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
                                     })
                                 },
                                 onCancel () {
                                     _this.$refs['isAllowReportSwitch'].currentValue = true;
                                     _this.isAllowReportCancel = true;
+                                    _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
                                 }
                             })
                         }else{
@@ -135,7 +142,10 @@
                                 _this.$vux.toast.show({
                                     text: '已取消允许报到'
                                 })
+                                _this.studentInfo.report_at = null;
                                 _this.studentInfo.allow_report_at = null;
+                            }).catch(e => {
+                                _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
                             })
                         }
 
