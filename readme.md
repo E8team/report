@@ -1,11 +1,6 @@
 <p align="center">
   <img style="max-width:50%" src="https://avatars1.githubusercontent.com/u/28562345?v=3&s=150">
 </p>
-<p align="center">
-<a href="https://packagist.org/packages/E8team/report"><img src="https://poser.pugx.org/E8team/report/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/E8team/report"><img src="https://poser.pugx.org/E8team/report/v/stable" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/E8team/report"><img src="https://poser.pugx.org/E8team/report/license.svg" alt="License"></a>
-</p>
 
 
 # 淮南师范学院2017新生报到
