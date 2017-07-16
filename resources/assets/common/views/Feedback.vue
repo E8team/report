@@ -63,6 +63,7 @@
                         title: '反馈成功',
                         content: '已经收到了您的反馈，我们将尽快处理。'
                     })
+                    this.$router.back();
                 }).catch(err => {
                     this.loading = false;
                     let content = '';
