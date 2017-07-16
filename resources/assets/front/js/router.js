@@ -20,6 +20,7 @@ export default new Router({
         },
         {
             path: '/report_ok',
+            name: 'report_ok',
             component: require('./views/ReportOk.vue')
         },
         {
