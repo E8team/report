@@ -24,7 +24,7 @@ class DepartmentClass extends BaseModel
 
     public function __toString()
     {
-        $str = ' (' . $this->getTitle() . ') 班';
+        $str = $this->getTitle().'班';
         if (!is_null($this->parent)) {
             $str = $this->parent->getTitle() . $str;
             if (!is_null($this->parent->parent)) {
@@ -33,6 +33,15 @@ class DepartmentClass extends BaseModel
                     $str = $this->parent->parent->parent->getTitle() . ' ' . $str;
                 }
             }
+        }
+        return $str;
+    }
+
+    public function __shortName()
+    {
+        $str = $this->getTitle().'班';
+        if (!is_null($this->parent)) {
+            $str = $this->parent->getTitle() . $str;
         }
         return $str;
     }

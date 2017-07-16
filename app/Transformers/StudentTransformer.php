@@ -10,6 +10,7 @@ class StudentTransformer extends TransformerAbstract
 {
 
     private $needPinyin;
+    private $needDiffClass = null;
     /**
      * Resources that can be included if requested.
      *
@@ -25,6 +26,12 @@ class StudentTransformer extends TransformerAbstract
     public function needPinyin()
     {
         $this->needPinyin = true;
+        return $this;
+    }
+
+    public function needDiffClass($departmentClassId)
+    {
+        $this->needDiffClass = $departmentClassId;
         return $this;
     }
 
@@ -54,6 +61,12 @@ class StudentTransformer extends TransformerAbstract
             ]);
         }
 
+        if(!is_null($this->needDiffClass) && $student->departmentClassId != $this->needDiffClass)
+        {
+            $data = array_merge($data, [
+                'diff_class_name' => $student->getDepartmentClass()->__shortName()
+            ]);
+        }
 
         return $data;
     }
