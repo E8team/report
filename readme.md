@@ -43,13 +43,15 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 ## 前端
-1. 安装 node.js
+### 1. 安装 node.js
 直接去官网 https://nodejs.org/ 下载安装最新版本。
-2. 安装前端依赖
+
+### 2. 安装前端依赖
 ```shell
 npm install
 ```
-### 4. 编译前端资源
+
+### 3. 编译前端资源
 ```shell
 npm run dev
 ```
