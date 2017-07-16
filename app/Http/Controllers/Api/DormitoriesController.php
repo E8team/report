@@ -29,7 +29,7 @@ class DormitoriesController extends StudentBaseController
     public function students(Dormitory $dormitory)
     {
         $studentIds = $dormitory->dormitorySelections->pluck('student_id');
-        return $this->response->collection(Student::find($studentIds), (new StudentTransformer())->needDiffClass($this->guard()->user()->department_class_id))
+        return $this->response->collection(Student::find($studentIds), (new StudentTransformer())->myClassId($this->guard()->user()->department_class_id))
             ->addMeta('dorm_num', $dormitory->dorm_num);
     }
 }

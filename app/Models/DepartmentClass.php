@@ -24,13 +24,13 @@ class DepartmentClass extends BaseModel
 
     public function __toString()
     {
-        $str = $this->getTitle().'班';
+        $str = '('.$this->getTitle().')班';
         if (!is_null($this->parent)) {
             $str = $this->parent->getTitle() . $str;
             if (!is_null($this->parent->parent)) {
-                $str = $this->parent->parent->getTitle() . '级 ' . $str;
+                $str = $this->parent->parent->getTitle() . '级' . $str;
                 if (!is_null($this->parent->parent->parent)) {
-                    $str = $this->parent->parent->parent->getTitle() . ' ' . $str;
+                    $str = $this->parent->parent->parent->getTitle() . $str;
                 }
             }
         }
