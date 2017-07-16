@@ -10,32 +10,47 @@
 <a href="https://packagist.org/packages/E8team/report"><img src="https://poser.pugx.org/E8team/report/license.svg" alt="License"></a>
 </p>
 
-## About
 
-淮南师范学院2017新生报到
+# 淮南师范学院2017新生报到
 
-## Install
+## 运行环境
+- PHP >= 5.6.4
+- Node >= 6.x
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
 
-### 1. Clone the source code or create new project.
+## 安装
+
+### 1. 克隆源代码
 
 ```shell
 git clone https://github.com/E8team/report.git
 cd report
+```
+
+### 2. 配置
+
+```shell
+cp .env.example .env
+```
+修改.env中的数据库相关配置
+
+### 3. 安装扩展包依赖
+```shell
 composer install
 ```
 
-### 3. Installation frontend
+## 前端
+1. 安装 node.js
+直接去官网 https://nodejs.org/ 下载安装最新版本。
+2. 安装前端依赖
 ```shell
 npm install
 ```
-
-### 4. Compile the frontend resources
+### 4. 编译前端资源
 ```shell
-// 开发环境
 npm run dev
-or
-// 生产环境
-npm run prod
 ```
 
 ## License
