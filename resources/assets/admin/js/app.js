@@ -13,8 +13,8 @@ if (token) {
 }
 
 import App from './App.vue';
-import NProgress from 'NProgress';
-import 'NProgress/nprogress.css'
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'
 import { AlertPlugin, ToastPlugin, ConfirmPlugin } from 'vux'
 
 Vue.use(ConfirmPlugin)
@@ -32,7 +32,7 @@ Vue.prototype.$http = axios.create({
 })
 Vue.prototype.$http.interceptors.request.use((config) => {
     if(!config.NoNProgress){
-        NProgress.start();
+        nprogress.start();
     }
     return config;
 }, (error) => {
@@ -40,10 +40,10 @@ Vue.prototype.$http.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 Vue.prototype.$http.interceptors.response.use((response) => {
-    NProgress.done();
+    nprogress.done();
     return response;
 }, (error) => {
-    NProgress.done();
+    nprogress.done();
     if(error.code === 'ECONNABORTED'){
         Vue.$vux.toast.show({
             text: '请求超时',
