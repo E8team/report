@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
             function (\Illuminate\Auth\AuthenticationException $exception) {
                 return response(
                     [
+                        'status_code' => 401,
                         'code' => 401.1,
                         'message' => trans('auth.please_login_first')
                     ], 401
@@ -52,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
             function (\Illuminate\Auth\Access\AuthorizationException $exception) {
                 return response(
                     [
+                        'status_code' => 401,
                         'code' => 401.3,
                         'message' => $exception->getMessage() == 'This action is unauthorized.' || empty($exception->getMessage())
                             ? trans('auth.no_permission') : $exception->getMessage()
@@ -63,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
             function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
                 return response(
                     [
+                        'status_code' => 404,
                         'code' => 404,
                         //todo 这里的错误显示需要处理
                         'message' => $exception->getMessage()
