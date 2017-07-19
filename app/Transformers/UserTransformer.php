@@ -16,6 +16,7 @@ class UserTransformer extends TransformerAbstract
             'id' => $user->id,
             'name' => $user->name,
             'gender' => $user->gender,
+            'gender_str'=> $user->gender?'女':'男',
             'department_id' => $user->department_id,
             'department' => $user->department->title,
             'is_super_admin' => $user->isSuperAdmin(),
