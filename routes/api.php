@@ -29,7 +29,7 @@ $api->group(['middleware' => 'auth:web'], function ($api) {
     $api->post('cancel_dorm', 'StudentsController@cancelDorm');
 });
 
-$api->group(['prefix' => 'admin', 'namespace' => 'admin'], function ($api) {
+$api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
     $api->post('login', 'LoginController@login');
     $api->post('logout', 'LoginController@logout');
     $api->group(['middleware' => 'auth:web_admin'], function ($api) {
