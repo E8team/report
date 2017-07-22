@@ -12,7 +12,7 @@ class StudentProfileTransformer extends TransformerAbstract
     public function transform(StudentProfile $studentProfile)
     {
         return [
-            'user_id' => $studentProfile->user_id,
+            'student_id' => $studentProfile->student_id,
             'graduate_school' => $studentProfile->graduate_school,
             'come_from' => $studentProfile->come_from,
             'tel' => $studentProfile->tel,
