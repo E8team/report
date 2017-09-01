@@ -5,7 +5,8 @@ namespace App\Models;
 
 class DepartmentClass extends BaseModel
 {
-
+    protected $fillable = ['title', 'short_title', 'sort', 'parent_id'];
+    public $timestamps = false;
     public function parent()
     {
         return $this->hasOne(DepartmentClass::class, 'id', 'parent_id');
@@ -22,6 +23,10 @@ class DepartmentClass extends BaseModel
     }
 
 
+    /**
+     * 学院->年级->专业->班级
+     * @return string
+     */
     public function __toString()
     {
         $str = '('.$this->getTitle().')班';

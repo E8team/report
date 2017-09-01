@@ -8,6 +8,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use DB;
+use Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if ($this->app->environment() !== 'production') {
+
+            DB::listen(function ($query) {
+                $sql = str_replace('?', '%s', $query->sql);
+                $sql = sprintf($sql, ...$query->bindings);
+                Log::info('sql', [$sql, $query->time]);
+            });
+        }
         Schema::defaultStringLength(191);
     }
 

@@ -30,7 +30,16 @@ class Student extends BaseModel implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'student_num',
+        'student_name',
+        'abbreviation_pinyin1',
+        'abbreviation_pinyin2',
+        'full_pinyin1',
+        'full_pinyin2',
+        'department_class_id',
+        'department_id',
+        'gender',
+        'id_card'
     ];
 
     /**

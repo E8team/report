@@ -93,4 +93,28 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
             return $this->classesWithoutCache($major);
         });
     }
+
+    // 学院->年级->专业->班级
+    public function getId($department, $grade, $major, $classNum)
+    {
+        // todo 这里可以通过缓存优化 减少查询数据库次数
+        $department = DepartmentClass::firstOrCreate(['title' => $department], [
+            'title' => $department,
+            'parent_id' => 0,
+        ]);
+        $grade = DepartmentClass::firstOrCreate(['parent_id' => $department->id, 'title' => $grade], [
+            'title' => $grade,
+            'short_title' => substr($grade, -2),
+            'parent_id' => $department->id,
+        ]);
+        $major = DepartmentClass::firstOrCreate(['parent_id' => $grade->id, 'title' => $major], [
+            'title' => $major,
+            'parent_id' => $grade->id,
+        ]);
+        $classNum = DepartmentClass::firstOrCreate(['parent_id' => $major->id, 'title' => $classNum], [
+            'title' => $classNum,
+            'parent_id' => $major->id,
+        ]);
+        return ['department_id' => $department->id, 'department_class_id' => $classNum->id];
+    }
 }

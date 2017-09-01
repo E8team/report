@@ -22,4 +22,6 @@ interface DepartmentClassRepositoryInterface
 
     public function classes($major);
 
+    public function getId($department, $grade, $major, $classNum);
+
 }
