@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use Dingo\Api\Exception\ValidationHttpException;
 use Dotenv\Exception\ValidationException;
-use EasyWeChat\Core\Exceptions\HttpException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AppServiceProvider extends ServiceProvider
 {

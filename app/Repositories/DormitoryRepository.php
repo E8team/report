@@ -7,9 +7,9 @@ use App\Models\Student;
 class DormitoryRepository implements DormitoryRepositoryInterface
 {
 
-    public function getAvailableDormitories(Student $user)
+    public function getAvailableDormitories(Student $student)
     {
-        return $user->getDepartmentClass()->dormitories()->where('dormitories.gender', $user->gender)->orderBy('dorm_num')->get();
+        return $student->getDepartmentClass()->dormitories()->where('dormitories.gender', $student->gender)->orderBy('dorm_num')->get();
     }
 
 }

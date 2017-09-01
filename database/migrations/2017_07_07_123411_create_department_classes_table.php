@@ -23,7 +23,7 @@ class CreateDepartmentClassesTable extends Migration
             $table->string('title');
             $table->string('short_title')->nullable();
             $table->unsignedInteger('parent_id')->index();
-            $table->unsignedInteger('sort')->default(0)->index();
+            $table->unsignedInteger('order')->default(0)->index();
         });
     }
 

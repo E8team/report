@@ -13,7 +13,6 @@ class Dormitory extends BaseModel
     protected $casts = [
         'gender' => 'boolean',
         'is_together_dormitory' => 'boolean'
-
     ];
 
     public function isInsertDormitoryNum()
@@ -73,4 +72,5 @@ class Dormitory extends BaseModel
     {
         return $this->hasMany(DormitorySelection::class);
     }
+
 }

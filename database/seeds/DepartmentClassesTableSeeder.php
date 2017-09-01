@@ -17,28 +17,28 @@ class DepartmentClasses extends Seeder
                 'title' => '计算机学院',
                 'short_title' => null,
                 'parent_id' => 0,
-                'sort' => 0
+                'order' => 0
             ],
             [
                 'id' => 2,
                 'title' => '2017',
                 'short_title' => '17',
                 'parent_id' => 1,
-                'sort' => 0
+                'order' => 0
             ],
             [
                 'id' => 3,
                 'title' => '网络工程',
                 'short_title' => '网工',
                 'parent_id' => 2,
-                'sort' => 0
+                'order' => 0
             ],
             [
                 'id' => 4,
                 'title' => '3',
                 'short_title' => null,
                 'parent_id' => 3,
-                'sort' => 0
+                'order' => 0
             ],
         ]);
     }
