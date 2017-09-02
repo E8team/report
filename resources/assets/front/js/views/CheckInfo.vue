@@ -6,9 +6,10 @@
             <cell title="姓名" :value="studentInfo.student_name"></cell>
             <cell title="性别" :value="studentInfo.gender ? '女' : '男'"></cell>
             <cell title="班级" :value="studentInfo.department_class"></cell>
-            <cell title="联系电话" :value="studentInfo.student_profile.data.tel"></cell>
+            <!--<cell title="联系电话" :value="studentInfo.student_profile.data.tel"></cell>-->
+            <cell title="生源地" :value="studentInfo.student_profile.data.place_of_student"></cell>
             <cell title="身份证" :value="studentInfo.id_card_with_mosaic"></cell>
-            <cell title="毕业中学" :value="studentInfo.student_profile.data.graduate_school"></cell>
+            <!--<cell title="毕业中学" :value="studentInfo.student_profile.data.graduate_school"></cell>-->
         </group>
         <box gap="20px 20px">
             <x-button plain @click.native="confirm" type="primary">确认报道</x-button>
