@@ -33,6 +33,7 @@ $api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
     $api->post('login', 'Auth\LoginController@login');
     $api->post('logout', 'Auth\LoginController@logout');
     $api->post('register', 'Auth\RegisterController@register');
+    $api->get('all_departments', 'DepartmentClassController@allDepartments');
     $api->group(['middleware' => 'auth:web_admin'], function ($api) {
         $api->get('me', 'UsersController@me');
         $api->get('students/{keywords}/search', 'StudentsController@searchStudents');
@@ -48,7 +49,6 @@ $api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
         $api->get('overview/{departmentId?}', 'DepartmentClassController@overview');
         $api->get('not_arrive_dorm_students/{departmentId?}', 'StudentsController@notArriveDormStudents');
         $api->get('logs/{departmentId?}', 'LogController@lists');
-        $api->get('all_departments', 'DepartmentClassController@allDepartments');
     });
 });
 
