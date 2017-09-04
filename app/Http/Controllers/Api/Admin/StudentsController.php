@@ -74,13 +74,11 @@ class StudentsController extends AdminController
      * 确定报到
      * @return \Dingo\Api\Http\Response
      */
-    public function setReport(Student $student, Request $request)
+    public function setReport(Student $student)
     {
         $this->authorize('setReport', $student);
-        $this->validate($request, ['bed_num' => 'required|integer']);
         $student->report_at = Carbon::now();
         event(new UserSetStudentReported($student, $this->guard()->user()));
-        $student->studentProfile()->update(['bed_num' => $request->get('bed_num')]);
         $student->save();
         return $this->response->noContent();
     }
@@ -153,10 +151,12 @@ class StudentsController extends AdminController
     /**
      * 设置学生到达宿舍
      */
-    public function setArriveDorm(Student $student)
+    public function setArriveDorm(Student $student, Request $request)
     {
         $this->authorize('setArriveDorm', $student);
         if (is_null($student->arrive_dorm_at)) {
+            $this->validate($request, ['bed_num' => 'required|integer']);
+            $student->studentProfile()->update(['bed_num' => $request->get('bed_num')]);
             $student->arrive_dorm_at = Carbon::now();
             event(new UserSetStudentArrivedDorm($student, $this->guard()->user()));
             $student->save();
