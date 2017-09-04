@@ -75,6 +75,7 @@
             line-height: 35px;
             font-size: 14px;
             border-bottom: 1px solid #F5F5F5;
+            text-align: center;
         }
         >.dorm_list{
             overflow: hidden;
