@@ -20,6 +20,7 @@ class CreateDormitorySelectionsTable extends Migration
         Schema::create('dormitory_selections', function (Blueprint $table) {
             $table->unsignedInteger('student_id')->primary();
             $table->unsignedInteger('dormitory_id')->index();
+            $table->unsignedInteger('bed_num')->nullable()->comment('所选的床位号');
             $table->timestamps();
         });
     }

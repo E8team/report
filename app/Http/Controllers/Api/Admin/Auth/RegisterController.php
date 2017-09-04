@@ -38,7 +38,7 @@ class RegisterController extends AdminController
      */
     public function __construct()
     {
-        $this->middleware('guest:web_admin');
+        // $this->middleware('guest:web_admin');
     }
 
     /**
@@ -51,7 +51,7 @@ class RegisterController extends AdminController
     {
         return Validator::make($data, [
             'user_name' => ['required', 'alpha_dash', 'between:2,10'],
-            'name' => ['required', 'regex:/^[\u4E00-\u9FA5]+(·[\u4E00-\u9FA5]+)*$/', 'max:20'],
+            'name' => ['required', 'regex:/^[\x{4e00}-\x{9fa5}]+(·[\x{4e00}-\x{9fa5}]+)*$/', 'max:20'],
             'password' => 'required|string|min:6|confirmed',
             'department_id' => ['required', Rule::exists('department_classes', 'id')->where('parent_id', 0)],
             'role' => ['required', 'in:dz,xsh']

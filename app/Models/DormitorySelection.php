@@ -35,4 +35,9 @@ class DormitorySelection extends BaseModel
         return $this->belongsTo(Student::class);
     }
 
+    public function dormitory()
+    {
+        return $this->belongsTo(Dormitory::class);
+    }
+
 }

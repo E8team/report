@@ -19,16 +19,18 @@ class UserSetStudentArrivedDorm implements LoggerInterface
 
     public $student;
     public $user;
+    public $bedNum;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Student $student, User $user)
+    public function __construct(Student $student, User $user, $bedNum)
     {
         $this->student = $student;
         $this->user = $user;
+        $this->bedNum = $bedNum;
     }
 
     /**
@@ -48,7 +50,7 @@ class UserSetStudentArrivedDorm implements LoggerInterface
 
     public function log()
     {
-        return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为已到达宿舍";
+        return "{$this->user->name}({$this->user->roles->first()->display_name}) 将 {$this->student->student_name}({$this->student->student_num}) 设置为已到达宿舍，床位号为:{$this->bedNum}";
     }
 
     public function departmentId()

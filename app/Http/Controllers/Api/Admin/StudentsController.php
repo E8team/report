@@ -16,7 +16,10 @@ use App\Models\Student;
 use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
+use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class StudentsController extends AdminController
 {
@@ -156,9 +159,17 @@ class StudentsController extends AdminController
         $this->authorize('setArriveDorm', $student);
         if (is_null($student->arrive_dorm_at)) {
             $this->validate($request, ['bed_num' => 'required|integer']);
-            $student->studentProfile()->update(['bed_num' => $request->get('bed_num')]);
+            $bedNum = $request->get('bed_num');
+            $dormitorySelection = DormitorySelection::findOrFail($student->id);
+            if ($bedNum > $dormitorySelection->dormitory->galleryful || $bedNum < 1) {
+                throw new ValidationHttpException(['bed_num' => "该床位号应该在 {$bedNum} 到 {$dormitorySelection->dormitory->galleryful} 之间"]);
+            }
+            $bedNums = DormitorySelection::where('dormitory_id', $dormitorySelection->dormitory_id)->get('bed_num')->filter();
+            if ($bedNums->contains($bedNum)) {
+                throw new ValidationHttpException(['bed_num' => "该床位号已经被选！"]);
+            }
             $student->arrive_dorm_at = Carbon::now();
-            event(new UserSetStudentArrivedDorm($student, $this->guard()->user()));
+            event(new UserSetStudentArrivedDorm($student, $this->guard()->user(), $bedNum));
             $student->save();
         }
         return $this->response->noContent();

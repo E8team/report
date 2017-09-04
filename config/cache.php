@@ -87,5 +87,5 @@ return [
     */
 
     'prefix' => 'e8_report',
-    'ttl' => 60
+    'ttl' => 120
 ];
