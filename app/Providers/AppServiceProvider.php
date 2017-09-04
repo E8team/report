@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Dingo\Api\Exception\ValidationHttpException;
-use Dotenv\Exception\ValidationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use DB;
 use Log;
@@ -21,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->environment() !== 'production') {
-
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
                 $sql = sprintf($sql, ...$query->bindings);
