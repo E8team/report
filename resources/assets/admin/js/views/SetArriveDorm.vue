@@ -4,15 +4,34 @@
         <group>
             <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name">{{item.student_num}}</cell>
         </group>
+        <div v-transfer-dom>
+            <x-dialog v-model="showConfirmDialog" class="dialog" hide-on-blur>
+                <div class="img-box">
+                    <header>设置到宿</header>
+                    <ul>
+                        <li @click="setArriveDorm(n)" class="key" v-for="n in 6" :key="n">{{n}}</li>
+                    </ul>
+                    <p class="tip">
+                        设置 {{currstudent.student_name}} 选择的床位
+                    </p>
+                </div>
+                <div @click="showConfirmDialog=false">
+                    <span class="vux-close"></span>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 </template>
 
 <script>
-    import { Group, Cell, Search } from 'vux';
+    import { Group, Cell, Search, XDialog, TransferDomDirective as TransferDom } from 'vux';
     import { mapState } from 'vuex';
     export default{
         components: {
-            Group, Cell, Search
+            Group, Cell, Search, XDialog
+        },
+        directives: {
+            TransferDom
         },
         methods: {
             onFocus () {
@@ -32,20 +51,33 @@
                     item.full_pinyin2.indexOf(newVal) === 0  ||
                     item.student_num.indexOf(newVal) === 0));
             },
-            setArrive (student, index) {
-                const _this = this;
-                this.$vux.confirm.show({
-                    title: '设置到宿？',
-                    content: `确定${student.student_name}(${student.student_num})同学到达宿舍后设置`,
-                    onConfirm () {
-                        _this.$http.post(`students/${student.id}/set_arrive_dorm`).then(res => {
-                            _this.notArriveDormStudents.splice(index, 1);
-                            _this.$vux.toast.show({
-                                text: '设置到宿成功'
-                            })
-                        });
-                    }
+            setArriveDorm (bedNum) {
+                this.$http.post(`students/${this.currstudent.id}/set_arrive_dorm`, {
+                    bed_num: bedNum
+                 }).then(res => {
+                    this.notArriveDormStudents.splice(this.currindex, 1);
+                    this.$vux.toast.show({
+                        text: '设置到宿成功'
+                    })
+                    this.showConfirmDialog = false;
                 });
+            },
+            setArrive (student, index) {
+                this.showConfirmDialog = true;
+                this.currstudent = student;
+                this.currindex = index;
+                // this.$vux.confirm.show({
+                //     title: '设置到宿？',
+                //     content: `确定${student.student_name}(${student.student_num})同学到达宿舍后设置`,
+                //     onConfirm () {
+                //         _this.$http.post(`students/${student.id}/set_arrive_dorm`).then(res => {
+                //             _this.notArriveDormStudents.splice(index, 1);
+                //             _this.$vux.toast.show({
+                //                 text: '设置到宿成功'
+                //             })
+                //         });
+                //     }
+                // });
             },
             ajaxRefreshStart () {
                 this.timer = setInterval(() => {
@@ -67,7 +99,10 @@
             return {
                 notArriveDormStudents: [],
                 originalNotArriveDormStudents: [],
-                keyword: ''
+                keyword: '',
+                showConfirmDialog: false,
+                currstudent: {},
+                currIndex: null
             }
         },
         beforeDestroy () {
@@ -85,5 +120,44 @@
 </script>
 
 <style lang="less" scoped>
-
+@import '~vux/src/styles/close';
+.dialog {
+  .weui-dialog{
+    border-radius: 8px;
+    padding-bottom: 8px;
+  }
+  .dialog-title {
+    line-height: 30px;
+    color: #666;
+  }
+  .img-box {
+    height: 300px;
+    overflow: hidden;
+    >header{
+        line-height: 45px;
+        color: #666;
+    }
+    >ul{
+        padding: 20px;
+        overflow: hidden;
+        .key{
+            width: 50%;
+            line-height: 60px;
+            border: 1px solid #eee;
+            float: left;
+            &:active{
+                background-color: #f5f5f5;
+            }
+        }
+    }
+    .tip{
+        font-size: 12px;
+        color: #999;
+    }
+  }
+  .vux-close {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
 </style>
