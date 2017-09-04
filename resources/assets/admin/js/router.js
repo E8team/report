@@ -46,7 +46,7 @@ export default new Router({
         ,
         {
             path: '/admin/register_ok',
-            name: 'registerOk',
+            name: 'register_ok',
             meta: {
                 noAuth: true
             },
