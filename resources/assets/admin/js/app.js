@@ -55,7 +55,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
             position: 'top',
             type: 'text'
         })
-        router.push({name: 'login'});
+       router.replace({name: 'login'});
     }else {
         if(error.config.noErrorTip){
             return Promise.reject(error);

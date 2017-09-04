@@ -3,9 +3,8 @@
         <div v-if="isSuperAdmin" class="drop_down" @click="showPopup = true">
             <img slot="icon" src="../images/set.png">
         </div>
-
         <router-view></router-view>
-        <tabbar class="tabbar" v-if="$route.name !== 'login'">
+        <tabbar class="tabbar" v-if="!$route.meta.noAuth">
             <tabbar-item link="/admin/index">
                 <img slot="icon" src="../images/all.png">
                 <span slot="label">总览</span>
@@ -64,20 +63,22 @@
             }
         },
         mounted () {
-            this.$http.get('me').then(res => {
-                this.isSuperAdmin = res.data.data.is_super_admin;
-                if(this.isSuperAdmin){
-                    this.updateDepartmentId(res.data.data.department_id);
-                    this.$http.get('all_departments').then(res => {
-                        this.allDepartments = res.data.data.map(item => {
-                            return {
-                                key: item.id,
-                                value: item.title
-                            }
+            if(!this.$route.meta.noAuth){
+                this.$http.get('me').then(res => {
+                    this.isSuperAdmin = res.data.data.is_super_admin;
+                    if(this.isSuperAdmin){
+                        this.updateDepartmentId(res.data.data.department_id);
+                        this.$http.get('all_departments').then(res => {
+                            this.allDepartments = res.data.data.map(item => {
+                                return {
+                                    key: item.id,
+                                    value: item.title
+                                }
+                            })
                         })
-                    })
-                }
-            });
+                    }
+                });
+            }
         }
     }
 </script>

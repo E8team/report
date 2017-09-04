@@ -15,6 +15,9 @@ export default new Router({
         {
             path: '/admin/login',
             name: 'login',
+            meta: {
+                noAuth: true
+            },
             component: require('./views/Login.vue')
         },
         {
@@ -31,6 +34,23 @@ export default new Router({
             path: '/admin/feed_back',
             name: 'feed_back',
             component: require('../../common/views/Feedback.vue')
+        },
+        {
+            path: '/admin/register',
+            name: 'register',
+            meta: {
+                noAuth: true
+            },
+            component: require('./views/Register.vue')
+        },
+        ,
+        {
+            path: '/admin/register_ok',
+            name: 'registerOk',
+            meta: {
+                noAuth: true
+            },
+            component: require('./views/RegisterOk.vue')
         },
         {
             path: '*',

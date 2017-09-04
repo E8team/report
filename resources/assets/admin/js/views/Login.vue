@@ -38,7 +38,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .logo{
         width: 100px;
         height: 100px;

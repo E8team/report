@@ -43,7 +43,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
             position: 'top',
             type: 'text'
         })
-        router.push({name: 'index'});
+        router.replace({name: 'index'});
     }else {
         if(error.config.noErrorTip){
             return Promise.reject(error);
