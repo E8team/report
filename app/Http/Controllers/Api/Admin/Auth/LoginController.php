@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\Admin\Auth;
 
 use App\Exceptions\LoginFailed;
+use App\Http\Controllers\Api\Admin\AdminController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -31,7 +32,7 @@ class LoginController extends AdminController
      */
     public function username()
     {
-        return 'name';
+        return 'user_name';
     }
 
     /**
@@ -42,9 +43,16 @@ class LoginController extends AdminController
      */
     protected function validateLogin(Request $request)
     {
+        $username = $this->username();
         $this->validate($request, [
-            $this->username() => ['required', 'string'],
-            'password' => ['required', 'string'],
+            $username => ['required', 'alpha_dash'],
+            'password' => ['required', 'string', 'min:6'],
+        ], [
+            $username . '.required' => '请输入用户名',
+            $username . '.alpha_dash' => '用户名只允许包含字母、数字、破折号（ - ）以及下划线（ _ ）',
+            $username . '.between' => '用户名只能在2到10个字符之间',
+            'password.required' => '请输入密码',
+            'password.min' => '密码最少6位',
         ]);
     }
 

@@ -23,9 +23,17 @@ class RolesTableSeeder extends Seeder
                 ],
                 [
                     'id' => 2,
-                    'name' => 'jsj_admin',
-                    'display_name' => '计算机学院管理员',
-                    'description' => '计算机学院管理员',
+                    'name' => 'student_union',
+                    'display_name' => '学生会',
+                    'description' => '学生会',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'dz',
+                    'display_name' => '党站',
+                    'description' => '党站',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ]

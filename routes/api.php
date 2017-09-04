@@ -30,8 +30,9 @@ $api->group(['middleware' => 'auth:web'], function ($api) {
 });
 
 $api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
-    $api->post('login', 'LoginController@login');
-    $api->post('logout', 'LoginController@logout');
+    $api->post('login', 'Auth\LoginController@login');
+    $api->post('logout', 'Auth\LoginController@logout');
+    $api->post('register', 'Auth\RegisterController@register');
     $api->group(['middleware' => 'auth:web_admin'], function ($api) {
         $api->get('me', 'UsersController@me');
         $api->get('students/{keywords}/search', 'StudentsController@searchStudents');
