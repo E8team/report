@@ -25,6 +25,7 @@ class CreateStudentProfilesTable extends Migration
             $table->char('tel', 11)->nullable()->comment('手机');
             $table->float('height')->nullable()->comment('身高 单位：厘米');
             $table->float('weight')->nullable()->comment('体重 单位：斤');
+            $table->unsignedTinyInteger('bed_num')->nullable()->comment('所选床位号');
             $table->text('remarks')->nullable()->comment('备注');
             $table->timestamps();
         });

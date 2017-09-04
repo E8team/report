@@ -16,6 +16,7 @@ use App\Models\Student;
 use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class StudentsController extends AdminController
 {
@@ -24,8 +25,7 @@ class StudentsController extends AdminController
     {
 
         $this->validatePermission('admin.allow_report');
-        if(!$student->isAllowReport())
-        {
+        if (!$student->isAllowReport()) {
             $student->allow_report_at = Carbon::now();
             event(new UserAllowedStudentReport($student, $this->guard()->user()));
             $student->save();
@@ -36,8 +36,7 @@ class StudentsController extends AdminController
     public function cancelAllowReport(Student $student)
     {
         $this->validatePermission('admin.cancel_allow_report');
-        if($student->isAllowReport())
-        {
+        if ($student->isAllowReport()) {
             $this->cancelReport($student);
             $student->allow_report_at = null;
             event(new UserCanceledAllowStudentReport($student, $this->guard()->user()));
@@ -75,11 +74,13 @@ class StudentsController extends AdminController
      * 确定报到
      * @return \Dingo\Api\Http\Response
      */
-    public function setReport(Student $student)
+    public function setReport(Student $student, Request $request)
     {
         $this->authorize('setReport', $student);
+        $this->validate($request, ['bed_num' => 'required|integer']);
         $student->report_at = Carbon::now();
         event(new UserSetStudentReported($student, $this->guard()->user()));
+        $student->studentProfile()->update(['bed_num' => $request->get('bed_num')]);
         $student->save();
         return $this->response->noContent();
     }
@@ -92,7 +93,7 @@ class StudentsController extends AdminController
     public function cancelReport(Student $student)
     {
         $this->authorize('cancelReport', $student);
-        if(!is_null($student->report_at)) {
+        if (!is_null($student->report_at)) {
             if (!is_null($student->arrive_dorm_at))
                 $student->arrive_dorm_at = null;
             $this->cancelDorm($student);
