@@ -164,7 +164,7 @@ class StudentsController extends AdminController
             if ($bedNum > $dormitorySelection->dormitory->galleryful || $bedNum < 1) {
                 throw new ValidationHttpException(['bed_num' => "该床位号应该在 {$bedNum} 到 {$dormitorySelection->dormitory->galleryful} 之间"]);
             }
-            $bedNums = DormitorySelection::where('dormitory_id', $dormitorySelection->dormitory_id)->get('bed_num')->filter();
+            $bedNums = DormitorySelection::where('dormitory_id', $dormitorySelection->dormitory_id)->get(['bed_num'])->filter();
             if ($bedNums->contains($bedNum)) {
                 throw new ValidationHttpException(['bed_num' => "该床位号已经被选！"]);
             }
