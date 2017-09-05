@@ -8,6 +8,18 @@ use Cache;
 
 class DepartmentClassRepository implements DepartmentClassRepositoryInterface
 {
+    public function getStudentsWithoutCache(DepartmentClass $departmentClass)
+    {
+        return $departmentClass->students()->orderBy('student_num')->get();
+    }
+
+    public function getStudents($departmentClass)
+    {
+        return Cache::rememberForever('department_class_students:' . $departmentClass->id, function () use ($departmentClass) {
+            return $this->getStudentsWithoutCache($departmentClass);
+        });
+    }
+
     public function getDepartmentClassWithoutCache($departmentClassId)
     {
         return DepartmentClass::findOrFail($departmentClassId)->load('parent.parent.parent');

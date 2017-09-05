@@ -7,17 +7,31 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Models\DepartmentClass;
 use App\Models\Student;
 use App\Repositories\DepartmentClassRepositoryInterface;
+use App\Repositories\DormitoryRepositoryInterface;
 use App\Transformers\DepartmentClassTransformer;
+use App\Transformers\DormitoryInclassTransformer;
+use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Cache;
 
 class DepartmentClassController extends AdminController
 {
+    public function dormitory(DepartmentClass $departmentClass)
+    {
+        $dormitories = app(DormitoryRepositoryInterface::class)->getDormitoriesFromCache($departmentClass);
+        return $this->response->collection($dormitories, new DormitoryInclassTransformer());
+    }
+
+    public function students(DepartmentClass $departmentClass)
+    {
+        $this->validatePermission('admin.overview');
+        $students = app(DepartmentClassRepositoryInterface::class)->getStudents($departmentClass);
+        return $this->response->collection($students, new StudentTransformer());
+    }
 
     public function overview($departmentId = null)
     {
-        //todo cache
         $this->validatePermission('admin.overview');
         $user = $this->guard()->user();
         if (!$user->isSuperAdmin() || is_null($departmentId)) {

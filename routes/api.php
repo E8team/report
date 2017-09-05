@@ -50,7 +50,9 @@ $api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
         $api->get('overview/{departmentId?}', 'DepartmentClassController@overview');
         $api->get('not_arrive_dorm_students/{departmentId?}', 'StudentsController@notArriveDormStudents');
         $api->get('logs/{departmentId?}', 'LogController@lists');
-    });
+        $api->get('department_class/{departmentClass}/students', 'DepartmentClassController@students');
+        $api->get('department_class/{departmentClass}/dormitory', 'DepartmentClassController@dormitory');
+;    });
 });
 
 // 获取反馈类型
