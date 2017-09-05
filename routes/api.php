@@ -45,6 +45,7 @@ $api->group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($api) {
         $api->post('students/{student}/allow_report', 'StudentsController@allowReport');
         $api->post('students/{student}/cancel_allow_report', 'StudentsController@cancelAllowReport');
         $api->get('students/{student}/available_dormitories', 'DormitoriesController@availableDormitories');
+        $api->get('students/{student}/available_bed_num', 'DormitoriesController@availableBedNum');
         $api->get('students/{student}', 'StudentsController@show');
         $api->get('overview/{departmentId?}', 'DepartmentClassController@overview');
         $api->get('not_arrive_dorm_students/{departmentId?}', 'StudentsController@notArriveDormStudents');
