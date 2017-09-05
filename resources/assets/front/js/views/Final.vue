@@ -1,6 +1,10 @@
 <template>
     <div>
         <TNav title="报到完成"></TNav>
+        <div class="alert">
+            点击加入群：<a href="https://jq.qq.com/?_wv=1027&k=5rrULFq">【淮师17-E8网络工作室】</a>
+            <p>手动加群：573687454</p>
+        </div>
         <group>
             <cell title="学号" :value="studentInfo.student_num"></cell>
             <cell title="姓名" :value="studentInfo.student_name"></cell>
@@ -65,3 +69,17 @@
         }
     }
 </script>
+
+<style scoped lang="less">
+    .alert{
+        font-size: 13px;
+        margin: 10px;
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        padding: 10px;
+        border: 1px solid #faebcc;
+        border-radius: 4px;
+        margin-top: 20px;
+        line-height: 23px;
+    }
+</style>
