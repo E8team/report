@@ -32,6 +32,7 @@
                     v-model="selectedDormId"
                     default-item-class="dorm_select_item"
                     selected-item-class="dorm_select_item_selected"
+                    class="checker"
                 >
                     <div class="dorm_select_item_wrapper" :key="dorm.id" v-for="dorm in availableDormitories">
                         <checker-item :value="dorm.id">
@@ -248,6 +249,9 @@
         font-size: 14px;
         color: #666;
         padding: 10px;
+    }
+    .checker{
+        overflow: hidden;
     }
     .dorm_select_item_wrapper{
         width: 33.33%;
