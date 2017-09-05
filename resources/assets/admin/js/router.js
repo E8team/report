@@ -2,15 +2,43 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router);
-
+const Parent = {
+    data () {
+      return {
+        transitionName: ''
+      }
+    },
+    beforeRouteUpdate (to, from, next) {
+      const toDepth = to.path.split('/').length
+      const fromDepth = from.path.split('/').length
+      this.transitionName = toDepth < fromDepth ? 'vux-pop-out' : 'vux-pop-in'
+      next()
+    },
+    template: `
+    <transition :name="transitionName">
+        <router-view class="router-view"></router-view>
+    </transition>
+    `
+  }
 export default new Router({
     mode: 'history',
     base: __dirname,
     routes: [
         {
             path: '/admin/index',
-            name: 'index',
-            component: require('./views/Index.vue')
+            component: Parent,
+            children: [
+                {
+                    path: '',
+                    name: 'index',
+                    component: require('./views/Index.vue'),
+                },
+                {
+                    path: 'class_detail/:id',
+                    name: 'class_detail',
+                    component: require('./views/ClassDetail.vue')
+                }
+            ]
         },
         {
             path: '/admin/login',
@@ -43,7 +71,6 @@ export default new Router({
             },
             component: require('./views/Register.vue')
         },
-        ,
         {
             path: '/admin/register_ok',
             name: 'register_ok',

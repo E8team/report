@@ -35,7 +35,7 @@
             </thead>
             <tbody>
             <tr v-for="item in overview.classes">
-                <td>{{item.title}}</td>
+                <td><router-link style="color: rgb(8, 121, 163);" :to="{name: 'class_detail', params: {id: item.id}}">{{item.title}}</router-link></td>
                 <td>{{item.reported_student_count}}/{{item.student_count}}</td>
                 <td>{{(item.reported_student_count / item.student_count * 100).toFixed(2)}}%</td>
             </tr>
