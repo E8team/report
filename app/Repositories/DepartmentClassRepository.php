@@ -85,11 +85,9 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
 
     public function classes($major)
     {
-        dd($major);
         if ($major instanceof DepartmentClass) {
             $major = $major->id;
         }
-
         return Cache::rememberForever('classess:' . $major, function () use ($major) {
             return $this->classesWithoutCache($major);
         });
