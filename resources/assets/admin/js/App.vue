@@ -110,6 +110,7 @@
         text-align: center;
         border: 1px solid #e1e1e1;
         border-radius: 10px;
+        z-index: 999;
         &:active{
             background-color: #f5f5f5;
         }

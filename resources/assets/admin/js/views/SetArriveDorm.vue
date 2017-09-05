@@ -2,14 +2,14 @@
     <div>
         <search @on-change="change" @on-cancel="onCancel" @on-focus="onFocus" v-model="keyword" :auto-fixed="false" placeholder="可按姓名，学号，拼音搜索"></search>
         <group>
-            <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name">{{item.student_num}}</cell>
+            <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name + '(' +item.student_num + ')'">{{item.dormitory.data.dorm_num}}</cell>
         </group>
         <div v-transfer-dom>
             <x-dialog v-model="showConfirmDialog" class="dialog" hide-on-blur>
                 <div class="img-box">
                     <header>设置到宿</header>
                     <ul>
-                        <li @click="setArriveDorm(n)" class="key" v-for="n in 6" :key="n">{{n}}</li>
+                        <li @click="setArriveDorm(n, $event.target)" :class="{'disabled': !availableBedNum.available_bed_num.some(item => item == n)}" class="key" v-for="n in availableBedNum.galleryful" :key="n">{{n}}</li>
                     </ul>
                     <p class="tip">
                         设置 {{currstudent.student_name}} 选择的床位
@@ -51,7 +51,10 @@
                     item.full_pinyin2.indexOf(newVal) === 0  ||
                     item.student_num.indexOf(newVal) === 0));
             },
-            setArriveDorm (bedNum) {
+            setArriveDorm (bedNum, dom) {
+                if(dom.className.indexOf('disabled') !== -1){
+                    return;
+                }
                 this.$http.post(`students/${this.currstudent.id}/set_arrive_dorm`, {
                     bed_num: bedNum
                  }).then(res => {
@@ -63,26 +66,20 @@
                 });
             },
             setArrive (student, index) {
+                this.$http.get(`students/${student.id}/available_bed_num`).then(res => {
+                    this.availableBedNum = res.data;
+                })
                 this.showConfirmDialog = true;
                 this.currstudent = student;
                 this.currindex = index;
-                // this.$vux.confirm.show({
-                //     title: '设置到宿？',
-                //     content: `确定${student.student_name}(${student.student_num})同学到达宿舍后设置`,
-                //     onConfirm () {
-                //         _this.$http.post(`students/${student.id}/set_arrive_dorm`).then(res => {
-                //             _this.notArriveDormStudents.splice(index, 1);
-                //             _this.$vux.toast.show({
-                //                 text: '设置到宿成功'
-                //             })
-                //         });
-                //     }
-                // });
             },
             ajaxRefreshStart () {
                 this.timer = setInterval(() => {
                     this.$http.get(`not_arrive_dorm_students/${this.departmentId}`, {
-                        NoNProgress: true
+                        NoNProgress: true,
+                        params: {
+                            include: 'dormitory'
+                        }
                     }).then(res => {
                         this.notArriveDormStudents = res.data.data;
                         this.originalNotArriveDormStudents = [...res.data.data];
@@ -102,7 +99,8 @@
                 keyword: '',
                 showConfirmDialog: false,
                 currstudent: {},
-                currIndex: null
+                currIndex: null,
+                availableBedNum: {}
             }
         },
         beforeDestroy () {
@@ -110,7 +108,11 @@
                 clearInterval(this.timer);
         },
         mounted () {
-            this.$http.get(`not_arrive_dorm_students/${this.departmentId}`).then(res => {
+            this.$http.get(`not_arrive_dorm_students/${this.departmentId}`, {
+                params: {
+                    include: 'dormitory'
+                }
+            }).then(res => {
                 this.notArriveDormStudents = res.data.data;
                 this.originalNotArriveDormStudents = [...res.data.data];
             })
@@ -146,6 +148,9 @@
             border: 1px solid #eee;
             float: left;
             &:active{
+                background-color: #f5f5f5;
+            }
+            &.disabled{
                 background-color: #f5f5f5;
             }
         }
