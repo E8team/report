@@ -28,7 +28,6 @@ export default {
         user_name: '',
         name: '',
         password: '',
-        rePassword: '',
         password_confirmation: '',
         department_id: null,
         role: null
