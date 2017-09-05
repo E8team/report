@@ -3,7 +3,9 @@
 namespace App\Transformers;
 
 
+use App\Models\Dormitory;
 use App\Models\Student;
+use App\Repositories\DormitoryRepository;
 use League\Fractal\TransformerAbstract;
 
 class StudentTransformer extends TransformerAbstract
@@ -83,7 +85,7 @@ class StudentTransformer extends TransformerAbstract
         if (is_null($dormitorySelection)) {
             return $this->null();
         } else {
-            $dormitory = $student->getDepartmentClass()->dormitories()->where('dormitories.id', $dormitorySelection->dormitory_id)->first();
+            $dormitory = app(DormitoryRepository::class)->getAvailableDormitories($student)->where('id', $dormitorySelection->dormitory_id)->first();
             return $this->item($dormitory, new DormitoryInclassTransformer());
         }
     }

@@ -17,6 +17,7 @@ use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ValidationHttpException;
+use Dingo\Api\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -148,6 +149,7 @@ class StudentsController extends AdminController
             $departmentId = $user->getDepartmentId();
         }
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
+        Response::getTransformer()->getAdapter()->disableEagerLoading();
         return $this->response->collection($students, (new StudentTransformer())->needPinyin());
     }
 
