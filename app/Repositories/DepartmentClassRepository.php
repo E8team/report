@@ -85,6 +85,7 @@ class DepartmentClassRepository implements DepartmentClassRepositoryInterface
 
     public function classes($major)
     {
+        dd($major);
         if ($major instanceof DepartmentClass) {
             $major = $major->id;
         }

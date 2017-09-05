@@ -40,7 +40,7 @@ class DepartmentClassController extends AdminController
         $departmentClassRepository = app(DepartmentClassRepositoryInterface::class);
         $grade = $departmentClassRepository->grades($departmentId)->where('title', date('Y'))->first();
         $majors = $departmentClassRepository->majors($grade);
-
+        dd($majors);
         foreach ($majors as $major) {
             $majorReportedStudentCount = 0;
             $classes = $departmentClassRepository->classes($major);
@@ -86,7 +86,7 @@ class DepartmentClassController extends AdminController
     private function getStudentCount($departmentClass)
     {
         static $counts = null;
-        if (is_null($counts)) {
+        if (empty($counts)) {
             $counts = Cache::rememberForever('student_counts', function () {
                 $departmentClassRepository = app(DepartmentClassRepositoryInterface::class);
                 $counts = [];

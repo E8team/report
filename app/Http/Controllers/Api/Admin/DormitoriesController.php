@@ -21,4 +21,9 @@ class DormitoriesController extends AdminController
         return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }
 
+
+    public function availableBedNum(){
+
+    }
+
 }
