@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\DepartmentClass;
 use App\Models\Student;
 use Cache;
 
@@ -10,9 +11,16 @@ class DormitoryRepository implements DormitoryRepositoryInterface
 
     public function getAvailableDormitories(Student $student)
     {
-        $availableDormitories = Cache::rememberForever('available_dormitories:' . $student->id, function () use ($student) {
-            return $student->getDepartmentClass()->dormitories()->orderBy('dorm_num')->get();
+        return $this->getDormitoriesFromCache($student->department_class_id)->where('dormitories.gender', $student->gender);
+    }
+
+    public function getDormitoriesFromCache($departmentClass)
+    {
+        if($departmentClass instanceof DepartmentClass){
+            $departmentClass = $departmentClass->id;
+        }
+        return Cache::rememberForever('department_class_dormitories:'.$departmentClass, function () use($departmentClass){
+            return app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClass)->dormitories()->orderBy('dorm_num')->get();
         });
-        return $availableDormitories->where('dormitories.gender', $student->gender);
     }
 }

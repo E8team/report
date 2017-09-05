@@ -47,6 +47,7 @@ class DepartmentClassController extends AdminController
             foreach ($classes as $class) {
                 $reportedStudentCount = Student::where('department_class_id', $class->id)->whereNotNull('report_at')->count();
                 $data['classes'][] = [
+                    'id' => $class->id,
                     'title' => "{$major->getTitle()}({$class->title})班",
                     'student_count' => $this->getStudentCount($class),
                     'reported_student_count' => $reportedStudentCount
