@@ -63,6 +63,9 @@
                 if (this.studentName.length === 0) {
                     return false
                 }
+                this.$nextTick(function () {
+                    this.isSel = false;
+                });
                 this.$http.get(`students/${this.studentName}/exist`).then(res => {
                     this.showIDCardInput = true
                 }).catch(e => {

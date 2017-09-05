@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     submit () {
-      // 报错信息
+      // todo 报错信息
       this.$http.post('register', this.formData).then(res => {
         this.$router.push({name: 'register_ok'});
       })
