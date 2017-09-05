@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Dormitory;
+use App\Models\DormitorySelection;
 use App\Models\Student;
 use App\Transformers\DormitoryInclassTransformer;
 use App\Transformers\StudentTransformer;
@@ -22,8 +23,19 @@ class DormitoriesController extends AdminController
     }
 
 
-    public function availableBedNum(){
-
+    public function availableBedNum(Student $student)
+    {
+        $this->authorize('getAvailableBedNum', $student);
+        $dormitorySelection = DormitorySelection::findOrFail($student->id);
+        $galleryful = $dormitorySelection->dormitory->galleryful;
+        $bedNums = DormitorySelection::where('dormitory_id', $dormitorySelection->dormitory_id)->get(['bed_num'])->filter(function ($item) {
+            return !is_null($item->bed_num);
+        });
+        $availableBedNum = array_diff(range(1, $galleryful), $bedNums->toArray());
+        return [
+            'galleryful' => $galleryful,
+            'available_bed_num' => $availableBedNum
+        ];
     }
 
 }

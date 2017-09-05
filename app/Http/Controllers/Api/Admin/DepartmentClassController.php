@@ -40,11 +40,10 @@ class DepartmentClassController extends AdminController
         $departmentClassRepository = app(DepartmentClassRepositoryInterface::class);
         $grade = $departmentClassRepository->grades($departmentId)->where('title', date('Y'))->first();
         $majors = $departmentClassRepository->majors($grade);
+        $data['classes'] = [];
         foreach ($majors as $major) {
             $majorReportedStudentCount = 0;
             $classes = $departmentClassRepository->classes($major);
-            var_dump($classes->toArray());
-            $data['classes'] = [];
             foreach ($classes as $class) {
                 $reportedStudentCount = Student::where('department_class_id', $class->id)->whereNotNull('report_at')->count();
                 $data['classes'][] = [

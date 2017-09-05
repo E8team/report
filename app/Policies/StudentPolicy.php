@@ -91,6 +91,13 @@ class StudentPolicy
         return $this->belongTo($user, $student);
     }
 
+    public function getAvailableBedNum(User $user, Student $student)
+    {
+        if (!$user->may('admin.get_available_bed_num'))
+            return false;
+        return $this->belongTo($user, $student);
+    }
+
     public function setArriveDorm(User $user, Student $student)
     {
         if(!$student->isAllowReport())

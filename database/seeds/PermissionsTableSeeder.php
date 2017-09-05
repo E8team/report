@@ -108,7 +108,15 @@ class PermissionsTableSeeder extends Seeder
                     'description' => '取消允许学生报到',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
-                ]
+                ],
+                [
+                    'id' => 13,
+                    'name' => 'admin.get_available_bed_num',
+                    'display_name' => '获取学生选择宿舍可选的床位号',
+                    'description' => '获取学生选择宿舍可选的床位号',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                ],
             ]
         );
     }
