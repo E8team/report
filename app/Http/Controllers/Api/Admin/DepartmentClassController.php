@@ -12,6 +12,7 @@ use App\Transformers\DepartmentClassTransformer;
 use App\Transformers\DormitoryInclassTransformer;
 use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
+use Dingo\Api\Http\Response;
 use Illuminate\Auth\Access\AuthorizationException;
 use Cache;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ class DepartmentClassController extends AdminController
         $departmentClass = app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClassId);
         $this->validatePermission('admin.overview');
         $students = $departmentClass->students()->byReport((bool)$request->get('is_report', false))->orderBy('student_num')->paginate($this->perPage());
+        $students->load('dormitorySelection');
+        Response::getTransformer()->getAdapter()->disableEagerLoading();
         return $this->response->paginator($students, new StudentTransformer())->addMeta('department_class_name', $departmentClass->__toString());
     }
 
