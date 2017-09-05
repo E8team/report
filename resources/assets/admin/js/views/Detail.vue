@@ -69,6 +69,9 @@
         watch: {
             selectedDormId () {
                 if (!this.isFirst) {
+                    if(this.selectedDormId == null){
+                        return;
+                    }
                     this.$http.post(`students/${this.studentInfo.id}/cancel_dorm`).then(res => {
                         if(this.selectedDormId){
                             this.$http.post(`students/${this.studentInfo.id}/select_dorm/${this.selectedDormId}`).then(res => {
@@ -117,7 +120,7 @@
                         if(_this.selectedDormId != null){
                             this.$vux.confirm.show({
                                 title: '取消允许报到？',
-                                content: `取消允许报到后，该同学选择的宿舍也将取消，是否取消报到？`,
+                                content: `取消允许报到后，该同学选择的宿舍也将取消，是否取消允许报到？`,
                                 onConfirm () {
                                     _this.$http.post(`students/${_this.studentInfo.id}/cancel_allow_report`).then(res => {
                                         _this.$vux.toast.show({

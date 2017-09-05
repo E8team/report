@@ -36,10 +36,21 @@ export default {
   },
   methods: {
     submit () {
-      // 报错信息
-      this.$http.post('register', this.formData).then(res => {
+      this.$http.post('register', this.formData, {
+        noErrorTip: true
+      }).then(res => {
         this.$router.push({name: 'register_ok'});
-      })
+      }).catch(err => {
+        const errors = err.response.data.errors;
+        let messageText = '';
+        for(let index in errors){
+          messageText += (errors[index] + '<br/>');
+        }
+        this.$vux.alert.show({
+          title: '输入有误',
+          content: messageText
+        })
+      });
     }
   },
   mounted () {
