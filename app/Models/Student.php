@@ -134,6 +134,20 @@ class Student extends BaseModel implements
         return $query->where('department_class_id', $departmentClass);
     }
 
+    public function scopeByReport($query, $isReport)
+    {
+        if ($isReport) {
+            return $query->whereNotNull('report_at');
+        } else {
+            return $query->whereNull('report_at');
+        }
+    }
+
+    public function scopeNotReport($query)
+    {
+        return $query->whereNull('reported_at');
+    }
+
     public function getDepartmentId()
     {
         return $this->department_id;

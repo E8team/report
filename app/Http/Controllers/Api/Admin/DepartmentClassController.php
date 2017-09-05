@@ -14,20 +14,23 @@ use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Cache;
+use Illuminate\Http\Request;
 
 class DepartmentClassController extends AdminController
 {
-    public function dormitory(DepartmentClass $departmentClass)
+    public function dormitory($departmentClassId)
     {
+        $departmentClass = app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClassId);
         $dormitories = app(DormitoryRepositoryInterface::class)->getDormitoriesFromCache($departmentClass);
         return $this->response->collection($dormitories, new DormitoryInclassTransformer());
     }
 
-    public function students(DepartmentClass $departmentClass)
+    public function students($departmentClassId, Request $request)
     {
+        $departmentClass = app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClassId);
         $this->validatePermission('admin.overview');
-        $students = $departmentClass->students()->orderBy('student_num')->paginate($this->perPage());
-        return $this->response->paginator($students, new StudentTransformer());
+        $students = $departmentClass->students()->byReport((bool)$request->get('is_report', false))->orderBy('student_num')->paginate($this->perPage());
+        return $this->response->paginator($students, new StudentTransformer())->addMeta('department_class_name', $departmentClass->__toString());
     }
 
     public function overview($departmentId = null)
