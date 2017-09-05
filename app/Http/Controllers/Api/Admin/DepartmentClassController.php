@@ -26,8 +26,8 @@ class DepartmentClassController extends AdminController
     public function students(DepartmentClass $departmentClass)
     {
         $this->validatePermission('admin.overview');
-        $students = app(DepartmentClassRepositoryInterface::class)->getStudents($departmentClass);
-        return $this->response->collection($students, new StudentTransformer());
+        $students = $departmentClass->students()->orderBy('student_num')->paginate($this->perPage());
+        return $this->response->paginator($students, new StudentTransformer());
     }
 
     public function overview($departmentId = null)

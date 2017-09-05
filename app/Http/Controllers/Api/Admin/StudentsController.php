@@ -149,6 +149,11 @@ class StudentsController extends AdminController
             $departmentId = $user->getDepartmentId();
         }
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
+        //dormitorySelection
+        $students->load('dormitorySelection');
+        $students = $students->filter(function ($student){
+            return !is_null($student->dormitorySelection);
+        });
         Response::getTransformer()->getAdapter()->disableEagerLoading();
         return $this->response->collection($students, (new StudentTransformer())->needPinyin());
     }

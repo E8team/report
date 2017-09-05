@@ -8,17 +8,17 @@ use Cache;
 
 class DepartmentClassRepository implements DepartmentClassRepositoryInterface
 {
-    public function getStudentsWithoutCache(DepartmentClass $departmentClass)
+    /*public function getStudentsWithoutCache(DepartmentClass $departmentClass)
     {
         return $departmentClass->students()->orderBy('student_num')->get();
     }
 
     public function getStudents($departmentClass)
     {
-        return Cache::rememberForever('department_class_students:' . $departmentClass->id, function () use ($departmentClass) {
-            return $this->getStudentsWithoutCache($departmentClass);
+        return Cache::rem('department_class_students:' . $departmentClass->id, function () use ($departmentClass) {
+            return $this->getStudentsWithoutCache();
         });
-    }
+    }*/
 
     public function getDepartmentClassWithoutCache($departmentClassId)
     {
