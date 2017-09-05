@@ -50,7 +50,7 @@ class RegisterController extends AdminController
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'user_name' => ['required', 'alpha_dash', 'between:2,10'],
+            'user_name' => ['required', 'alpha_dash', 'between:2,10', 'unique:users'],
             'name' => ['required', 'string', 'max:20'],
             'password' => 'required|string|min:6|confirmed',
             'department_id' => ['required', Rule::exists('department_classes', 'id')->where('parent_id', 0)],
