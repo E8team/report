@@ -1,20 +1,8 @@
 <?php
 
-Route::get('/import_dormitories', function (){
+Route::get('/import_dormitory', 'IndexController@showImportDormitoryForm');
 
-    $departmentClassRepository = app(\App\Repositories\DepartmentClassRepositoryInterface::class);
-    $grade = $departmentClassRepository->grades(1)->where('title', date('Y'))->first();
-    $majors = $departmentClassRepository->majors($grade);
-    $classes = collect();
-    foreach ($majors as $major) {
-        $classes = $classes->merge($departmentClassRepository->classes($major));
-    }
-    return view('import_dormitory', ['classes' => $classes]);
-});
-
-Route::post('/import_dormitories', function (){
-    return view('import_dormitory');
-})->name('import_dormitories');
+Route::post('/import_dormitory', 'IndexController@importDormitory')->name('import_dormitory');
 
 /*
 |--------------------------------------------------------------------------

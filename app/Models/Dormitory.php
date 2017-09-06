@@ -15,6 +15,9 @@ class Dormitory extends BaseModel
         'is_together_dormitory' => 'boolean'
     ];
 
+    protected $fillable = ['galleryful', 'dorm_num',
+        'insert_dormitory_num', 'is_together_dormitory', 'gender'];
+
     public function isInsertDormitoryNum()
     {
         return $this->insert_dormitory_num > 0;
