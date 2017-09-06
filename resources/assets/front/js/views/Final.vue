@@ -4,6 +4,7 @@
         <div class="alert">
             点击加入群：<a href="https://jq.qq.com/?_wv=1027&k=5rrULFq">【淮师17-E8网络工作室】</a>
             <p>手动加群：573687454</p>
+            <div class="ad">广告</div>
         </div>
         <group>
             <cell title="学号" :value="studentInfo.student_num"></cell>
@@ -81,5 +82,16 @@
         border-radius: 4px;
         margin-top: 20px;
         line-height: 23px;
+        position: relative;
+        .ad{
+            border: 1px solid #999;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 12px;
+            line-height: 14px;
+            padding: 1px;
+            color: #999;
+        }
     }
 </style>
