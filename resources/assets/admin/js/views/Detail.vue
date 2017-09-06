@@ -46,14 +46,30 @@
                 </checker>
             </box>
         </template>
+        <div v-transfer-dom>
+            <popup v-model="showReportInfoPopup" height="60%">
+                <div>
+                    <group title="请一定注意身高的单位是厘米,体重的单位是斤！！！">
+                        <x-input required title="身高(cm):" type="number" v-model.number="height"></x-input>
+                        <x-input required title="体重(斤):" type="number" v-model.number="weight"></x-input>
+                    </group>
+                    <box gap="20px 10px">
+                        <x-button type="primary" @click.native="setReport">设置报到</x-button>
+                    </box>
+                </div>
+            </popup>
+        </div>
     </div>
 </template>
 
 <script>
-    import { Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, dateFormat } from 'vux'
+    import { Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, dateFormat, TransferDomDirective as TransferDom, Popup, XInput, XButton  } from 'vux'
     export default {
         components: {
-            Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore
+            Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, Popup, XInput, XButton
+        },
+        directives: {
+            TransferDom
         },
         data () {
             return {
@@ -65,6 +81,9 @@
                 availableDormitories: [],
                 isReportCancel: false,
                 isAllowReportCancel: false,
+                showReportInfoPopup: false,
+                height: null,
+                weight: null
             }
         },
         watch: {
@@ -156,6 +175,47 @@
                     }
                 }
             },
+            setReport () {
+                if (!this.height) {
+                    Vue.$vux.toast.show({
+                        text: '请填写身高!',
+                        type: 'warn'
+                    })
+                    return;
+                }
+                if (!this.weight) {
+                    Vue.$vux.toast.show({
+                        text: '请填写体重!',
+                        type: 'warn'
+                    })
+                    return;
+                }
+                this.$http.post(`students/${this.studentInfo.id}/set_report`, {
+                    height: this.height,
+                    weight: this.weight
+                },{
+                    noErrorTip: true
+                }).then(res => {
+                    this.$vux.toast.show({
+                        text: '设置报到成功',
+                    })
+                    this.studentInfo.report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
+                    this.getAvailableDormitories(this.studentInfo.id);
+                    this.showReportInfoPopup = false;
+                    this.height =  null;
+                    this.weight =  null;
+                }).catch(err => {
+                    const errors = err.response.data.errors;
+                    let messageText = '';
+                    for(let index in errors){
+                        messageText += (errors[index] + '<br/>');
+                    }
+                    this.$vux.alert.show({
+                        title: '输入有误',
+                        content: messageText
+                    })
+                });
+            },
             isReport: {
                 get () {
                     return this.studentInfo.report_at != null
@@ -166,13 +226,7 @@
                         return;
                     }
                     if(newValue){
-                        this.$http.post(`students/${this.studentInfo.id}/set_report`).then(res => {
-                            this.$vux.toast.show({
-                                text: '设置报到成功',
-                            })
-                            this.studentInfo.report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
-                            this.getAvailableDormitories(this.studentInfo.id);
-                        })
+                        this.showReportInfoPopup = true;
                     }else{
                         const _this = this
                         if(_this.selectedDormId != null) {
@@ -221,8 +275,10 @@
             },
             resultClick (val) {
                 this.keyword = /\d/.test(this.keyword[0]) ? val.student_num : val.student_name;
-                this.$http.get(`students/${val.id}?include=dormitory`).then(res => {
+                this.$http.get(`students/${val.id}?include=dormitory,student_profile`).then(res => {
                     this.studentInfo = res.data.data;
+                    this.height = res.data.data.student_profile.data.height;
+                    this.weight = res.data.data.student_profile.data.weight;
                     this.isFirst = true;
                     this.selectedDormId = this.studentInfo.dormitory.data.id;
                     if(this.studentInfo.report_at != null){

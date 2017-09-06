@@ -84,7 +84,7 @@
                 }).then(res => {
                     this.logs = res.data.data;
                 })
-            }, 3000);
+            }, 6000);
         },
         beforeDestroy () {
             if(this.timer)

@@ -11,11 +11,11 @@
             </tabbar-item>
             <tabbar-item link="/admin/detail">
                 <img slot="icon" src="../images/set.png">
-                <span slot="label">管理</span>
+                <span slot="label">管理(机动)</span>
             </tabbar-item>
             <tabbar-item link="/admin/set_arrive_dorm">
                 <img slot="icon" src="../images/form.png">
-                <span slot="label">设置到宿</span>
+                <span slot="label">设置到宿(党站)</span>
             </tabbar-item>
             <tabbar-item link="/admin/feed_back">
                 <img slot="icon" src="../images/edit.png">

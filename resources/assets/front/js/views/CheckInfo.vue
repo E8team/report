@@ -11,6 +11,10 @@
             <cell title="身份证" :value="studentInfo.id_card_with_mosaic"></cell>
             <!--<cell title="毕业中学" :value="studentInfo.student_profile.data.graduate_school"></cell>-->
         </group>
+        <group title="我们收集身高体重信息用于定制校服，请一定注意身高的单位是厘米,体重的单位是斤！！！">
+            <x-input required title="身高(cm):" type="number" v-model.number="height"></x-input>
+            <x-input required title="体重(斤):" type="number" v-model.number="weight"></x-input>
+        </group>
         <box gap="20px 20px">
             <x-button plain @click.native="confirm" type="primary">确认报道</x-button>
         </box>
@@ -18,11 +22,11 @@
 </template>
 
 <script>
-    import { Group, Cell, XButton, Box } from 'vux'
+    import { Group, Cell, XButton, Box, XInput } from 'vux'
     import TNav from '../../../common/components/TNav.vue'
     export default{
         components: {
-           Group, Cell, XButton, TNav, Box
+           Group, Cell, XButton, TNav, Box, XInput
         },
         data () {
             return {
@@ -30,7 +34,9 @@
                     student_profile: {
                         data: {}
                     }
-                }
+                },
+                height: null,
+                weight: null
             }
         },
         mounted () {
@@ -46,14 +52,43 @@
         },
         methods: {
             confirm () {
+                if (!this.height) {
+                    Vue.$vux.toast.show({
+                        text: '请填写身高!',
+                        type: 'warn'
+                    })
+                    return;
+                }
+                if (!this.weight) {
+                    Vue.$vux.toast.show({
+                        text: '请填写体重!',
+                        type: 'warn'
+                    })
+                    return;
+                }
                 const _this = this;
                 this.$vux.confirm.show({
                     title: '确认报到？',
                     content: '请确认信息是否正确',
                     onCancel () {},
                     onConfirm () {
-                        _this.$http.post('set_report').then(res => {
+                        _this.$http.post('set_report', {
+                            height: _this.height,
+                            weight: _this.weight
+                        }, {
+                            noErrorTip: true
+                        }).then(res => {
                             _this.$router.push('/report_ok')
+                        }).catch(err => {
+                            const errors = err.response.data.errors;
+                            let messageText = '';
+                            for(let index in errors){
+                                messageText += (errors[index] + '<br/>');
+                            }
+                            _this.$vux.alert.show({
+                                title: '输入有误',
+                                content: messageText
+                            })
                         });
                     }
                 })
