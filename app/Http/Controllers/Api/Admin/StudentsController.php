@@ -78,10 +78,22 @@ class StudentsController extends AdminController
      * 确定报到
      * @return \Dingo\Api\Http\Response
      */
-    public function setReport(Student $student)
+    public function setReport(Student $student, Request $request)
     {
         $this->authorize('setReport', $student);
+        $heightAndWeight = $this->validate($request, [
+            'height' => 'required|numeric|between:0,250',
+            'weight' => 'required|numeric|between:0,200'
+        ], [
+            'height.required' => '请输入身高',
+            'height.numeric' => '身高必须为数字',
+            'height.between' => '身高必须在 0~250 之间',
+            'weight.required' => '请输入体重',
+            'weight.numeric' => '体重必须为数字',
+            'weight.between' => '体重必须在 0~200 之间',
+        ]);
         $student->report_at = Carbon::now();
+        $student->studentProfile()->update($heightAndWeight);
         event(new UserSetStudentReported($student, $this->guard()->user()));
         $student->save();
         return $this->response->noContent();
@@ -151,7 +163,7 @@ class StudentsController extends AdminController
         $students = Student::byDepartment($departmentId)->whereNotNull('report_at')->whereNull('arrive_dorm_at')->get();
         //dormitorySelection
         $students->load('dormitorySelection');
-        $students = $students->filter(function ($student){
+        $students = $students->filter(function ($student) {
             return !is_null($student->dormitorySelection);
         });
         Response::getTransformer()->getAdapter()->disableEagerLoading();

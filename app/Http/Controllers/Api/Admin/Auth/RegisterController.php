@@ -59,6 +59,7 @@ class RegisterController extends AdminController
             'user_name.required' => '请输入用户名',
             'user_name.alpha_dash' => '用户名只允许包含字母、数字、破折号（ - ）以及下划线（ _ ）',
             'user_name.between' => '用户名只能在2到10个字符之间',
+            'user_name.unique' => '用户名已存在',
             'name.required' => '请输入姓名',
             'name.regex' => '姓名输入有误',
             'name.max' => '姓名不能超过20字',
