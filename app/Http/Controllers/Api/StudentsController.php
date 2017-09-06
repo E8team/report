@@ -11,6 +11,7 @@ use App\Models\DormitorySelection;
 use App\Repositories\StudentRepositoryInterface;
 use App\Transformers\StudentTransformer;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class StudentsController extends StudentBaseController
 {
@@ -41,13 +42,26 @@ class StudentsController extends StudentBaseController
      * 确定报到
      * @return \Dingo\Api\Http\Response
      */
-    public function setReport()
+    public function setReport(Request $request)
     {
         $this->authorize('set-report');
+        $this->validate($request, [
+            'height' => 'required|numeric|between:0,250',
+            'weight' => 'required|numeric|between:0,250'
+        ], [
+            'height.required' => '请输入身高',
+            'height.numeric' => '身高必须为数字',
+            'height.between' => '身高必须在 :min ~ :max 之间',
+            'weight.required' => '请输入体重',
+            'weight.numeric' => '体重必须为数字',
+            'weight.between' => '体重必须在 :min ~ :max 之间',
+        ]);
+
         $student = $this->guard()->user();
         $student->report_at = Carbon::now();
         event(new StudentReported($student));
         $student->save();
+        $student->studentProfile()->update($request->only('height', 'weight'));
         return $this->response->noContent();
     }
 

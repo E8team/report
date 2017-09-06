@@ -93,9 +93,9 @@ class StudentsController extends AdminController
             'weight.between' => '体重必须在 :min ~ :max 之间',
         ]);
         $student->report_at = Carbon::now();
-        $student->studentProfile()->update($request->only('height', 'weight'));
         event(new UserSetStudentReported($student, $this->guard()->user()));
         $student->save();
+        $student->studentProfile()->update($request->only('height', 'weight'));
         return $this->response->noContent();
     }
 
