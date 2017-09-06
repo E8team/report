@@ -45,6 +45,7 @@ class StudentTransformer extends TransformerAbstract
             'student_name' => $student->student_name,
             'gender' => $student->gender,
             'gender_str'=> $student->gender?'女':'男',
+            'id_card' => $student->id_card,
             'id_card_with_mosaic' => $student->id_card_with_mosaic,
             'department_class_id' => $student->department_class_id,
             'department_class' => $student->getDepartmentClass()->__toString(),

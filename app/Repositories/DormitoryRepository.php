@@ -16,11 +16,12 @@ class DormitoryRepository implements DormitoryRepositoryInterface
 
     public function getDormitoriesFromCache($departmentClass)
     {
-        if($departmentClass instanceof DepartmentClass){
+        if ($departmentClass instanceof DepartmentClass) {
             $departmentClass = $departmentClass->id;
         }
-        return Cache::rememberForever('department_class_dormitories:'.$departmentClass, function () use($departmentClass){
-            return app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClass)->dormitories()->orderBy('dorm_num')->get();
-        });
+        // cache 问题
+        // return Cache::rememberForever('department_class_dormitories:'.$departmentClass, function () use($departmentClass){
+        return app(DepartmentClassRepositoryInterface::class)->getDepartmentClass($departmentClass)->dormitories()->orderBy('dorm_num')->get();
+        // });
     }
 }

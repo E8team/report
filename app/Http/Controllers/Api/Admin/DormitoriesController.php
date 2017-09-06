@@ -31,7 +31,7 @@ class DormitoriesController extends AdminController
         $bedNums = DormitorySelection::where('dormitory_id', $dormitorySelection->dormitory_id)->get(['bed_num'])->filter(function ($item) {
             return !is_null($item->bed_num);
         });
-        $availableBedNum = array_diff(range(1, $galleryful), $bedNums->toArray());
+        $availableBedNum = array_values(array_diff(range(1, $galleryful), $bedNums->pluck('bed_num')->toArray()));
         return [
             'galleryful' => $galleryful,
             'available_bed_num' => $availableBedNum

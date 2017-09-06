@@ -175,6 +175,8 @@ class StudentsController extends AdminController
             if ($bedNums->contains($bedNum)) {
                 throw new ValidationHttpException(['bed_num' => "该床位号已经被选！"]);
             }
+            $dormitorySelection->bed_num = $bedNum;
+            $dormitorySelection->save();
             $student->arrive_dorm_at = Carbon::now();
             event(new UserSetStudentArrivedDorm($student, $this->guard()->user(), $bedNum));
             $student->save();
