@@ -11,7 +11,7 @@ class DormitoryRepository implements DormitoryRepositoryInterface
 
     public function getAvailableDormitories(Student $student)
     {
-        return $this->getDormitoriesFromCache($student->department_class_id)->where('dormitories.gender', $student->gender);
+        return $this->getDormitoriesFromCache($student->department_class_id)->where('gender', $student->gender);
     }
 
     public function getDormitoriesFromCache($departmentClass)
