@@ -175,7 +175,7 @@ return [
         Clockwork\Support\Laravel\ClockworkServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Appstract\Opcache\OpcacheServiceProvider::class,
         /*
          * Application Service Providers...
          */
