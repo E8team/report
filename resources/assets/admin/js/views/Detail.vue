@@ -47,30 +47,25 @@
                 </checker>
             </box>
         </template>
-        <div v-transfer-dom>
-            <popup v-model="showReportInfoPopup" height="60%">
-                <div>
-                    <group title="请一定注意身高的单位是厘米,体重的单位是斤！！！">
-                        <x-input required title="身高(cm):" type="number" v-model.number="height"></x-input>
-                        <x-input required title="体重(斤):" type="number" v-model.number="weight"></x-input>
-                    </group>
-                    <box gap="20px 10px">
-                        <x-button type="primary" @click.native="setReport">设置报到</x-button>
-                    </box>
-                </div>
-            </popup>
-        </div>
+        <popup v-model="showReportInfoPopup" height="60%">
+            <div>
+                <group title="请一定注意身高的单位是厘米,体重的单位是斤！！！">
+                    <x-input required title="身高(cm):" type="number" v-model.number="height"></x-input>
+                    <x-input required title="体重(斤):" type="number" v-model.number="weight"></x-input>
+                </group>
+                <box gap="20px 10px">
+                    <x-button type="primary" @click.native="setReport">设置报到</x-button>
+                </box>
+            </div>
+        </popup>
     </div>
 </template>
 
 <script>
-    import { Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, dateFormat, TransferDomDirective as TransferDom, Popup, XInput, XButton  } from 'vux'
+    import { Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, dateFormat,  Popup, XInput, XButton  } from 'vux'
     export default {
         components: {
             Search, Group, Cell, XSwitch, Checker, CheckerItem, Box, LoadMore, Popup, XInput, XButton
-        },
-        directives: {
-            TransferDom
         },
         data () {
             return {
