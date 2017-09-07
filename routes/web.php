@@ -1,8 +1,8 @@
 <?php
 
-Route::get('/import_dormitory', 'IndexController@showImportDormitoryForm');
+// Route::get('/import_dormitory', 'IndexController@showImportDormitoryForm');
 
-Route::post('/import_dormitory', 'IndexController@importDormitory')->name('import_dormitory');
+// Route::post('/import_dormitory', 'IndexController@importDormitory')->name('import_dormitory');
 
 /*
 |--------------------------------------------------------------------------
