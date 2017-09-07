@@ -20,6 +20,7 @@
                 <cell title="学号" :value="studentInfo.student_num"></cell>
                 <cell title="姓名" :value="studentInfo.student_name"></cell>
                 <cell title="班级" :value="studentInfo.department_class"></cell>
+                <cell title="性别" :value="studentInfo.gender_str"></cell>
                 <cell title="身份证" :value="studentInfo.id_card"></cell>
                 <x-switch ref="isAllowReportSwitch" title="允许报到" v-model="allowReport"></x-switch>
                 <x-switch ref="isReportSwitch" v-if="allowReport" title="是否报到" v-model="isReport"></x-switch>
