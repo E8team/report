@@ -79,7 +79,8 @@
                 isAllowReportCancel: false,
                 showReportInfoPopup: false,
                 height: null,
-                weight: null
+                weight: null,
+                currentStudentVal: null
             }
         },
         watch: {
@@ -109,6 +110,14 @@
                     })
                 }else{
                     this.isFirst = false;
+                }
+            },
+            showReportInfoPopup (curVal) {
+                if(!curVal){
+                    if(this.currentStudentVal){
+                        this.studentInfo = {};
+                        this.resultClick(this.currentStudentVal);
+                    }
                 }
             }
         },
@@ -271,6 +280,7 @@
             },
             resultClick (val) {
                 this.keyword = /\d/.test(this.keyword[0]) ? val.student_num : val.student_name;
+                this.currentStudentVal = val;
                 this.$http.get(`students/${val.id}?include=dormitory,student_profile`).then(res => {
                     this.studentInfo = res.data.data;
                     this.height = res.data.data.student_profile.data.height;
