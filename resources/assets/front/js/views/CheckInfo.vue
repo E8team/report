@@ -75,20 +75,20 @@
                         _this.$http.post('set_report', {
                             height: _this.height,
                             weight: _this.weight
-                        }, {
-                            noErrorTip: true
                         }).then(res => {
                             _this.$router.push('/report_ok')
                         }).catch(err => {
-                            const errors = err.response.data.errors;
-                            let messageText = '';
-                            for(let index in errors){
-                                messageText += (errors[index] + '<br/>');
+                            if (err.response.status === 422) {
+                                const errors = err.response.data.errors;
+                                let messageText = '';
+                                for(let index in errors){
+                                    messageText += (errors[index] + '<br/>');
+                                }
+                                _this.$vux.alert.show({
+                                    title: '输入有误',
+                                    content: messageText
+                                })
                             }
-                            _this.$vux.alert.show({
-                                title: '输入有误',
-                                content: messageText
-                            })
                         });
                     }
                 })

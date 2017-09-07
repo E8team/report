@@ -189,8 +189,6 @@
                 this.$http.post(`students/${this.studentInfo.id}/set_report`, {
                     height: this.height,
                     weight: this.weight
-                },{
-                    noErrorTip: true
                 }).then(res => {
                     this.$vux.toast.show({
                         text: '设置报到成功',
@@ -201,15 +199,17 @@
                     this.height =  null;
                     this.weight =  null;
                 }).catch(err => {
-                    const errors = err.response.data.errors;
-                    let messageText = '';
-                    for(let index in errors){
-                        messageText += (errors[index] + '<br/>');
+                    if (err.response.status === 422) {
+                        const errors = err.response.data.errors;
+                        let messageText = '';
+                        for(let index in errors){
+                            messageText += (errors[index] + '<br/>');
+                        }
+                        this.$vux.alert.show({
+                            title: '输入有误',
+                            content: messageText
+                        })
                     }
-                    this.$vux.alert.show({
-                        title: '输入有误',
-                        content: messageText
-                    })
                 });
             },
             isReport: {

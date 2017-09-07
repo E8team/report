@@ -57,7 +57,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
         })
        router.replace({name: 'login'});
     }else {
-        if(error.config.noErrorTip){
+        if(error.config.noErrorTip || error.response.status === 422){
             return Promise.reject(error);
         }
         if(error.response.data.message){
