@@ -4,34 +4,31 @@
         <group>
             <cell @click.native="setArrive(item, index)" is-link :key="item.id" v-for="(item, index) in notArriveDormStudents" :title="item.student_name + '(' +item.student_num + ')'">{{item.dormitory.data.dorm_num}}</cell>
         </group>
-        <div v-transfer-dom>
-            <x-dialog v-model="showConfirmDialog" class="dialog" hide-on-blur>
-                <div class="img-box">
-                    <header>设置到宿</header>
-                    <ul>
-                        <li @click="setArriveDorm(n, $event.target)" :class="{'disabled': !availableBedNum.available_bed_num.some(item => item == n)}" class="key" v-for="n in availableBedNum.galleryful" :key="n">{{n}}</li>
-                    </ul>
-                    <p class="tip">
-                        设置 {{currstudent.student_name}} 选择的床位
-                    </p>
-                </div>
-                <div @click="showConfirmDialog=false">
-                    <span class="vux-close"></span>
-                </div>
-            </x-dialog>
-        </div>
+        <p class="info" v-if="notArriveDormStudents.length == 0">当前没有学生报到</p>
+        <x-dialog v-model="showConfirmDialog" class="dialog" hide-on-blur>
+            <div class="img-box">
+                <header>设置到宿</header>
+                <ul>
+                    <li @click="setArriveDorm(n, $event.target)" :class="{'disabled': !availableBedNum.available_bed_num.some(item => item == n)}" class="key" v-for="n in availableBedNum.galleryful" :key="n">{{n}}</li>
+                </ul>
+                <p class="tip">
+                    设置 {{currstudent.student_name}} 选择的床位
+                </p>
+            </div>
+            <div @click="showConfirmDialog=false">
+                <span class="vux-close"></span>
+            </div>
+        </x-dialog>
+        <actionsheet v-model="showConfirm" :menus="menus" show-cancel @on-click-menu="confirm"></actionsheet>
     </div>
 </template>
 
 <script>
-    import { Group, Cell, Search, XDialog, TransferDomDirective as TransferDom } from 'vux';
+    import { Group, Cell, Search, XDialog, Actionsheet } from 'vux';
     import { mapState } from 'vuex';
     export default{
         components: {
-            Group, Cell, Search, XDialog
-        },
-        directives: {
-            TransferDom
+            Group, Cell, Search, XDialog, Actionsheet
         },
         methods: {
             onFocus () {
@@ -51,19 +48,26 @@
                     item.full_pinyin2.indexOf(newVal) === 0  ||
                     item.student_num.indexOf(newVal) === 0));
             },
-            setArriveDorm (bedNum, dom) {
-                if(dom.className.indexOf('disabled') !== -1){
-                    return;
+            confirm (menu) {
+                if(menu !== 'confirm'){
+                    return ;
                 }
                 this.$http.post(`students/${this.currstudent.id}/set_arrive_dorm`, {
-                    bed_num: bedNum
-                 }).then(res => {
+                    bed_num: this.bedNum
+                }).then(res => {
                     this.notArriveDormStudents.splice(this.currindex, 1);
                     this.$vux.toast.show({
                         text: '设置到宿成功'
                     })
                     this.showConfirmDialog = false;
                 });
+            },
+            setArriveDorm (bedNum, dom) {
+                if(dom.className.indexOf('disabled') !== -1){
+                    return;
+                }
+                this.bedNum = bedNum;
+                this.showConfirm = true;
             },
             setArrive (student, index) {
                 this.$http.get(`students/${student.id}/available_bed_num`).then(res => {
@@ -84,7 +88,7 @@
                         this.notArriveDormStudents = res.data.data;
                         this.originalNotArriveDormStudents = [...res.data.data];
                     })
-                }, 3000)
+                }, 6000)
             }
         },
         computed: {
@@ -94,6 +98,14 @@
         },
         data () {
             return {
+                menus: {
+                    'title.noop': `
+                        <span>确认吗？</span>
+                        <p style="font-size: 14px; color: #777;">确认要将该新生的床铺设置为该床号吗？</p>`,
+                    confirm: '<span style="color:green">确认</span>'
+                },
+                bedNum: 0,
+                showConfirm: false,
                 notArriveDormStudents: [],
                 originalNotArriveDormStudents: [],
                 keyword: '',
@@ -121,7 +133,12 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+.info{
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
 @import '~vux/src/styles/close';
 .dialog {
   .weui-dialog{
