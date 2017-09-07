@@ -96,6 +96,10 @@
                                     text: '选择宿舍成功'
                                 })
                                 this.getAvailableDormitories(this.studentInfo.id);
+                            }).catch(err => {
+                                if(err.response.status === 401){
+                                    this.refresh();
+                                }
                             });
                             return;
                         }else {
@@ -115,8 +119,7 @@
             showReportInfoPopup (curVal) {
                 if(!curVal){
                     if(this.currentStudentVal){
-                        this.studentInfo = {};
-                        this.resultClick(this.currentStudentVal);
+                        this.refresh();
                     }
                 }
             }
@@ -137,7 +140,11 @@
                                 text: '已允许报到'
                             })
                             this.studentInfo.allow_report_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
-                        })
+                        }).catch(err => {
+                            if(err.response.status === 401){
+                                this.refresh();
+                            }
+                        });
                     }else{
                         const _this = this
                         this.studentInfo.allow_report_at_bak = this.studentInfo.allow_report_at;
@@ -157,6 +164,9 @@
                                         _this.studentInfo.report_at = null;
                                     }).catch(e => {
                                         _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
+                                        if(e.response.status === 401){
+                                            this.refresh();
+                                        }
                                     })
                                 },
                                 onCancel () {
@@ -174,6 +184,9 @@
                                 _this.studentInfo.allow_report_at = null;
                             }).catch(e => {
                                 _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
+                                if(e.response.status === 401){
+                                    this.refresh();
+                                }
                             })
                         }
 
@@ -219,6 +232,9 @@
                             content: messageText
                         })
                     }
+                    if(err.response.status === 401){
+                        this.refresh();
+                    }
                 });
             },
             isReport: {
@@ -245,7 +261,11 @@
                                         })
                                         _this.studentInfo.report_at = null;
                                         _this.selectedDormId = null;
-                                    })
+                                    }).catch(err => {
+                                        if(err.response.status === 401){
+                                            this.refresh();
+                                        }
+                                    });
                                 },
                                 onCancel () {
                                     _this.$refs['isReportSwitch'].currentValue = true;
@@ -258,13 +278,21 @@
                                     text: '取消报到成功'
                                 })
                                 _this.studentInfo.report_at = null;
-                            })
+                            }).catch(err => {
+                                if(err.response.status === 401){
+                                    this.refresh();
+                                }
+                            });
                         }
                     }
                 }
             }
         },
         methods: {
+            refresh () {
+                this.studentInfo = {};
+                this.resultClick(this.currentStudentVal);
+            },
             onCancel () {
                 this.keyword = '';
                 this.studentInfo = {};
