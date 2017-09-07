@@ -148,6 +148,8 @@ class StudentsController extends AdminController
         if (!is_null($student->dormitorySelection)) {
             $oldDormitoryId = $student->dormitorySelection->dormitory_id;
             $student->dormitorySelection->delete();
+            $student->arrive_dorm_at = null;
+            $student->save();
             event(new UserCanceledStudentDorm($student, $oldDormitoryId, $this->guard()->user()));
         }
         return $this->response->noContent();
