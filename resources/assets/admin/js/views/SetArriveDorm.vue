@@ -19,7 +19,12 @@
                 <span class="vux-close"></span>
             </div>
         </x-dialog>
-        <actionsheet v-model="showConfirm" :menus="menus" show-cancel @on-click-menu="confirm"></actionsheet>
+        <actionsheet v-model="showConfirm" :menus="menus" show-cancel @on-click-menu="confirm">
+            <div slot="header">
+                <span>确认吗？</span>
+                <p style="font-size: 14px; color: #777;">确认要将该新生的床铺设置为{{bedNum}}床号吗？</p>`
+            </div>
+        </actionsheet>
     </div>
 </template>
 
@@ -68,6 +73,7 @@
                 }
                 this.bedNum = bedNum;
                 this.showConfirm = true;
+                this.showConfirmDialog = false;
             },
             setArrive (student, index) {
                 this.$http.get(`students/${student.id}/available_bed_num`).then(res => {
@@ -99,9 +105,6 @@
         data () {
             return {
                 menus: {
-                    'title.noop': `
-                        <span>确认吗？</span>
-                        <p style="font-size: 14px; color: #777;">确认要将该新生的床铺设置为该床号吗？</p>`,
                     confirm: '<span style="color:green">确认</span>'
                 },
                 bedNum: 0,
