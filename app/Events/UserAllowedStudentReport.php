@@ -21,7 +21,7 @@ class UserAllowedStudentReport implements LoggerInterface
     public $user;
 
     /**
-     * Create a new event instance.
+     * Create a new event instance.®
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class UserAllowedStudentReport implements LoggerInterface
 
     public function logLevel()
     {
-        return LoggerInterface::NORMAL_LOG;
+        return LoggerInterface::NEED_SHOW_LOG;
     }
 
     public function log()

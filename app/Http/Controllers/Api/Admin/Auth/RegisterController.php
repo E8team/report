@@ -89,6 +89,7 @@ class RegisterController extends AdminController
         ]);
         // todo 这里写死了
         $roleId = $data['role'] == 'xsh' ? 2 : 3;
+        // $roleId = 1;
         $user->roles()->attach($roleId);
         return $user;
 

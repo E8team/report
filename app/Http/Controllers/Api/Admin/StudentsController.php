@@ -39,8 +39,10 @@ class StudentsController extends AdminController
 
     public function cancelAllowReport(Student $student)
     {
+
         $this->validatePermission('admin.cancel_allow_report');
         if ($student->isAllowReport()) {
+
             $this->cancelReport($student);
             $student->allow_report_at = null;
             event(new UserCanceledAllowStudentReport($student, $this->guard()->user()));
@@ -106,15 +108,18 @@ class StudentsController extends AdminController
      */
     public function cancelReport(Student $student)
     {
-        $this->authorize('cancelReport', $student);
-        if (!is_null($student->report_at)) {
-            if (!is_null($student->arrive_dorm_at))
-                $student->arrive_dorm_at = null;
-            $this->cancelDorm($student);
-            $student->report_at = null;
-            event(new UserCanceledStudentReport($student, $this->guard()->user()));
-            $student->save();
+        if (is_null($student->report_at)) {
+            return $this->response->noContent();
         }
+        $this->authorize('cancelReport', $student);
+        //if (!is_null($student->report_at)) {
+        if (!is_null($student->arrive_dorm_at))
+            $student->arrive_dorm_at = null;
+        $this->cancelDorm($student);
+        $student->report_at = null;
+        event(new UserCanceledStudentReport($student, $this->guard()->user()));
+        $student->save();
+        //}
         return $this->response->noContent();
     }
 

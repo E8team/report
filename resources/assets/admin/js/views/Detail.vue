@@ -111,6 +111,10 @@
                             })
                             this.selectedDormId = null;
                         }
+                    }).catch(err => {
+                        if(err.response.status === 401){
+                            this.refresh();
+                        }
                     })
                 }else{
                     this.isFirst = false;
@@ -165,7 +169,7 @@
                                     }).catch(e => {
                                         _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
                                         if(e.response.status === 401){
-                                            this.refresh();
+                                            _this.refresh();
                                         }
                                     })
                                 },
@@ -185,7 +189,7 @@
                             }).catch(e => {
                                 _this.studentInfo.allow_report_at = _this.studentInfo.allow_report_at_bak;
                                 if(e.response.status === 401){
-                                    this.refresh();
+                                    _this.refresh();
                                 }
                             })
                         }
@@ -263,7 +267,7 @@
                                         _this.selectedDormId = null;
                                     }).catch(err => {
                                         if(err.response.status === 401){
-                                            this.refresh();
+                                            _this.refresh();
                                         }
                                     });
                                 },
@@ -280,7 +284,7 @@
                                 _this.studentInfo.report_at = null;
                             }).catch(err => {
                                 if(err.response.status === 401){
-                                    this.refresh();
+                                    _this.refresh();
                                 }
                             });
                         }
