@@ -28,7 +28,7 @@ class IdCardHasher implements Hasher
      */
     public function check($value, $hashedValue, array $options = [])
     {
-        return $this->make($value) == substr($hashedValue, -4);
+        return strtolower($this->make($value)) == strtolower(substr($hashedValue, -4));
     }
 
     /**
