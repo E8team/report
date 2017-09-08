@@ -87,7 +87,7 @@ class StudentTransformer extends TransformerAbstract
             return $this->null();
         } else {
             $dormitory = app(DormitoryRepository::class)->getAvailableDormitories($student)->where('id', $dormitorySelection->dormitory_id)->first();
-            return $this->item($dormitory, new DormitoryInclassTransformer());
+            return $this->item($dormitory, new DormitoryInclassTransformer($dormitorySelection));
         }
     }
 }

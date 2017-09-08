@@ -36,13 +36,15 @@
                         <th>姓名</th>
                         <th>性别</th>
                         <th>宿舍</th>
+                        <th>床位</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in students.data">
                         <td>{{item.student_name}}</td>
                         <td>{{item.gender_str}}</td>
-                        <td>{{item.dormitory.data.dorm_num}}</td>
+                        <td>{{item.dormitory.data.dorm_num ? item.dormitory.data.dorm_num : '无'}}</td>
+                        <td>{{item.dormitory.data.bed_num ? item.dormitory.data.bed_num : '无'}}</td>
                     </tr>
                     </tbody>
                 </x-table>

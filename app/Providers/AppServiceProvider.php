@@ -20,13 +20,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*if ($this->app->environment() !== 'production') {
+        if ($this->app->environment() !== 'production') {
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
                 $sql = sprintf($sql, ...$query->bindings);
                 Log::info('sql', [$sql, $query->time]);
             });
-        }*/
+        }
         Schema::defaultStringLength(191);
     }
 

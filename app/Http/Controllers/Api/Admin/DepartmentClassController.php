@@ -46,7 +46,7 @@ class DepartmentClassController extends AdminController
 
         $cacheKey = 'overview_data:' . $departmentId;
         if (!Cache::has($cacheKey)) {
-            Cache::put($cacheKey, $this->getOverviewData($departmentId), Carbon::now()->addMinute());
+            Cache::put($cacheKey, $this->getOverviewData($departmentId), Carbon::now()->addMinutes(3));
         }
 
         return Cache::get($cacheKey);

@@ -68,7 +68,7 @@ class EventServiceProvider extends ServiceProvider
             LoggerListener::class
         ],
         UserCanceledAllowStudentReport::class => [
-
+            LoggerListener::class
         ]
     ];
 

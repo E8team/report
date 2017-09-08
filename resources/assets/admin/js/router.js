@@ -63,7 +63,7 @@ export default new Router({
             name: 'feed_back',
             component: require('../../common/views/Feedback.vue')
         },
-        {
+        /*{
             path: '/admin/register',
             name: 'register',
             meta: {
@@ -78,7 +78,7 @@ export default new Router({
                 noAuth: true
             },
             component: require('./views/RegisterOk.vue')
-        },
+        },*/
         {
             path: '*',
             redirect: '/admin/index'

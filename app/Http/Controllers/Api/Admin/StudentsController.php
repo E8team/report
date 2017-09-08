@@ -39,10 +39,8 @@ class StudentsController extends AdminController
 
     public function cancelAllowReport(Student $student)
     {
-
         $this->validatePermission('admin.cancel_allow_report');
         if ($student->isAllowReport()) {
-
             $this->cancelReport($student);
             $student->allow_report_at = null;
             event(new UserCanceledAllowStudentReport($student, $this->guard()->user()));

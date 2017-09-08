@@ -101,6 +101,7 @@
         position: fixed!important;
     }
     .drop_down{
+        opacity: .4;
         position: fixed;
         bottom: 80px;
         right: 20px;

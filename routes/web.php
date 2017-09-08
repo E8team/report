@@ -14,7 +14,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/admin/{path?}', 'IndexController@admin')->where('path', '[\/\w\.-]*');
 Route::get('/{path?}', 'IndexController@index')->where('path', '[\/\w\.-]*');
 

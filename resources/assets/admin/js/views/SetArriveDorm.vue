@@ -94,7 +94,7 @@
                         this.notArriveDormStudents = res.data.data;
                         this.originalNotArriveDormStudents = [...res.data.data];
                     })
-                }, 6000)
+                }, 20000)
             }
         },
         computed: {
