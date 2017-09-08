@@ -26,6 +26,7 @@
                 <x-switch ref="isReportSwitch" v-if="allowReport" title="是否报到" v-model="isReport"></x-switch>
                 <cell title="报到时间" v-if="isReport && allowReport" :value="studentInfo.report_at"></cell>
                 <cell title="到宿时间" v-if="isReport && allowReport" :value="studentInfo.arrive_dorm_at != null ? studentInfo.arrive_dorm_at : '尚未到宿'"></cell>
+		<cell title="所选床位" v-if="bedNum" :value="bedNum != null ? bedNum + '号铺' : '尚未到宿'"></cell>
             </group>
             <box gap="10px" v-if="isReport && allowReport">
                 <load-more style="margin-bottom: 10px;" tip="可选宿舍" :show-loading="false" background-color="#fbf9fe"></load-more>
@@ -80,7 +81,8 @@
                 showReportInfoPopup: false,
                 height: null,
                 weight: null,
-                currentStudentVal: null
+                currentStudentVal: null,
+		bedNum: null
             }
         },
         watch: {
@@ -319,6 +321,7 @@
                     this.weight = res.data.data.student_profile.data.weight;
                     this.isFirst = true;
                     this.selectedDormId = this.studentInfo.dormitory.data.id;
+                    this.bedNum = res.data.meta.bed_num;
                     if(this.studentInfo.report_at != null){
                         this.getAvailableDormitories(val.id);
                     }

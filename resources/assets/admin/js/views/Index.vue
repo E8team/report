@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="tip">此数据每一分钟更新一次</p>
+        <p class="tip">此数据每三分钟更新一次</p>
         <div class="circle_wrapper">
             <x-circle class="circle" :percent="Number((overview.reported_student_count / overview.student_count * 100).toFixed(2))" :stroke-width="6" :trail-width="6" stroke-color="#3FC7FA" trail-color="#ececec">
                 <span :style="{color: '#3FC7FA'}">{{(overview.reported_student_count / overview.student_count * 100).toFixed(2)}}%</span>
@@ -84,7 +84,7 @@
                 }).then(res => {
                     this.logs = res.data.data;
                 })
-            }, 6000);
+            }, 20000);
         },
         beforeDestroy () {
             if(this.timer)

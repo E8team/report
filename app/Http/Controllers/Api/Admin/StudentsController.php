@@ -73,7 +73,13 @@ class StudentsController extends AdminController
     {
         $this->validatePermission('admin.show');
         $this->authorize('belongTo', $student);
-        return $this->response->item($student, new StudentTransformer());
+	$response = $this->response->item($student, new StudentTransformer());
+        if (!is_null($student->dormitorySelection)) {
+            $response->addMeta('bed_num', $student->dormitorySelection->bed_num);
+        }else{
+            $response->addMeta('bed_num', null);
+        }
+        return $response;
     }
 
     /**
