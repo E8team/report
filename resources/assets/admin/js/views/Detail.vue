@@ -26,7 +26,7 @@
                 <x-switch ref="isReportSwitch" v-if="allowReport" title="是否报到" v-model="isReport"></x-switch>
                 <cell title="报到时间" v-if="isReport && allowReport" :value="studentInfo.report_at"></cell>
                 <cell title="到宿时间" v-if="isReport && allowReport" :value="studentInfo.arrive_dorm_at != null ? studentInfo.arrive_dorm_at : '尚未到宿'"></cell>
-                <cell title="所选床位" v-if="studentInfo.dormitory.data.bed_num" :value="studentInfo.dormitory.data.bed_num + '号铺'"></cell>
+                <cell title="所选床位" v-if="isReport && allowReport && studentInfo.dormitory.data.bed_num" :value="studentInfo.dormitory.data.bed_num + '号铺'"></cell>
             </group>
             <box gap="10px" v-if="isReport && allowReport">
                 <load-more style="margin-bottom: 10px;" tip="可选宿舍" :show-loading="false" background-color="#fbf9fe"></load-more>
@@ -266,7 +266,6 @@
                                         })
                                         _this.studentInfo.report_at = null;
                                         _this.selectedDormId = null;
-                                        _this.refresh();
                                     }).catch(err => {
                                         if(err.response.status === 401){
                                             _this.refresh();
