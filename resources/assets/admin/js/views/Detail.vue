@@ -266,6 +266,7 @@
                                         })
                                         _this.studentInfo.report_at = null;
                                         _this.selectedDormId = null;
+                                        _this.refresh();
                                     }).catch(err => {
                                         if(err.response.status === 401){
                                             _this.refresh();
